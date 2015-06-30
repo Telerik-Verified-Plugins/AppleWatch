@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<plugin
+    id="cordova-plugin-applewatch"
+    version="0.0.1"
+    xmlns="http://apache.org/cordova/ns/plugins/1.0">
+
+  <name>Apple Watch</name>
+
+  <author>Telerik</author>
+
+  <description>TODO</description>
+
+  <keywords>TODO</keywords>
+
+  <license>MIT</license>
+
+  <engines>
+    <engine name="cordova" version=">=3.5.0"/>
+    <!-- TODO apple- prefix? -->
+    <engine name="apple-ios" version=">=8.2.0"/>
+  </engines>
+
+  <js-module name="AppleWatch" src="www/applewatch.js">
+    <clobbers target="applewatch"/>
+  </js-module>
+
+  <platform name="ios">
+    <config-file parent="/*" target="config.xml">
+      <feature name="AppleWatch">
+        <param name="ios-package" value="AppleWatch"/>
+        <param name="onload" value="true"/>
+      </feature>
+    </config-file>
+
+    <header-file src="src/ios/app/AppleWatch.h"/>
+    <source-file src="src/ios/app/AppleWatch.m"/>
+    <header-file src="src/ios/app/AppDelegate+applewatch.h"/>
+    <source-file src="src/ios/app/AppDelegate+applewatch.m"/>
+
+    <framework autogen="true" src="Foundation.framework"/>
+
+    <header-file src="src/ios/lib/headers/MMWormhole.h" />
+    <source-file src="src/ios/lib/libmmwormhole.a" framework="true" />
+
+    <!--<hook type="after_plugin_install" src="src/ios/hooks/copy_watchkitextensionfiles.js" />-->
+    <hook type="after_plugin_install" src="src/ios/hooks/copy_watchkitextensionfiles.js" />
+
+  </platform>
+
+</plugin>

@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="7706" systemVersion="14E36b" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="7701"/>
+    </dependencies>
+    <scenes>
+        <!--Main-->
+        <scene sceneID="aou-V4-d1y">
+            <objects>
+                <controller id="AgC-eL-Hgc" userLabel="Main" customClass="InterfaceController">
+                    <items>
+                        <group width="1" alignment="center" contentMode="top" layout="vertical" id="RZ8-RP-zhP" userLabel="UpperGroup">
+                            <items>
+                                <imageView width="1" height="80" alignment="center" verticalAlignment="center" contentMode="scaleAspectFit" id="NaD-mO-aAN"/>
+                                <label alignment="center" verticalAlignment="center" text="no js value yet" textAlignment="center" numberOfLines="2" id="n9N-LZ-vmP">
+                                    <fontDescription key="font" type="system" pointSize="14"/>
+                                </label>
+                            </items>
+                        </group>
+                        <table alignment="left" id="IW0-Zg-Deq">
+                            <items>
+                                <tableRow identifier="ImageLabelRowType" selectable="NO" id="DQC-nM-lSP" customClass="ImageLabelRowType">
+                                    <group key="rootItem" width="1" alignment="left" id="6iv-2E-NEK">
+                                        <items>
+                                            <imageView alignment="left" verticalAlignment="center" id="mzz-lO-HMa"/>
+                                            <label alignment="left" verticalAlignment="center" text="Label" id="Lyz-o2-uoq">
+                                                <fontDescription key="font" type="system" pointSize="12"/>
+                                            </label>
+                                        </items>
+                                    </group>
+                                    <connections>
+                                        <outlet property="image" destination="mzz-lO-HMa" id="lnJ-qp-MXF"/>
+                                        <outlet property="label" destination="Lyz-o2-uoq" id="3Cj-bQ-Ee5"/>
+                                    </connections>
+                                </tableRow>
+                                <tableRow identifier="TwoColumnsRowType" selectable="NO" id="Z2l-hW-Quq" customClass="TwoColumnsRowType">
+                                    <group key="rootItem" width="1" alignment="left" id="K0i-ao-5ZQ">
+                                        <items>
+                                            <group width="0.50000000000000011" alignment="center" verticalAlignment="center" layout="vertical" id="mNo-E2-45d" userLabel="col1">
+                                                <items>
+                                                    <imageView alignment="left" id="LX3-TK-h0A" userLabel="col1image"/>
+                                                    <label alignment="center" verticalAlignment="center" text="Label" textAlignment="center" id="NZF-HM-vi8" userLabel="col1label"/>
+                                                </items>
+                                                <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
+                                            </group>
+                                            <group width="0.50000000000000011" alignment="center" verticalAlignment="center" layout="vertical" id="4Ln-he-C7a" userLabel="col2">
+                                                <items>
+                                                    <imageView alignment="left" id="0dX-lO-NDj" userLabel="col2image"/>
+                                                    <label alignment="center" verticalAlignment="center" text="Label" textAlignment="center" id="HNS-5l-Hig" userLabel="col2label"/>
+                                                </items>
+                                                <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
+                                            </group>
+                                        </items>
+                                    </group>
+                                    <connections>
+                                        <outlet property="col1image" destination="LX3-TK-h0A" id="Apc-y4-Fia"/>
+                                        <outlet property="col1label" destination="NZF-HM-vi8" id="fDi-BD-i9t"/>
+                                        <outlet property="col2image" destination="0dX-lO-NDj" id="rRx-hO-Rfm"/>
+                                        <outlet property="col2label" destination="HNS-5l-Hig" id="6ax-QW-dNL"/>
+                                    </connections>
+                                </tableRow>
+                            </items>
+                        </table>
+                        <switch width="1" alignment="left" value="YES" title="Switch" id="WQK-vU-RvF" userLabel="Switch">
+                            <fontDescription key="font" type="system" pointSize="12"/>
+                            <connections>
+                                <action selector="switch1Action:" destination="AgC-eL-Hgc" id="0rB-Pi-TOt"/>
+                            </connections>
+                        </switch>
+                        <group width="1" alignment="left" layout="vertical" id="FRS-JD-ZEz" userLabel="SliderGroup">
+                            <items>
+                                <slider width="1" alignment="left" value="50" maximum="100" steps="10" id="ZmR-gh-Ovk">
+                                    <connections>
+                                        <action selector="sliderAction:" destination="AgC-eL-Hgc" id="98l-JA-jc6"/>
+                                    </connections>
+                                </slider>
+                                <label alignment="center" text="Slider value" textAlignment="center" id="TkT-SV-2k0" userLabel="SliderLabel">
+                                    <fontDescription key="font" type="system" pointSize="10"/>
+                                </label>
+                            </items>
+                        </group>
+                        <button width="1" alignment="left" title="Ask user input" id="ePd-8c-jy1" userLabel="UserInputButton">
+                            <connections>
+                                <action selector="userInputButtonAction" destination="AgC-eL-Hgc" id="iZc-cn-nH4"/>
+                            </connections>
+                        </button>
+                        <button width="1" alignment="left" title="Do action" id="D6t-Ze-euK" userLabel="ActionButton">
+                            <connections>
+                                <action selector="buttonAction" destination="AgC-eL-Hgc" id="TYR-f3-gMf"/>
+                            </connections>
+                        </button>
+                        <button width="1" alignment="left" title="Show as page" id="yD4-4L-Xgu" userLabel="PushNavButton">
+                            <connections>
+                                <segue destination="dvy-i0-5db" kind="push" id="pU2-p1-YRo"/>
+                            </connections>
+                        </button>
+                        <button width="1" alignment="left" title="Show as modal" id="7nw-Oc-fPW" userLabel="ModalNavButton">
+                            <connections>
+                                <segue destination="dvy-i0-5db" kind="modal" id="Pyl-Wu-k9I"/>
+                            </connections>
+                        </button>
+                    </items>
+                    <connections>
+                        <outlet property="actionButton" destination="D6t-Ze-euK" id="NJH-vg-MHP"/>
+                        <outlet property="header" destination="n9N-LZ-vmP" id="NnA-Rx-mT3"/>
+                        <outlet property="image" destination="NaD-mO-aAN" id="727-rs-Pxn"/>
+                        <outlet property="modalNavButton" destination="7nw-Oc-fPW" id="zw1-YB-qzg"/>
+                        <outlet property="pushNavButton" destination="yD4-4L-Xgu" id="xgM-T6-cld"/>
+                        <outlet property="slider" destination="ZmR-gh-Ovk" id="JL2-xQ-Gxb"/>
+                        <outlet property="sliderLabel" destination="TkT-SV-2k0" id="wQm-U8-ws5"/>
+                        <outlet property="switch1" destination="WQK-vU-RvF" id="Bfl-VS-ln2"/>
+                        <outlet property="table" destination="IW0-Zg-Deq" id="Htj-hg-YSB"/>
+                        <outlet property="userInputButton" destination="ePd-8c-jy1" id="FDx-IE-Iwh"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="-26" y="22"/>
+        </scene>
+        <!--Details-->
+        <scene sceneID="Gjw-3i-SCP">
+            <objects>
+                <controller id="dvy-i0-5db" userLabel="Details" customClass="DetailInterfaceController">
+                    <items>
+                        <group width="1" alignment="center" contentMode="top" layout="vertical" id="LRL-pB-9bB" userLabel="UpperGroup">
+                            <items>
+                                <imageView width="1" height="80" alignment="center" verticalAlignment="center" contentMode="scaleAspectFit" id="lC1-lp-Jr9"/>
+                                <label alignment="center" verticalAlignment="center" text="no js value yet" textAlignment="center" numberOfLines="2" id="y0M-ho-qYE">
+                                    <fontDescription key="font" type="system" pointSize="14"/>
+                                </label>
+                            </items>
+                        </group>
+                        <table alignment="left" id="zu2-85-OBs">
+                            <items>
+                                <tableRow identifier="ImageLabelRowType" selectable="NO" id="9SR-Wj-aaZ" customClass="ImageLabelRowType">
+                                    <group key="rootItem" width="1" alignment="left" id="IzL-P9-Abk">
+                                        <items>
+                                            <imageView alignment="left" verticalAlignment="center" id="cTb-fa-vY6"/>
+                                            <label alignment="left" verticalAlignment="center" text="Label" id="nnA-bW-A88"/>
+                                        </items>
+                                        <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
+                                    </group>
+                                    <connections>
+                                        <outlet property="image" destination="cTb-fa-vY6" id="1IW-bl-eXy"/>
+                                        <outlet property="label" destination="nnA-bW-A88" id="KDw-16-zW3"/>
+                                    </connections>
+                                </tableRow>
+                                <tableRow identifier="TwoColumnsRowType" selectable="NO" id="F4E-3x-x7K" customClass="TwoColumnsRowType">
+                                    <group key="rootItem" width="1" alignment="left" id="XkE-Mf-3J9">
+                                        <items>
+                                            <group width="0.50000000000000011" alignment="center" verticalAlignment="center" layout="vertical" id="stD-To-3BI" userLabel="col1">
+                                                <items>
+                                                    <imageView alignment="left" id="5AL-b5-GrH" userLabel="col1image"/>
+                                                    <label alignment="center" verticalAlignment="center" text="Label" textAlignment="center" id="r4I-wM-Tii" userLabel="col1label"/>
+                                                </items>
+                                                <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
+                                            </group>
+                                            <group width="0.50000000000000011" alignment="center" verticalAlignment="center" layout="vertical" id="Gjt-5s-Kav" userLabel="col2">
+                                                <items>
+                                                    <imageView alignment="left" id="mp6-PI-1vU" userLabel="col2image"/>
+                                                    <label alignment="center" verticalAlignment="center" text="Label" textAlignment="center" id="drG-gW-ln6" userLabel="col2label"/>
+                                                </items>
+                                                <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
+                                            </group>
+                                        </items>
+                                        <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
+                                    </group>
+                                    <connections>
+                                        <outlet property="col1image" destination="5AL-b5-GrH" id="h3t-Hp-6Pv"/>
+                                        <outlet property="col1label" destination="r4I-wM-Tii" id="4Fl-er-Cdg"/>
+                                        <outlet property="col2image" destination="mp6-PI-1vU" id="kKT-CI-k5z"/>
+                                        <outlet property="col2label" destination="drG-gW-ln6" id="Uwx-NQ-0Jb"/>
+                                    </connections>
+                                </tableRow>
+                            </items>
+                        </table>
+                        <switch width="1" alignment="left" hidden="YES" value="YES" title="Toggle" id="xbl-02-taT" userLabel="Switch">
+                            <connections>
+                                <action selector="switch1Action:" destination="dvy-i0-5db" id="hBm-Pr-ayT"/>
+                            </connections>
+                        </switch>
+                        <button width="1" alignment="left" title="Do action" id="Nsj-YO-GEe" userLabel="ActionButton">
+                            <connections>
+                                <action selector="buttonAction" destination="dvy-i0-5db" id="Obl-ej-b2f"/>
+                            </connections>
+                        </button>
+                    </items>
+                    <connections>
+                        <outlet property="actionButton" destination="Nsj-YO-GEe" id="Vaw-0J-ycf"/>
+                        <outlet property="header" destination="y0M-ho-qYE" id="oBn-uB-VRC"/>
+                        <outlet property="image" destination="lC1-lp-Jr9" id="HHR-3B-msQ"/>
+                        <outlet property="switch1" destination="xbl-02-taT" id="Lq4-w6-Bsa"/>
+                        <outlet property="table" destination="zu2-85-OBs" id="3KK-ZX-5f9"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="205" y="23"/>
+        </scene>
+        <!--Glance Interface Controller-->
+        <scene sceneID="BOz-TT-tkC">
+            <objects>
+                <glanceController spacing="0.0" id="0uZ-2p-rRc" customClass="GlanceController">
+                    <items>
+                        <group alignment="left" contentMode="center" layout="vertical" spacing="2" id="t8f-Gd-c4y">
+                            <items>
+                                <label width="136" alignment="left" text="Header" id="Sug-Ye-hJw">
+                                    <fontDescription key="font" type="boldSystem" pointSize="12"/>
+                                </label>
+                                <label width="1" alignment="left" text="Message" numberOfLines="3" id="3QK-1v-Dmk">
+                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <fontDescription key="font" type="system" pointSize="10"/>
+                                </label>
+                            </items>
+                        </group>
+                        <group alignment="left" id="uCw-4Q-Ouw">
+                            <items>
+                                <imageView width="1" height="1" alignment="center" verticalAlignment="center" contentMode="scaleAspectFit" id="kHn-tH-09y"/>
+                            </items>
+                        </group>
+                    </items>
+                    <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="14"/>
+                    <connections>
+                        <outlet property="header" destination="Sug-Ye-hJw" id="V0n-b8-map"/>
+                        <outlet property="image" destination="kHn-tH-09y" id="5jE-5h-XGE"/>
+                        <outlet property="message" destination="3QK-1v-Dmk" id="ab1-5y-56P"/>
+                    </connections>
+                </glanceController>
+            </objects>
+            <point key="canvasLocation" x="-26" y="428"/>
+        </scene>
+        <!--Static Notification Interface Controller-->
+        <scene sceneID="AEw-b0-oYE">
+            <objects>
+                <notificationController id="YCC-NB-fut">
+                    <items>
+                        <label alignment="left" text="Alert Label" id="XkS-y5-khE"/>
+                    </items>
+                    <notificationCategory key="notificationCategory" identifier="myCategory" id="JfB-70-Muf"/>
+                    <connections>
+                        <outlet property="notificationAlertLabel" destination="XkS-y5-khE" id="49B-RR-99y"/>
+                        <segue destination="gdX-wl-uQE" kind="relationship" relationship="dynamicNotificationInterface" id="fKh-qV-3T2"/>
+                    </connections>
+                </notificationController>
+            </objects>
+            <point key="canvasLocation" x="-26" y="721"/>
+        </scene>
+        <!--Notification Controller-->
+        <scene sceneID="KIl-fV-djm">
+            <objects>
+                <controller id="gdX-wl-uQE" customClass="NotificationController"/>
+            </objects>
+            <point key="canvasLocation" x="205" y="721"/>
+        </scene>
+    </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="Pyl-Wu-k9I"/>
+    </inferredMetricsTieBreakers>
+    <color key="tintColor" red="0.084239561094403476" green="0.80089962121212122" blue="0.22593921329962902" alpha="1" colorSpace="calibratedRGB"/>
+</document>

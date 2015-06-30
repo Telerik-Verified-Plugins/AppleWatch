@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="format-detection" content="telephone=no">
+  <meta name="msapplication-tap-highlight" content="no">
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+  <link rel="stylesheet" type="text/css" href="css/index.css">
+  <title>Hello World</title>
+</head>
+<body>
+<div class="app">
+  <h1>Apache Cordova</h1>
+
+  <div id="deviceready" class="blink">
+    <p class="event listening">Connecting to Device</p>
+
+    <p class="event received">Device is Ready</p>
+    <script>
+      window.onerror = function (a, b, c) {
+        alert(a);
+        alert(c);
+      }
+    </script>
+    <button onclick="sendHeaderMessageImageGlance()">glance: header, message, img</button>
+    <br/>
+    <button onclick="sendMessageImageGlance()">glance: message, img</button>
+    <button onclick="sendImageGlance()">glance: img</button>
+    <br/><br/>
+    <button onclick="loadMainAppPage()">update app UI</button>
+    <br/><br/>
+
+    <div>Toggle / Slider values:</div>
+    <div style="font-weight:bold" id="feedback"></div>
+  </div>
+</div>
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script>
+
+  setTimeout(function () {
+    document.getElementById("feedback").innerHTML = localStorage.getItem("someOption");
+  }, 500);
+
+  var remoteGET = function (callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", 'https://httpbin.org/ip', "false");
+    xhr.send();
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        var response = JSON.parse(xhr.responseText);
+        callback(response);
+      }
+    };
+  };
+
+  // TODO split into onGlanceInit and Update? KISS for now..
+  function onGlanceRequestsUpdate() {
+    sendHeaderMessageImageGlance();
+  }
+
+  function onAppRequestsUpdate() {
+    // proof that remote networking works with the app being inactive
+    remoteGET(function (data) {
+      localStorage.setItem("origin", data.origin);
+      loadMainAppPage();
+    });
+
+  }
+
+  function onNotificationSendSuccess(msg) {
+    console.log("noti send ok: " + msg);
+  }
+
+  function onNotificationSendError(msg) {
+    alert("noti send nok: " + msg);
+  }
+
+  // TODO convenience methods in the plugin JS API would be nice: applewatch.sendToGlance/App(/Both?)
+
+  function sendImageGlance() {
+    var payload = {
+      'image': {
+        'src': 'www/img/logo.png'
+      }
+    };
+    applewatch.sendMessage(payload, "fromjstowatchglance");
+  }
+
+  function sendMessageImageGlance() {
+    var payload = {
+      'message': {'value': 'Red message, a bit smaller image, no header to allow 3 lines', 'color': '#DD0000'}, // optional, max 2 lines
+      'image': {'src': 'www/img/logo.png', 'width': '60'} // optional
+    };
+    applewatch.sendMessage(payload, "fromjstowatchglance");
+  }
+
+  function sendHeaderMessageImageGlance() {
+    var payload = {
+      'header': {
+        'value': 'A gorgeous blue header',
+        'color': '#1884C4',
+        'font': { // optional
+          'face': 'Palatino-Roman', // default HelveticaNeue-Bold, see http://iosfonts.com/
+          'size': 10
+        }
+      }, // optional, max 1 line -> TODO JS object with color and value attribs?
+      'message': { // optional, max 2 lines
+        'value': 'With a white message, served @ ' + new Date(),
+        'color': '#FFFFFF',
+        'font': {
+          'size': 8 // default 12
+        }
+      }, // optional, max 1 line -> TODO JS object with color and value attribs?
+      'image': {'src': 'www/img/logo.png', 'alpha': 0.7} // optional
+    }
+    applewatch.sendMessage(payload, "fromjstowatchglance");
+  }
+
+  function onMainAppPageButtonPressed() {
+    // do some action here, then update the app
+    loadMainAppPage();
+  }
+
+  function onDetailPageButtonPressed() {
+    // do some action here, then update the app
+    onAppDetailPageRequestsUpdate();
+  }
+
+  function onSomeOptionSelected(on) {
+    localStorage.setItem("someOption", on);
+    document.getElementById("feedback").innerHTML = on;
+  }
+
+  function onVoted(val) {
+    alert("voted: " + val);
+  }
+
+  var sliderVal = 25;
+  function onSliderChanged(val) {
+    sliderVal = val;
+    document.getElementById("feedback").innerHTML = "<br/>slider update: " + val;
+  }
+
+  function onAppDetailPageRequestsUpdate() {
+    var d = new Date();
+    var payload = {
+      'header': {
+        'value': 'Refreshed @ ' + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds(),
+        'color': '#1884C4',
+        'font': { // optional
+          'face': 'Palatino-Roman', // default HelveticaNeue-Bold, see http://iosfonts.com/
+          'size': 10
+        }
+      },
+      'table': { // this element is superawesomesauce! It's mighty flexible and extendible :)
+        'rows': [
+          {
+            'type': 'ImageLabelRowType', // available types are specified in ObjC
+            'label': 'With image',
+            'image': 'www/img/logo.png' // TODO process in plugin code
+          },
+          {
+            'type': 'ImageLabelRowType',
+            'label': '2nd, no image'
+          }
+        ]
+      },
+      'actionButton': {
+        'title': 'Refresh',
+        'color': '#1884C4',
+        'alpha': 1, // default 1
+        'callback': 'onDetailPageButtonPressed'
+      }
+    };
+    applewatch.sendMessage(payload, "fromjstowatchapp");
+  }
+
+  function loadMainAppPage() {
+    var d = new Date();
+    var payload = {
+      'header': {
+        'value': 'Updated at ' + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds(),
+        'color': '#1884C4',
+        'font': { // optional
+          'face': 'Palatino-Roman', // default HelveticaNeue-Bold, see http://iosfonts.com/
+          'size': 10
+        }
+      }, // optional, max 1 line -> TODO JS object with color and value attribs?
+      'message': { // optional, max 2 lines
+        'value': 'With a white message, served @ ' + new Date(),
+        'color': '#FFFFFF',
+        'font': {
+          'size': 8 // default 12
+        }
+      }, // optional, max 1 line -> TODO JS object with color and value attribs?
+      'image': { // optional
+        'src': 'www/img/logo.png'
+      },
+      'slider': {
+        'steps': 20, // of 100, so each step is 5 in this case
+        'value': sliderVal, // of 100, so this is a percentage
+        'color': '#1884C4',
+        'callback': 'onSliderChanged',
+        'hideValue': false // default false, allows to now show the value below the slider
+      },
+      'switch': {
+        'title': localStorage.getItem("origin"),
+        'on': (localStorage.getItem("someOption") == "true"),
+        'color': '#CC0000',
+        'callback': 'onSomeOptionSelected'
+      },
+      // NOTE: switch is not possible because it needs an outlet for the returnvalue.. and those can't be inside repeating elements (rowtype)
+      'table': { // this element is superawesomesauce! It's mighty flexible and extendible :)
+        'alpha': 1,
+        // TODO rename ImageLabelRowType to OneColumnRowType
+        // TODO also, a 'selectable' version of the OneColumnRowType (rowtype property, see https://developer.apple.com/library/ios/documentation/General/Conceptual/WatchKitProgrammingGuide/Tables.html)
+        'rows': [
+          /*
+           {
+           'type' : 'ImageLabelRowType', // available types are specified in ObjC
+           'label' : 'With image',
+           'image' : 'www/img/logo.png' // TODO process in plugin code
+           },
+           */
+          {
+            'type': 'ImageLabelRowType',
+            'label': 'First row, no img' // TODO like header (with font, etc)
+          },
+          {
+            'type': 'TwoColumnsRowType',
+            // TODO or col1 : {}, etc?
+            'col1label': {
+              'value': '50%',
+              'color': '#CC0000',
+              'font': {
+                'size': 18 // default 12
+              }
+            },
+            'col2label': {
+              'value': '12x',
+              'color': '#FFFFFF',
+              'font': {
+                'size': 18 // default 12
+              }
+            }
+          }
+        ]
+      },
+      'actionButton': {
+        'title': 'Reload',
+        'color': '#1884C4',
+        'alpha': 1, // default 1
+        'callback': 'onMainAppPageButtonPressed'
+      },
+      'userInputButton': {
+        'inputMode': 'WKTextInputModeAllowAnimatedEmoji', // WKTextInputModePlain, WKTextInputModeAllowEmoji, WKTextInputModeAllowAnimatedEmoji
+        'suggestions': ['foo', 'bar', 'shaz'],
+        'title': 'Vote',
+        'color': '#CC0000',
+        'alpha': 1, // default 1
+        'callback': 'onVoted'
+      },
+      'pushNavButton': {
+        'title': 'Push nav',
+        'color': '#1884C4',
+        'alpha': 1 // default 1
+      }
+    };
+    applewatch.sendMessage(payload, "fromjstowatchapp");
+  }
+
+  function onNotificationRegistrationSuccess(msg) {
+    console.log("noti reg ok: " + msg);
+
+    //we can now send a notification
+    var payload = {
+      "title": "Short!",
+      "category": "default",
+      "body": "Shown in the long-look interface to provide more detail",
+      "badge": 0
+    };
+
+//        setTimeout(function() {
+//            applewatch.sendNotification(onNotificationSendSuccess, onNotificationSendError, payload);
+//        }, 4000);
+  }
+
+  function onNotificationRegistrationError(msg) {
+    alert("noti reg nok: " + msg);
+  }
+
+  function initAppleWatch() {
+    applewatch.init(function (appGroupId) {
+//                        alert("bla: " + appGroupId);
+          /*
+          // success, messages may now be sent or listened for
+          applewatch.addListener("fromwatchglancetojs", function (message) {
+            alert("msg received from glance: " + message);
+          });
+
+          applewatch.addListener("fromwatchapptojs", function (message) {
+            alert("msg received from app: " + message);
+          });
+          */
+
+          // register for notifications
+//                        applewatch.registerNotifications(onNotificationRegistrationSuccess, onNotificationRegistrationError);
+
+        }, function (err) {
+          alert("err: " + JSON.stringify(err));
+          // an error occurred
+        },
+        "group.nl.xservices.applewatch",
+        "onGlanceRequestsUpdate" // note that this will only work when the app is running on the phone (either in the foreground or background)
+    );
+  }
+
+  document.addEventListener('deviceready', initAppleWatch, false);
+
+</script>
+</body>
+</html>
