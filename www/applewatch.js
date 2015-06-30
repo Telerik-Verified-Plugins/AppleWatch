@@ -1,8 +1,6 @@
 var exec = require("cordova/exec");
 
-// TODO why?
 var AppleWatch = function () {
-  this.name = "AppleWatch";
 };
 
 AppleWatch.prototype.init = function (onSuccess, onError, appGroupId) {
