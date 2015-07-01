@@ -229,7 +229,7 @@ module.exports = function (context) {
 
   // the storyboard only needs to be copied because we only have one (the default) at the moment
   var fullfilename = path.join(storyboardPrefix, storyboardToAdd);
-  fs.createReadStream(fullfilename).pipe(fs.createWriteStream('platforms/ios/' + watchKitAppTargetName + '/' + storyboardToAdd));
+  fs.createReadStream(fullfilename).pipe(fs.createWriteStream('platforms/ios/' + watchKitAppTargetName + '/Base.lproj/' + storyboardToAdd));
   console.log("Copied " + storyboardToAdd + " to " + watchKitAppTargetName);
 
 // write the updated project file
