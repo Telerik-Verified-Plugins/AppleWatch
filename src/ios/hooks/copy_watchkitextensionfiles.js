@@ -1,6 +1,4 @@
 
-// TODO copy interface.storyboard
-
 // TODO app groups
 
 // TODO uninstall hook.. hmm (I think no priority, because Telerik Platform will likely simply remove the entire targets)
@@ -43,6 +41,8 @@ module.exports = function (context) {
     "ImageLabelRowType.m",
     "TwoColumnsRowType.m"
   ];
+
+  var storyboardToAdd = "Interface.storyboard";
   // ----------- end files ------------------------
 
 
@@ -127,7 +127,16 @@ module.exports = function (context) {
         buildSettings['LIBRARY_SEARCH_PATHS'] = [INHERITED];
       }
 
-      buildSettings['LIBRARY_SEARCH_PATHS'].push("\"$(PROJECT_DIR)/"+appName+"/Plugins/cordova-plugin-applewatch\"");
+      var addThis = "\"$(PROJECT_DIR)/" + appName + "/Plugins/cordova-plugin-applewatch\"";
+
+      // prevent duplicates
+      for (k in buildSettings['LIBRARY_SEARCH_PATHS']) {
+        if (addThis == buildSettings['LIBRARY_SEARCH_PATHS'][k]) {
+          return;
+        }
+      }
+      buildSettings['LIBRARY_SEARCH_PATHS'].push(addThis);
+      console.log("Added framework reference for " + filename + " to target " + appName);
     }
   }
 
@@ -170,8 +179,7 @@ module.exports = function (context) {
 
   var prefix = 'plugins/cordova-plugin-applewatch/src/ios/';
   var sourceHeadPrefix = prefix + 'watchkitextension/controllers/';
-  var libraryPrefix = prefix + 'lib/';
-  var libraryHeaderPrefix = libraryPrefix + 'headers/';
+  var storyboardPrefix = prefix + 'watchkitapp/storyboards/';
 
   myProj.parseSync(); // crux
 
@@ -179,6 +187,7 @@ module.exports = function (context) {
 
   var watchKitExtensionTargetID;
   var watchKitExtensionTargetName;
+  var watchKitAppTargetName;
   var appName;
 
   for (key in groups) {
@@ -193,6 +202,9 @@ module.exports = function (context) {
       watchKitExtensionTargetName = theval.name;
       // the name is encapsulated in double quotes, so strip those
       watchKitExtensionTargetName = watchKitExtensionTargetName.substr(1, watchKitExtensionTargetName.length - 2);
+    } else if (theval.productType == "\"com.apple.product-type.application.watchapp\"") {
+      watchKitAppTargetName = theval.name;
+      watchKitAppTargetName = watchKitAppTargetName.substr(1, watchKitAppTargetName.length - 2);
     }
   }
 
@@ -235,9 +247,15 @@ module.exports = function (context) {
 
   addFrameworkReferenceToTarget("libmmwormhole.a", {'target': watchKitExtensionTargetID}, appName);
 
-  // write the updated project file
+  // the storyboard only needs to be copied because we only have one (the default) at the moment
+  var fullfilename = path.join(storyboardPrefix, storyboardToAdd);
+  fs.createReadStream(fullfilename).pipe(fs.createWriteStream('platforms/ios/' + watchKitAppTargetName + '/' + storyboardToAdd));
+  console.log("Copied " + storyboardToAdd + " to " + watchKitAppTargetName);
+
+// write the updated project file
   fs.writeFileSync(pbxproj, myProj.writeSync());
 
+  console.log("");
   console.log("                                        Done!                                           ");
   console.log("");
 

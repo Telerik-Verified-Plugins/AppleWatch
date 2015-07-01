@@ -19,7 +19,7 @@ DO NOT USE YET AS EVERYTHING IS IN ALPHA STATE AND WILL CHANGE!
 
 ####CLI:
 ```
- cordova plugin add ../../_Telerik_Verified_Plugins/AppleWatch
+ cordova plugin add https://github.com/Telerik-Verified-Plugins/AppleWatch
  cordova prepare
 ```
 
@@ -32,11 +32,6 @@ DO NOT USE YET AS EVERYTHING IS IN ALPHA STATE AND WILL CHANGE!
 At this point your builds should succeed
 
 
-####Finder:
- Overwrite the XCode WatchKit app .storyboard file with the one in this plugin
-
- If you want a quickstart, use `demo/index.html`
-
 
 ####XCode:
  App Groups: register an appgroup in your iOS member center (Identifiers > App Groups): group.<packagename> will do, like group.io.cordova.hellocordova, then add it to your App ID. Now generate a provisioning profile with the new App ID and add it XCode (download, then double-click the file should do it). In XCode, go to your targets and add this app group to both the phone and watch app targets (Capabilities tab)
@@ -46,6 +41,8 @@ At this point your builds should succeed
 
 
 ####Tips:
+ If you want a quickstart, use `demo/index.html`
+
  The simulator doesn't support local notifications
 
  Debugging of both the app and the extension: http://www.fiveminutewatchkit.com/blog/2015/3/13/how-to-debug-an-ios-app-while-the-associated-watchkit-app-is-running
