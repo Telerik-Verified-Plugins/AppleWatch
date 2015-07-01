@@ -32,7 +32,9 @@ At this point your builds should succeed
 
 
 ####XCode:
- App Groups: register an appgroup in your iOS member center (Identifiers > App Groups): group.<packagename> will do, like group.io.cordova.hellocordova, then add it to your App ID. Now generate a provisioning profile with the new App ID and add it XCode (download, then double-click the file should do it). In XCode, go to your targets and add this app group to both the phone and watch app targets (Capabilities tab)
+ App Groups: register an appgroup in your iOS member center (Identifiers > App Groups): group.<packagename> will do, like group.io.cordova.hellocordova, then add it to your App ID. Now generate a provisioning profile with the new App ID and add it XCode (download, then double-click the file should do it). In XCode, go to your targets and add this app group to both the phone and watch app targets (Capabilities tab).
+
+ Also, in `InterfaceController.m` and `demo/index.html` there's a reference to the appgroup, correct this ID. We will remove this manual step asap!
 
   --> TODO figure out adding app group capability for Cordova app via plugin.xml? See old version of healthkit plugin.xml
 
