@@ -1,8 +1,5 @@
-
 // TODO app groups
-
 // TODO uninstall hook.. hmm (I think no priority, because Telerik Platform will likely simply remove the entire targets)
-
 
 var xcode = require('xcode'),
     pbxFile = require('xcode/lib/pbxFile'),
@@ -10,14 +7,6 @@ var xcode = require('xcode'),
     fs = require('fs');
 
 module.exports = function (context) {
-  var projectRoot = context.opts.projectRoot;
-
-  function pbxGroupChild(file) {
-    var obj = Object.create(null);
-    obj.value = file.fileRef;
-    obj.comment = file.basename;
-    return obj;
-  }
 
   // ----------- add files to copy here -----------
   var headerFilesToAdd = [
@@ -45,7 +34,14 @@ module.exports = function (context) {
   var storyboardToAdd = "Interface.storyboard";
   // ----------- end files ------------------------
 
+  var projectRoot = context.opts.projectRoot;
 
+  function pbxGroupChild(file) {
+    var obj = Object.create(null);
+    obj.value = file.fileRef;
+    obj.comment = file.basename;
+    return obj;
+  }
 
   printLogo();
 
@@ -161,27 +157,11 @@ module.exports = function (context) {
   var pbxproj = path.join(xcodeproj, 'project.pbxproj');
   var myProj = xcode.project(pbxproj);
 
-  /*
-   function replace_string_in_file(filename, to_replace, replace_with) {
-   console.log("---hook. replace file: " + filename);
-   console.log("---hook. replace to: " + to_replace);
-   console.log("---hook. replace with: " + replace_with);
-
-   var data = fs.readFileSync(filename, 'utf8');
-
-   //console.log("---hook. data: " + data);
-
-   var result = data.replace(new RegExp(to_replace, "g"), replace_with);
-   console.log("---hook. result: " + result);
-   fs.writeFileSync(filename, result, 'utf8');
-   }
-   */
-
   var prefix = 'plugins/cordova-plugin-applewatch/src/ios/';
   var sourceHeadPrefix = prefix + 'watchkitextension/controllers/';
   var storyboardPrefix = prefix + 'watchkitapp/storyboards/';
 
-  myProj.parseSync(); // crux
+  myProj.parseSync();
 
   var groups = myProj.hash.project.objects['PBXNativeTarget'], key, groupKey;
 
@@ -254,10 +234,6 @@ module.exports = function (context) {
 
 // write the updated project file
   fs.writeFileSync(pbxproj, myProj.writeSync());
-
-  console.log("");
-  console.log("                                        Done!                                           ");
-  console.log("");
 
 
   function printLogo() {

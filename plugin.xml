@@ -42,8 +42,8 @@
     <header-file src="src/ios/lib/headers/MMWormhole.h" />
     <source-file src="src/ios/lib/libmmwormhole.a" framework="true" />
 
-    <!--<hook type="after_plugin_install" src="src/ios/hooks/copy_watchkitextensionfiles.js" />-->
-    <hook type="after_plugin_install" src="src/ios/hooks/copy_watchkitextensionfiles.js" />
+    <hook type="after_plugin_install" src="src/ios/hooks/copy_watchkitfiles.js" />
+    <hook type="after_plugin_install" src="src/ios/hooks/fix_watchkitapp_buildtarget.js" />
 
   </platform>
 

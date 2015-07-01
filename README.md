@@ -24,8 +24,6 @@ DO NOT USE YET AS EVERYTHING IS IN ALPHA STATE AND WILL CHANGE!
 ```
 
 ####XCode:
- Fix build target (8.2): Targets > WatchKit App > Deployment > iOS Deployment Target: iOS 8.2, see http://stackoverflow.com/questions/29242067/watchkit-apps-must-have-a-deployment-target-equal-to-ios-8-2-was-8-3
-
  Set CFBundleVersion (Bundle Version) and CFBundleShortVersionString (Bundle versions string, short) of all targets to the same value (use XCode's search feature and change all 3 .plist values
 
 
