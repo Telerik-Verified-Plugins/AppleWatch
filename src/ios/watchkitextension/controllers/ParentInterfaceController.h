@@ -22,7 +22,8 @@
 
 @property (retain, nonatomic) NSDictionary *userInputButtonDic;
 @property (retain, nonatomic) NSString *actionButtonCallback;
-@property (retain, nonatomic) NSString *pushNavButtonCallback; // TODO need to do this also for modal
+@property (retain, nonatomic) NSString *pushNavButtonCallback;
+@property (retain, nonatomic) NSString *modalNavButtonCallback;
 @property (retain, nonatomic) NSString *switchCallback;
 @property (retain, nonatomic) NSString *sliderCallback;
 

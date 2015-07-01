@@ -61,6 +61,12 @@
   NSString *queueName = [args objectForKey:@"queueName"];
   NSMutableDictionary *dic = [args objectForKey:@"message"];
 
+  NSString *pageID = [dic objectForKey:@"id"];
+  // TODO make this mandatory for sendMessageToWatchApp (which will be extracted from this method)
+  if (pageID != nil) {
+    queueName = [[queueName stringByAppendingString:@"-"] stringByAppendingString:pageID];
+  }
+  
   // TODO if we want to validate the input, do it here, not upstream
   
   // TODO for mulitple images, add an element in the json so we can translate to nsdata here [{}, {}]
@@ -104,7 +110,6 @@
     localNotification.alertBody = [args objectForKey:@"body"];
     localNotification.applicationIconBadgeNumber = [[args objectForKey:@"badge"] intValue];
 
-    // TODO remove delay (added it for testing purposes)
     NSDate *in5seconds = [NSDate dateWithTimeIntervalSinceNow:5];
     localNotification.fireDate = in5seconds; // [NSDate date];
     localNotification.soundName = UILocalNotificationDefaultSoundName;

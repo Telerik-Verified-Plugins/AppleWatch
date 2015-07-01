@@ -3,16 +3,33 @@
 
 @implementation InterfaceController
 
+- (NSString*) getPageID {
+  return @"main";
+}
+
 - (void)awakeWithContext:(id)context {
   [super awakeWithContext:context];
+//  [WKInterfaceController openParentApplication:@{@"action" : @"onAppRequestsUpdate"} reply:nil];
+}
+
+- (void)willActivate {
+  // This method is called when watch view controller is about to be visible to the user
+  [super willActivate];
   [WKInterfaceController openParentApplication:@{@"action" : @"onAppRequestsUpdate"} reply:nil];
 }
 
-# pragma callback actions
+# pragma custom callback actions
+// triggered when a navigation button was pressed
+- (id)contextForSegueWithIdentifier:(NSString *)segueIdentifier {
+  // could pass data here to the next page, no need yet.. perhaps for the title in case of a modal nav because the title from the phone arrives too late (you briefly see the 'cancel' label
+  return nil;
+}
+
 - (IBAction)buttonAction {
   [self openParent:@{@"action" : self.actionButtonCallback}];
 }
 
+// TODO extract and move up (we can do that with all these action callbacks)
 - (IBAction)userInputButtonAction {
   NSArray *suggestionsDef = [self.userInputButtonDic valueForKey:@"suggestions"];
   NSMutableArray *suggestions = [NSMutableArray arrayWithCapacity:suggestionsDef.count];

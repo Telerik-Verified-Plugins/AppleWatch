@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="7706" systemVersion="14E36b" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="7701"/>
@@ -92,12 +92,12 @@
                         </button>
                         <button width="1" alignment="left" title="Show as page" id="yD4-4L-Xgu" userLabel="PushNavButton">
                             <connections>
-                                <segue destination="dvy-i0-5db" kind="push" id="pU2-p1-YRo"/>
+                                <segue destination="dvy-i0-5db" kind="push" identifier="pagebased" id="iBV-4k-ZvS"/>
                             </connections>
                         </button>
                         <button width="1" alignment="left" title="Show as modal" id="7nw-Oc-fPW" userLabel="ModalNavButton">
                             <connections>
-                                <segue destination="dvy-i0-5db" kind="modal" id="Pyl-Wu-k9I"/>
+                                <segue destination="dvy-i0-5db" kind="modal" identifier="modalbased" id="JhY-8Z-jxh"/>
                             </connections>
                         </button>
                     </items>
@@ -108,6 +108,7 @@
                         <outlet property="modalNavButton" destination="7nw-Oc-fPW" id="zw1-YB-qzg"/>
                         <outlet property="pushNavButton" destination="yD4-4L-Xgu" id="xgM-T6-cld"/>
                         <outlet property="slider" destination="ZmR-gh-Ovk" id="JL2-xQ-Gxb"/>
+                        <outlet property="sliderGroup" destination="FRS-JD-ZEz" id="M7D-vW-pLq"/>
                         <outlet property="sliderLabel" destination="TkT-SV-2k0" id="wQm-U8-ws5"/>
                         <outlet property="switch1" destination="WQK-vU-RvF" id="eWb-jc-JC2"/>
                         <outlet property="table" destination="IW0-Zg-Deq" id="Htj-hg-YSB"/>
@@ -115,7 +116,7 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="-26" y="21.25"/>
+            <point key="canvasLocation" x="-106" y="-16"/>
         </scene>
         <!--Details-->
         <scene sceneID="Gjw-3i-SCP">
@@ -186,7 +187,7 @@
                         </button>
                     </items>
                     <connections>
-                        <outlet property="actionButton" destination="Nsj-YO-GEe" id="Vaw-0J-ycf"/>
+                        <outlet property="actionButton" destination="Nsj-YO-GEe" id="Mhw-3g-avh"/>
                         <outlet property="header" destination="y0M-ho-qYE" id="oBn-uB-VRC"/>
                         <outlet property="image" destination="lC1-lp-Jr9" id="HHR-3B-msQ"/>
                         <outlet property="switch1" destination="xbl-02-taT" id="Lq4-w6-Bsa"/>
@@ -194,7 +195,7 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="205" y="23"/>
+            <point key="canvasLocation" x="205" y="-11.75"/>
         </scene>
         <!--Glance Interface Controller-->
         <scene sceneID="BOz-TT-tkC">
@@ -253,7 +254,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Pyl-Wu-k9I"/>
+        <segue reference="iBV-4k-ZvS"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.084239561094403476" green="0.80089962121212122" blue="0.22593921329962902" alpha="1" colorSpace="calibratedRGB"/>
 </document>

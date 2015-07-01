@@ -41,16 +41,22 @@
     document.getElementById("feedback").innerHTML = localStorage.getItem("someOption");
   }, 500);
 
-  var remoteGET = function (callback) {
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", 'https://httpbin.org/ip', "false");
-    xhr.send();
-    xhr.onreadystatechange = function () {
-      if (xhr.readyState === 4 && xhr.status === 200) {
-        var response = JSON.parse(xhr.responseText);
-        callback(response);
-      }
-    };
+  var remoteGET = function () {
+    if (localStorage.getItem("origin") != null) {
+      return localStorage.getItem("origin");
+    } else {
+      localStorage.setItem("origin", "Reload for IP");
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", 'https://httpbin.org/ip', "false");
+      xhr.send();
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          var response = JSON.parse(xhr.responseText);
+          ip = response.origin;
+          localStorage.setItem("origin", ip);
+        }
+      };
+    }
   };
 
   // TODO split into onGlanceInit and Update? KISS for now..
@@ -59,12 +65,10 @@
   }
 
   function onAppRequestsUpdate() {
-    // proof that remote networking works with the app being inactive
-    remoteGET(function (data) {
-      localStorage.setItem("origin", data.origin);
-      loadMainAppPage();
-    });
-
+    // proof that remote networking works with the app being inactive,
+    // but I don't want to wait for it to return before rendering the watch UI (need a fast dev cycle)
+    remoteGET();
+    loadMainAppPage();
   }
 
   function onNotificationSendSuccess(msg) {
@@ -144,6 +148,8 @@
   function onAppDetailPageRequestsUpdate() {
     var d = new Date();
     var payload = {
+      'id':'detail', // mandatory
+      'title':'Back', // optional, shown in the navbar
       'header': {
         'value': 'Refreshed @ ' + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds(),
         'color': '#1884C4',
@@ -152,7 +158,7 @@
           'size': 10
         }
       },
-      'table': { // this element is superawesomesauce! It's mighty flexible and extendible :)
+      'table': { // this element is superawesome.. it's quite flexible and extendible, but it can't have actions
         'rows': [
           {
             'type': 'ImageLabelRowType', // available types are specified in ObjC
@@ -172,12 +178,15 @@
         'callback': 'onDetailPageButtonPressed'
       }
     };
+    // TODO create sendMessageToWatchApp(payload) function
     applewatch.sendMessage(payload, "fromjstowatchapp");
   }
 
   function loadMainAppPage() {
     var d = new Date();
     var payload = {
+      'id':'main', // mandatory
+      'title':'Demo', // optional
       'header': {
         'value': 'Updated at ' + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds(),
         'color': '#1884C4',
@@ -261,9 +270,20 @@
         'callback': 'onVoted'
       },
       'pushNavButton': {
+        'backTitle': 'baaack',
         'title': 'Push nav',
         'color': '#1884C4',
         'alpha': 1 // default 1
+      },
+      'modalNavButton': {
+        'closeTitle': 'kloos',
+        'title': 'Modal nav',
+        'color': '#1884C4'
+      },
+      // triggered by force touch
+      // TODO see https://developer.apple.com/library/ios/documentation/General/Conceptual/WatchKitProgrammingGuide/Menus.html#//apple_ref/doc/uid/TP40014969-CH15-SW1
+      'contextMenu': {
+        // TODO configure up to 4 items
       }
     };
     applewatch.sendMessage(payload, "fromjstowatchapp");
