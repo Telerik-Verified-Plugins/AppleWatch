@@ -104,8 +104,9 @@ module.exports = function (context) {
     // addToLibrarySearchPaths
     var configurations = myProj.pbxXCBuildConfigurationSection(),
         INHERITED = '"$(inherited)"',
-        config, buildSettings, searchPaths;
+        config, buildSettings, k;
 
+    var i=0;
     for (config in configurations) {
       if (config === undefined) {
         continue;
@@ -132,7 +133,7 @@ module.exports = function (context) {
         }
       }
       buildSettings['LIBRARY_SEARCH_PATHS'].push(addThis);
-      console.log("Added framework reference for " + filename + " to target " + appName);
+      console.log("Added framework reference for " + filename + " to target " + appName + " ("+(++i)+" of 2)");
     }
   }
 
