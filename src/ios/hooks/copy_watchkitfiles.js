@@ -10,25 +10,25 @@ module.exports = function (context) {
 
   // ----------- add files to copy here -----------
   var headerFilesToAdd = [
-    "WatchKitUIHelper.h",
     "DetailInterfaceController.h",
     "GlanceController.h",
+    "ImageLabelRowType.h",
     "InterfaceController.h",
     "NotificationController.h",
-    "WatchKitUIHelper.h",
-    "ImageLabelRowType.h",
-    "TwoColumnsRowType.h"
+    "ParentInterfaceController.h",
+    "TwoColumnsRowType.h",
+    "WatchKitUIHelper.h"
   ];
 
   var sourceFilesToAdd = [
-    "WatchKitUIHelper.m",
     "DetailInterfaceController.m",
     "GlanceController.m",
+    "ImageLabelRowType.m",
     "InterfaceController.m",
     "NotificationController.m",
-    "WatchKitUIHelper.m",
-    "ImageLabelRowType.m",
-    "TwoColumnsRowType.m"
+    "ParentInterfaceController.m",
+    "TwoColumnsRowType.m",
+    "WatchKitUIHelper.m"
   ];
 
   var storyboardToAdd = "Interface.storyboard";

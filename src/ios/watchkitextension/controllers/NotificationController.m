@@ -1,11 +1,3 @@
-//
-//  NotificationController.m
-//  HelloCordova WatchKit Extension
-//
-//  Created by Eddy Verbruggen on 17/06/15.
-//
-//
-
 #import "NotificationController.h"
 
 

@@ -13,7 +13,7 @@
                         <group width="1" alignment="center" contentMode="top" layout="vertical" id="RZ8-RP-zhP" userLabel="UpperGroup">
                             <items>
                                 <imageView width="1" height="80" alignment="center" verticalAlignment="center" contentMode="scaleAspectFit" id="NaD-mO-aAN"/>
-                                <label alignment="center" verticalAlignment="center" text="no js value yet" textAlignment="center" numberOfLines="2" id="n9N-LZ-vmP">
+                                <label width="1" alignment="center" verticalAlignment="center" text="label" textAlignment="center" numberOfLines="2" id="n9N-LZ-vmP">
                                     <fontDescription key="font" type="system" pointSize="14"/>
                                 </label>
                             </items>
@@ -109,13 +109,13 @@
                         <outlet property="pushNavButton" destination="yD4-4L-Xgu" id="xgM-T6-cld"/>
                         <outlet property="slider" destination="ZmR-gh-Ovk" id="JL2-xQ-Gxb"/>
                         <outlet property="sliderLabel" destination="TkT-SV-2k0" id="wQm-U8-ws5"/>
-                        <outlet property="switch1" destination="WQK-vU-RvF" id="Bfl-VS-ln2"/>
+                        <outlet property="switch1" destination="WQK-vU-RvF" id="eWb-jc-JC2"/>
                         <outlet property="table" destination="IW0-Zg-Deq" id="Htj-hg-YSB"/>
                         <outlet property="userInputButton" destination="ePd-8c-jy1" id="FDx-IE-Iwh"/>
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="-26" y="22"/>
+            <point key="canvasLocation" x="-26" y="21.25"/>
         </scene>
         <!--Details-->
         <scene sceneID="Gjw-3i-SCP">

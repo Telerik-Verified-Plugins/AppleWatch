@@ -1,11 +1,3 @@
-//
-//  WatchKitUIHelper.m
-//  HelloCordova
-//
-//  Created by Eddy Verbruggen on 26/06/15.
-//
-//
-
 #import <Foundation/Foundation.h>
 #import "WatchKitUIHelper.h"
 #import "ImageLabelRowType.h"

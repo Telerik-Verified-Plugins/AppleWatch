@@ -1,11 +1,3 @@
-//
-//  WatchKitUIHelper.h
-//  HelloCordova
-//
-//  Created by Eddy Verbruggen on 26/06/15.
-//
-//
-
 #import <WatchKit/WatchKit.h>
 #import <Foundation/Foundation.h>
 

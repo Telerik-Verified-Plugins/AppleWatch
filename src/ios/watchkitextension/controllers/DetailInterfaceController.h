@@ -1,8 +1,5 @@
-// edited
+#import "ParentInterfaceController.h"
 
-#import <WatchKit/WatchKit.h>
-#import <Foundation/Foundation.h>
-
-@interface DetailInterfaceController : WKInterfaceController
+@interface DetailInterfaceController : ParentInterfaceController
 
 @end

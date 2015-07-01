@@ -1,11 +1,3 @@
-//
-//  TwoColumnsRowType.h
-//  HelloCordova
-//
-//  Created by Eddy Verbruggen on 27/06/15.
-//
-//
-
 #import <WatchKit/WatchKit.h>
 #import <Foundation/Foundation.h>
 
