@@ -29,7 +29,7 @@
     <button onclick="loadMainAppPage()">update app UI</button>
     <br/><br/>
 
-    <div>Toggle / Slider values:</div>
+    <div>Selected Watch values:</div>
     <div style="font-weight:bold" id="feedback"></div>
   </div>
 </div>
@@ -148,8 +148,8 @@
   function onAppDetailPageRequestsUpdate() {
     var d = new Date();
     var payload = {
-      'id':'detail', // mandatory
-      'title':'Back', // optional, shown in the navbar
+      'id': 'detail', // mandatory
+      'title': 'Back', // optional, shown in the navbar
       'header': {
         'value': 'Refreshed @ ' + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds(),
         'color': '#1884C4',
@@ -185,8 +185,8 @@
   function loadMainAppPage() {
     var d = new Date();
     var payload = {
-      'id':'main', // mandatory
-      'title':'Demo', // optional
+      'id': 'main', // mandatory
+      'title': 'Demo', // optional
       'header': {
         'value': 'Updated at ' + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds(),
         'color': '#1884C4',
@@ -283,10 +283,32 @@
       // triggered by force touch
       // TODO see https://developer.apple.com/library/ios/documentation/General/Conceptual/WatchKitProgrammingGuide/Menus.html#//apple_ref/doc/uid/TP40014969-CH15-SW1
       'contextMenu': {
-        // TODO configure up to 4 items
+        // configure up to 4 items
+        'items': [
+          {
+            'title': 'Play',
+//                     'image':'www/..',
+//                     'imageNamed':'',
+            'iconNamed': 'Play', // https://developer.apple.com/library/ios/documentation/WatchKit/Reference/WKInterfaceController_class/index.html#//apple_ref/doc/c_ref/WKMenuItemIcon
+            'callback': 'onContextMenuPlay'
+          },
+          {
+            'title': 'Resume',
+            'iconNamed': 'Resume',
+            'callback': 'onContextMenuResume'
+          }
+        ]
       }
     };
     applewatch.sendMessage(payload, "fromjstowatchapp");
+  }
+
+  function onContextMenuPlay() {
+    document.getElementById("feedback").innerHTML = "Play";
+  }
+
+  function onContextMenuResume() {
+    document.getElementById("feedback").innerHTML = "Resume";
   }
 
   function onNotificationRegistrationSuccess(msg) {
@@ -300,9 +322,9 @@
       "badge": 0
     };
 
-//        setTimeout(function() {
-//            applewatch.sendNotification(onNotificationSendSuccess, onNotificationSendError, payload);
-//        }, 4000);
+    //        setTimeout(function() {
+    //            applewatch.sendNotification(onNotificationSendSuccess, onNotificationSendError, payload);
+    //        }, 4000);
   }
 
   function onNotificationRegistrationError(msg) {
@@ -311,20 +333,20 @@
 
   function initAppleWatch() {
     applewatch.init(function (appGroupId) {
-//                        alert("bla: " + appGroupId);
+          //                        alert("bla: " + appGroupId);
           /*
-          // success, messages may now be sent or listened for
-          applewatch.addListener("fromwatchglancetojs", function (message) {
-            alert("msg received from glance: " + message);
-          });
+           // success, messages may now be sent or listened for
+           applewatch.addListener("fromwatchglancetojs", function (message) {
+           alert("msg received from glance: " + message);
+           });
 
-          applewatch.addListener("fromwatchapptojs", function (message) {
-            alert("msg received from app: " + message);
-          });
-          */
+           applewatch.addListener("fromwatchapptojs", function (message) {
+           alert("msg received from app: " + message);
+           });
+           */
 
           // register for notifications
-//                        applewatch.registerNotifications(onNotificationRegistrationSuccess, onNotificationRegistrationError);
+          //                        applewatch.registerNotifications(onNotificationRegistrationSuccess, onNotificationRegistrationError);
 
         }, function (err) {
           alert("err: " + JSON.stringify(err));

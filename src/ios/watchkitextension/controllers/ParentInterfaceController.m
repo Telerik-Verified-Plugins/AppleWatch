@@ -51,6 +51,17 @@
     [self setTitle:nil];
   }
 
+  if ([messageObject valueForKey:@"contextMenu"] != nil) {
+    [self clearAllMenuItems];
+    NSDictionary *contextMenuItems = [messageObject valueForKey:@"contextMenu"];
+    // TODO if items can not be found, nslog it - same for other expected values as well
+    NSArray *items = [contextMenuItems valueForKey:@"items"];
+    self.contextMenuButton1Callback = [self addContextMenuItem:items forItemAtIndex:0 performSelector:@selector(contextMenuButton1Action)];
+    self.contextMenuButton2Callback = [self addContextMenuItem:items forItemAtIndex:1 performSelector:@selector(contextMenuButton2Action)];
+    self.contextMenuButton3Callback = [self addContextMenuItem:items forItemAtIndex:2 performSelector:@selector(contextMenuButton3Action)];
+    self.contextMenuButton4Callback = [self addContextMenuItem:items forItemAtIndex:3 performSelector:@selector(contextMenuButton4Action)];
+  }
+
   [WatchKitUIHelper setLabel:self.header fromDic:[messageObject valueForKey:@"header"]];
   [WatchKitUIHelper setImage:self.image fromDic:[messageObject valueForKey:@"image"]];
   [WatchKitUIHelper setTable:self.table fromDic:[messageObject valueForKey:@"table"]];
@@ -60,6 +71,32 @@
   self.modalNavButtonCallback = [WatchKitUIHelper setButtonWithCallback:self.modalNavButton fromDic:[messageObject valueForKey:@"modalNavButton"]];
   self.actionButtonCallback = [WatchKitUIHelper setButtonWithCallback:self.actionButton fromDic:[messageObject valueForKey:@"actionButton"]];
   self.userInputButtonDic = [WatchKitUIHelper setUserInputButton:self.userInputButton fromDic:[messageObject valueForKey:@"userInputButton"]];
+}
+
+- (NSString*) addContextMenuItem:(NSArray*)items forItemAtIndex:(int)index performSelector:(SEL)selector {
+  if (items.count <= index) {
+    return nil;
+  }
+  NSDictionary* item = [items objectAtIndex:index];
+  WKMenuItemIcon icon = [WatchKitUIHelper WKMenuItemIconFromString:[item valueForKey:@"iconNamed"]];
+  [self addMenuItemWithItemIcon:icon title:[item valueForKey:@"title"] action:selector];
+  return [item valueForKey:@"callback"];
+}
+
+- (IBAction)contextMenuButton1Action {
+  [self openParent:@{@"action" : self.contextMenuButton1Callback}];
+}
+
+- (IBAction)contextMenuButton2Action {
+  [self openParent:@{@"action" : self.contextMenuButton2Callback}];
+}
+
+- (IBAction)contextMenuButton3Action {
+  [self openParent:@{@"action" : self.contextMenuButton3Callback}];
+}
+
+- (IBAction)contextMenuButton4Action {
+  [self openParent:@{@"action" : self.contextMenuButton4Callback}];
 }
 
 - (void) openParent:(NSDictionary*)dic {

@@ -11,5 +11,5 @@
 + (NSString*) setButtonWithCallback:(WKInterfaceButton*)button fromDic:(NSDictionary*)dic;
 + (NSDictionary*) setUserInputButton:(WKInterfaceButton*)button fromDic:(NSDictionary*)dic;
 + (void) setTable:(WKInterfaceTable*)table fromDic:(NSDictionary*)dic;
-
++ (WKMenuItemIcon) WKMenuItemIconFromString:(NSString*)str;
 @end

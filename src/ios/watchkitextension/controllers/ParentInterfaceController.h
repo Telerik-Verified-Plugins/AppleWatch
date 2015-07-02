@@ -27,6 +27,11 @@
 @property (retain, nonatomic) NSString *switchCallback;
 @property (retain, nonatomic) NSString *sliderCallback;
 
+@property (retain, nonatomic) NSString *contextMenuButton1Callback;
+@property (retain, nonatomic) NSString *contextMenuButton2Callback;
+@property (retain, nonatomic) NSString *contextMenuButton3Callback;
+@property (retain, nonatomic) NSString *contextMenuButton4Callback;
+
 - (void) openParent:(NSDictionary*)dic;
 
 @end

@@ -188,4 +188,25 @@
   return [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
 }
 
+// st00pid ObjC enums :{
++ (WKMenuItemIcon) WKMenuItemIconFromString:(NSString*)str {
+       if ([str isEqualToString:@"Accept"])  return WKMenuItemIconAccept;
+  else if ([str isEqualToString:@"Add"])     return WKMenuItemIconAdd;
+  else if ([str isEqualToString:@"Block"])   return WKMenuItemIconBlock;
+  else if ([str isEqualToString:@"Decline"]) return WKMenuItemIconDecline;
+  else if ([str isEqualToString:@"Info"])    return WKMenuItemIconInfo;
+  else if ([str isEqualToString:@"Maybe"])   return WKMenuItemIconMaybe;
+  else if ([str isEqualToString:@"More"])    return WKMenuItemIconMore;
+  else if ([str isEqualToString:@"Mute"])    return WKMenuItemIconMute;
+  else if ([str isEqualToString:@"Pause"])   return WKMenuItemIconPause;
+  else if ([str isEqualToString:@"Play"])    return WKMenuItemIconPlay;
+  else if ([str isEqualToString:@"Repeat"])  return WKMenuItemIconRepeat;
+  else if ([str isEqualToString:@"Resume"])  return WKMenuItemIconResume;
+  else if ([str isEqualToString:@"Share"])   return WKMenuItemIconShare;
+  else if ([str isEqualToString:@"Shuffle"]) return WKMenuItemIconShuffle;
+  else if ([str isEqualToString:@"Speaker"]) return WKMenuItemIconSpeaker;
+  else if ([str isEqualToString:@"Trash"])   return WKMenuItemIconTrash;
+  else                                       return WKMenuItemIconInfo; // default
+}
+
 @end
