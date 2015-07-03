@@ -16,9 +16,12 @@
 
     <p class="event received">Device is Ready</p>
     <script>
+      function feedback(what) {
+        document.getElementById("feedback").innerHTML = what;
+      }
+
       window.onerror = function (a, b, c) {
-        alert(a);
-        alert(c);
+        feedback(a + ", " + b + ", " + c);
       }
     </script>
     <button onclick="sendHeaderMessageImageGlance()">glance: header, message, img</button>
@@ -29,7 +32,7 @@
     <button onclick="loadMainAppPage()">update app UI</button>
     <br/><br/>
 
-    <div>Selected Watch values:</div>
+    <div>Feedback from Watch App:</div>
     <div style="font-weight:bold" id="feedback"></div>
   </div>
 </div>
@@ -104,7 +107,6 @@
         'value': 'A gorgeous blue header',
         'color': '#1884C4',
         'font': { // optional
-          'face': 'Palatino-Roman', // default HelveticaNeue-Bold, see http://iosfonts.com/
           'size': 10
         }
       }, // optional, max 1 line -> TODO JS object with color and value attribs?
@@ -136,7 +138,7 @@
   }
 
   function onVoted(val) {
-    alert("voted: " + val);
+    feedback("voted: " + val);
   }
 
   var sliderVal = 25;
@@ -154,7 +156,6 @@
         'value': 'Refreshed @ ' + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds(),
         'color': '#1884C4',
         'font': { // optional
-          'face': 'Palatino-Roman', // default HelveticaNeue-Bold, see http://iosfonts.com/
           'size': 10
         }
       },
@@ -172,7 +173,13 @@
         ]
       },
       'actionButton': {
-        'title': 'Refresh',
+        'title': {
+          'value': 'Refresh!',
+          'color': '#FFA500',
+          'font': {
+            'size': 12
+          }
+        },
         'color': '#1884C4',
         'alpha': 1, // default 1
         'callback': 'onDetailPageButtonPressed'
@@ -191,7 +198,6 @@
         'value': 'Updated at ' + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds(),
         'color': '#1884C4',
         'font': { // optional
-          'face': 'Palatino-Roman', // default HelveticaNeue-Bold, see http://iosfonts.com/
           'size': 10
         }
       }, // optional, max 1 line -> TODO JS object with color and value attribs?
@@ -256,28 +262,48 @@
         ]
       },
       'actionButton': {
-        'title': 'Reload',
+        'title': {
+          'value': 'Refresh',
+          'color': '#BBBBBB',
+          'font': {
+            'size': 20 // default 15
+          }
+        },
         'color': '#1884C4',
+        'width':90,
+        'height':50,
         'alpha': 1, // default 1
         'callback': 'onMainAppPageButtonPressed'
       },
       'userInputButton': {
         'inputMode': 'WKTextInputModeAllowAnimatedEmoji', // WKTextInputModePlain, WKTextInputModeAllowEmoji, WKTextInputModeAllowAnimatedEmoji
         'suggestions': ['foo', 'bar', 'shaz'],
-        'title': 'Vote',
+        'width':50,
+        'height':25,
+        'title': {
+          'value': 'Vote',
+          'color': '#FFFFFF',
+          'font': {
+            'size': 10 // default 15
+          }
+        },
         'color': '#CC0000',
         'alpha': 1, // default 1
         'callback': 'onVoted'
       },
       'pushNavButton': {
         'backTitle': 'baaack',
-        'title': 'Push nav',
+        'title': {
+          'value': 'Push nav'
+        },
         'color': '#1884C4',
         'alpha': 1 // default 1
       },
       'modalNavButton': {
         'closeTitle': 'kloos',
-        'title': 'Modal nav',
+        'title': {
+          'value': 'Modal nav'
+        },
         'color': '#1884C4'
       },
       // triggered by force touch
@@ -287,8 +313,8 @@
         'items': [
           {
             'title': 'Play',
-//                     'image':'www/..',
-//                     'imageNamed':'',
+            //                     'image':'www/..',
+            //                     'imageNamed':'',
             'iconNamed': 'Play', // https://developer.apple.com/library/ios/documentation/WatchKit/Reference/WKInterfaceController_class/index.html#//apple_ref/doc/c_ref/WKMenuItemIcon
             'callback': 'onContextMenuPlay'
           },
@@ -352,6 +378,7 @@
           alert("err: " + JSON.stringify(err));
           // an error occurred
         },
+        // TODO dynamic
         "group.nl.xservices.applewatch",
         "onGlanceRequestsUpdate" // note that this will only work when the app is running on the phone (either in the foreground or background)
     );

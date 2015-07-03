@@ -80,22 +80,22 @@
                                 </label>
                             </items>
                         </group>
-                        <button width="1" alignment="left" title="Ask user input" id="ePd-8c-jy1" userLabel="UserInputButton">
+                        <button width="1" alignment="center" title="Ask user input" id="ePd-8c-jy1" userLabel="UserInputButton">
                             <connections>
                                 <action selector="userInputButtonAction" destination="AgC-eL-Hgc" id="iZc-cn-nH4"/>
                             </connections>
                         </button>
-                        <button width="1" alignment="left" title="Do action" id="D6t-Ze-euK" userLabel="ActionButton">
+                        <button width="1" alignment="center" title="Do action" id="D6t-Ze-euK" userLabel="ActionButton">
                             <connections>
                                 <action selector="buttonAction" destination="AgC-eL-Hgc" id="TYR-f3-gMf"/>
                             </connections>
                         </button>
-                        <button width="1" alignment="left" title="Show as page" id="yD4-4L-Xgu" userLabel="PushNavButton">
+                        <button width="1" alignment="center" title="Show as page" id="yD4-4L-Xgu" userLabel="PushNavButton">
                             <connections>
                                 <segue destination="dvy-i0-5db" kind="push" identifier="pagebased" id="iBV-4k-ZvS"/>
                             </connections>
                         </button>
-                        <button width="1" alignment="left" title="Show as modal" id="7nw-Oc-fPW" userLabel="ModalNavButton">
+                        <button width="1" alignment="center" title="Show as modal" id="7nw-Oc-fPW" userLabel="ModalNavButton">
                             <connections>
                                 <segue destination="dvy-i0-5db" kind="modal" identifier="modalbased" id="JhY-8Z-jxh"/>
                             </connections>
@@ -139,7 +139,6 @@
                                             <imageView alignment="left" verticalAlignment="center" id="cTb-fa-vY6"/>
                                             <label alignment="left" verticalAlignment="center" text="Label" id="nnA-bW-A88"/>
                                         </items>
-                                        <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                                     </group>
                                     <connections>
                                         <outlet property="image" destination="cTb-fa-vY6" id="1IW-bl-eXy"/>
@@ -164,7 +163,6 @@
                                                 <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                                             </group>
                                         </items>
-                                        <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                                     </group>
                                     <connections>
                                         <outlet property="col1image" destination="5AL-b5-GrH" id="h3t-Hp-6Pv"/>

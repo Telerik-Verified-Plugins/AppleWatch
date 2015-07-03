@@ -112,8 +112,7 @@
 
     // TODO remove delay (added it for testing purposes)
     NSDate *in5seconds = [NSDate dateWithTimeIntervalSinceNow:5];
-    localNotification.fireDate = COMBO-99
-                                 SEOshop - MoneyBird installatiemail niet ontvangen.in5seconds; // [NSDate date];
+    localNotification.fireDate = in5seconds; // [NSDate date];
     localNotification.soundName = UILocalNotificationDefaultSoundName;
 
     [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];

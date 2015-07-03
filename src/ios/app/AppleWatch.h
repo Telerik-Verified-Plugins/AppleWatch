@@ -1,8 +1,3 @@
-//
-//  AppleWatch.h
-//  Copyright (c) 2015 Lee Crossley - http://ilee.co.uk
-//
-
 #import "Foundation/Foundation.h"
 #import "Cordova/CDV.h"
 

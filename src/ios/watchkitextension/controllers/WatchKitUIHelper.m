@@ -8,38 +8,40 @@
 - (void)awakeWithContext:(id)context {
 }
 
++ (NSAttributedString*) getAttributedStringFrom:(NSDictionary*)dic {
+  NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:[dic valueForKey:@"value"]];
+
+  NSString *hexColor = [dic valueForKey:@"color"];
+  UIColor *color = hexColor == nil ? [UIColor whiteColor] : [self colorFromHexString:hexColor];
+  [attrString addAttribute:NSForegroundColorAttributeName value:color range:NSMakeRange(0, attrString.string.length)];
+
+  NSDictionary *fontdef = [dic valueForKey:@"font"];
+  if (fontdef != nil && [fontdef valueForKey:@"size"] != nil) {
+    //NSString *fontface = [fontdef valueForKey:@"face"];
+    NSNumber *fontsize = [fontdef valueForKey:@"size"];
+    //if (fontface == nil && fontsize != nil) {
+    //  fontface = @"HelveticaNeue-Bold"; // default (set defaults in JS?)
+    //}
+    int fsize = 11;
+    if (fontsize != nil) {
+      fsize = fontsize.intValue;
+    }
+//    UIFont *font = [UIFont fontWithName:fontface size:fsize];
+    UIFont *font = [UIFont systemFontOfSize:fsize];
+    if (font != nil) {
+      // range can be used to apply the style to a substring of the label
+      [attrString addAttribute:NSFontAttributeName value:font range:NSMakeRange(0, attrString.string.length)];
+    }
+  }
+  return attrString;
+}
+
 + (void) setLabel:(WKInterfaceLabel*)label fromDic:(NSDictionary*)dic {
   if (dic == nil) {
     [label setHidden:YES];
   } else {
-    NSString *value = [dic valueForKey:@"value"];
-    NSDictionary *fontdef = [dic valueForKey:@"font"];
-    NSDictionary *attr = nil;
-    if (fontdef != nil) {
-      NSString *fontface = [fontdef valueForKey:@"face"];
-      NSNumber *fontsize = [fontdef valueForKey:@"size"];
-      if (fontface == nil && fontsize != nil) {
-        fontface = @"HelveticaNeue-Bold"; // default, TODO: set defaults in JS
-      }
-      int fsize = 11;
-      if (fontsize != nil) {
-        fsize = fontsize.intValue;
-      }
-      UIFont *font = [UIFont fontWithName:fontface size:fsize];
-      if (font != nil) {
-        attr = @{NSFontAttributeName: font};
-      }
-    }
-    NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:value attributes:attr];
-    [label setAttributedText:attrString];
-    
-    [label setHidden:NO];
-    
-    NSString *hexColor = [dic valueForKey:@"color"];
-    if (hexColor != nil) {
-      UIColor *theColor = [self colorFromHexString:hexColor];
-      [label setTextColor:theColor];
-    }
+    [label setAttributedText:[self getAttributedStringFrom:dic]];
+    [self setCommonPropertiesAndShow:label fromDic:dic];
   }
 }
 
@@ -55,9 +57,7 @@
     NSNumber *height = [dic valueForKey:@"height"];
     [image setHeight:height == nil ? 0 /* natural size */ : height.doubleValue];
     
-    [self setAlpha:image fromDic:dic];
-
-    [image setHidden:NO];
+    [self setCommonPropertiesAndShow:image fromDic:dic];
   }
 }
 
@@ -65,15 +65,15 @@
   if (dic == nil) {
     [button setHidden:YES];
   } else {
-    [button setTitle:[dic valueForKey:@"title"]];
-    [self setAlpha:button fromDic:dic];
-    
+    [button setAttributedTitle:[self getAttributedStringFrom:[dic valueForKey:@"title"]]];
+
     NSString *hexColor = [dic valueForKey:@"color"];
     if (hexColor != nil) {
       UIColor *theColor = [self colorFromHexString:hexColor];
       [button setBackgroundColor:theColor];
     }
-    [button setHidden:NO];
+
+    [self setCommonPropertiesAndShow:button fromDic:dic];
   }
 }
 
@@ -101,7 +101,7 @@
       UIColor *theColor = [self colorFromHexString:hexColor];
       [switch1 setColor:theColor];
     }
-    [switch1 setHidden:NO];
+    [self setCommonPropertiesAndShow:switch1 fromDic:dic];
     return [dic valueForKey:@"callback"];
   }
 }
@@ -113,8 +113,6 @@
     [label setHidden:YES];
     return nil;
   } else {
-    [self setAlpha:group fromDic:dic];
-
     NSNumber* value = [dic objectForKey: @"value"];
     [slider setValue:[value floatValue]];
     
@@ -133,8 +131,8 @@
       [label setText:[NSString stringWithFormat:@"%.f", [value floatValue]]];
     }
 
+    [self setCommonPropertiesAndShow:slider fromDic:dic];
     [group setHidden:NO];
-    [slider setHidden:NO];
     return [dic valueForKey:@"callback"];
   }
 }
@@ -143,7 +141,6 @@
   if (dic == nil) {
     [table setHidden:YES];
   } else {
-    [self setAlpha:table fromDic:dic];
     NSMutableArray *rowTypes = [NSMutableArray arrayWithCapacity:2];
     NSArray *rows = [dic valueForKey:@"rows"];
     for (NSInteger i = 0; i < rows.count; i++) {
@@ -168,15 +165,8 @@
         [self setLabel:row.col2label fromDic:[rowDef objectForKey:@"col2label"]];
       }
     }
-    
-    [table setHidden:NO];
+    [self setCommonPropertiesAndShow:table fromDic:dic];
   }
-}
-
-// TODO WKInterfaceObject has more common properties
-+ (void) setAlpha:(WKInterfaceObject*) obj fromDic:(NSDictionary*)dic {
-  NSNumber *alpha = [dic valueForKey:@"alpha"];
-  [obj setAlpha:alpha == nil ? 1 /* full opaque (solid) */ : alpha.doubleValue];
 }
 
 // Assumes input like "#00FF00" (#RRGGBB)
@@ -207,6 +197,34 @@
   else if ([str isEqualToString:@"Speaker"]) return WKMenuItemIconSpeaker;
   else if ([str isEqualToString:@"Trash"])   return WKMenuItemIconTrash;
   else                                       return WKMenuItemIconInfo; // default
+}
+
+# pragma common methods in WKInterfaceObject
++ (void) setCommonPropertiesAndShow:(WKInterfaceObject*) obj fromDic:(NSDictionary*)dic {
+  [self setAlpha:obj fromDic:dic];
+  [self setWidth:obj fromDic:dic];
+  [self setHeight:obj fromDic:dic];
+  
+  [obj setHidden:NO];
+}
+
++ (void) setAlpha:(WKInterfaceObject*) obj fromDic:(NSDictionary*)dic {
+  NSNumber *alpha = [dic valueForKey:@"alpha"];
+  [obj setAlpha:alpha == nil ? 1 /* full opaque (solid) */ : alpha.doubleValue];
+}
+
++ (void) setWidth:(WKInterfaceObject*) obj fromDic:(NSDictionary*)dic {
+  NSNumber *width = [dic valueForKey:@"width"];
+  if (width != nil) {
+    [obj setWidth:width.doubleValue];
+  }
+}
+
++ (void) setHeight:(WKInterfaceObject*) obj fromDic:(NSDictionary*)dic {
+  NSNumber *height = [dic valueForKey:@"height"];
+  if (height != nil) {
+    [obj setHeight:height.doubleValue];
+  }
 }
 
 @end

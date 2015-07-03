@@ -1,10 +1,3 @@
-//
-//  AppDelegate+applewatch.h
-//
-//  Created by Eddy Verbruggen on 26/06/15.
-//
-//
-
 #import "AppDelegate.h"
 
 @interface AppDelegate (applewatch)

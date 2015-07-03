@@ -51,13 +51,11 @@ module.exports = function (context) {
     }
   }
 
-  if (watchKitAppTargetName === undefined) {
-    console.log("No WatchKit App found, please open your project in XCode, then do: File > New > Target > Apple Watch > WatchKit App");
-    return;
+  // the other script will complain if no target can be found
+  if (watchKitAppTargetName !== undefined) {
+    changeBuildTarget(setDeploymentTargetTo, watchKitAppTargetName);
+
+    // write the updated project file
+    fs.writeFileSync(pbxproj, myProj.writeSync());
   }
-
-  changeBuildTarget(setDeploymentTargetTo, watchKitAppTargetName);
-
-  // write the updated project file
-  fs.writeFileSync(pbxproj, myProj.writeSync());
 };

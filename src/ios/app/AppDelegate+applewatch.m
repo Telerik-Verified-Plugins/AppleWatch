@@ -1,10 +1,3 @@
-//
-//  AppDelegate+applewatch.m
-//
-//  Created by Eddy Verbruggen on 26/06/15.
-//
-//
-
 #import "AppDelegate+applewatch.h"
 #import "AppleWatch.h"
 #import <objc/runtime.h>
