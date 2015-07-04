@@ -137,8 +137,8 @@
     document.getElementById("feedback").innerHTML = on;
   }
 
-  function onVoted(val) {
-    feedback("voted: " + val);
+  function onUserInputResult(val) {
+    feedback("User input: " + val);
   }
 
   var sliderVal = 25;
@@ -277,11 +277,11 @@
       },
       'userInputButton': {
         'inputMode': 'WKTextInputModeAllowAnimatedEmoji', // WKTextInputModePlain, WKTextInputModeAllowEmoji, WKTextInputModeAllowAnimatedEmoji
-        'suggestions': ['foo', 'bar', 'shaz'],
+        'suggestions': ['Yes', 'No', 'Maybe'],
         'width':50,
         'height':25,
         'title': {
-          'value': 'Vote',
+          'value': 'Going?',
           'color': '#FFFFFF',
           'font': {
             'size': 10 // default 15
@@ -289,7 +289,7 @@
         },
         'color': '#CC0000',
         'alpha': 1, // default 1
-        'callback': 'onVoted'
+        'callback': 'onUserInputResult'
       },
       'pushNavButton': {
         'backTitle': 'baaack',
