@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <plugin
     id="cordova-plugin-applewatch"
-    version="0.0.4"
+    version="0.0.5"
     xmlns="http://apache.org/cordova/ns/plugins/1.0">
 
   <name>Apple Watch</name>
@@ -16,7 +16,6 @@
 
   <engines>
     <engine name="cordova" version=">=3.5.0"/>
-    <!-- TODO apple- prefix? -->
     <engine name="apple-ios" version=">=8.2.0"/>
   </engines>
 
@@ -42,8 +41,12 @@
     <header-file src="src/ios/lib/headers/MMWormhole.h" />
     <source-file src="src/ios/lib/libmmwormhole.a" framework="true" />
 
+    <!-- execute these once -->
     <hook type="after_plugin_install" src="src/ios/hooks/copy_watchkitfiles.js" />
     <hook type="after_plugin_install" src="src/ios/hooks/fix_watchkitapp_buildtarget.js" />
+
+    <!-- execute this one every time because the user may have done updates -->
+    <hook type="after_prepare" src="src/ios/hooks/copy_custom_storyboard.js" />
 
   </platform>
 

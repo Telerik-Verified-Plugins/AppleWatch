@@ -1,6 +1,3 @@
-// TODO app groups
-// TODO uninstall hook.. hmm (I think no priority, because Telerik Platform will likely simply remove the entire targets)
-
 var xcode = require('xcode'),
     pbxFile = require('xcode/lib/pbxFile'),
     path = require('path'),
