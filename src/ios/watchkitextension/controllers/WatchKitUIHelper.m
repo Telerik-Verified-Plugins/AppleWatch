@@ -1,7 +1,4 @@
-#import <Foundation/Foundation.h>
 #import "WatchKitUIHelper.h"
-#import "ImageLabelRowType.h"
-#import "TwoColumnsRowType.h"
 
 @implementation WatchKitUIHelper
 
@@ -67,6 +64,9 @@
   } else {
     CLLocationCoordinate2D coordinate = [self makeCoordinate:[dic valueForKey:@"center"]];
     NSNumber *zoom = [dic valueForKey:@"zoom"];
+    if (zoom == nil) {
+      zoom = [NSNumber numberWithFloat:0.1];
+    }
     MKCoordinateSpan span = MKCoordinateSpanMake([zoom floatValue], [zoom floatValue]);
     MKCoordinateRegion region = MKCoordinateRegionMake(coordinate, span);
     [map setRegion:region];
@@ -90,8 +90,10 @@
 + (CLLocationCoordinate2D) makeCoordinate:(NSDictionary*) dic {
   NSNumber *lat = [dic valueForKey:@"lat"];
   NSNumber *lng = [dic valueForKey:@"lng"];
-  CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake([lat floatValue], [lng floatValue]);
-  return coordinate;
+  if (lat == nil || lng == nil) {
+    [WatchKitHelper logError:@"Please specify 'lat' and 'lng', using defaults."];
+  }
+  return CLLocationCoordinate2DMake([lat floatValue], [lng floatValue]);
 }
 
 + (void) setButton:(WKInterfaceButton*)button fromDic:(NSDictionary*)dic {
@@ -105,7 +107,6 @@
       UIColor *theColor = [self colorFromHexString:hexColor];
       [button setBackgroundColor:theColor];
     }
-
     [self setCommonPropertiesAndShow:button fromDic:dic];
   }
 }

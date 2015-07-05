@@ -1,5 +1,4 @@
 #import "ParentInterfaceController.h"
-#import "WatchKitUIHelper.h"
 
 @implementation ParentInterfaceController
 
@@ -89,24 +88,70 @@
 }
 
 - (IBAction)contextMenuButton1Action {
-  [self openParent:@{@"action" : self.contextMenuButton1Callback}];
+  [WatchKitHelper openParent:self.contextMenuButton1Callback];
 }
 
 - (IBAction)contextMenuButton2Action {
-  [self openParent:@{@"action" : self.contextMenuButton2Callback}];
+  [WatchKitHelper openParent:self.contextMenuButton2Callback];
 }
 
 - (IBAction)contextMenuButton3Action {
-  [self openParent:@{@"action" : self.contextMenuButton3Callback}];
+  [WatchKitHelper openParent:self.contextMenuButton3Callback];
 }
 
 - (IBAction)contextMenuButton4Action {
-  [self openParent:@{@"action" : self.contextMenuButton4Callback}];
+  [WatchKitHelper openParent:self.contextMenuButton4Callback];
 }
 
-- (void) openParent:(NSDictionary*)dic {
-  [WKInterfaceController openParentApplication:dic reply:nil];
+- (IBAction)switch1Action:(BOOL)on {
+  if (self.switch1Callback) {
+    [WatchKitHelper openParent:self.switch1Callback withParams:@(on ? "true" : "false")];
+  } else {
+    [WatchKitHelper logError:@"No callback specified for switch1"];
+  }
 }
+
+- (IBAction)switch2Action:(BOOL)on {
+  if (self.switch2Callback) {
+    [WatchKitHelper openParent:self.switch2Callback withParams:@(on ? "true" : "false")];
+  }
+}
+
+- (IBAction)sliderAction:(float)value {
+  NSString *str = [NSString stringWithFormat:@"%.f", value];
+  [self.sliderLabel setText:str];
+  [WatchKitHelper openParent:self.sliderCallback withParams:str];
+}
+
+- (IBAction)buttonAction {
+  [WatchKitHelper openParent:self.actionButtonCallback];
+}
+
+- (IBAction)userInputButtonAction {
+  NSArray *suggestionsDef = [self.userInputButtonDic valueForKey:@"suggestions"];
+  NSMutableArray *suggestions = [NSMutableArray arrayWithCapacity:suggestionsDef.count];
+  for (NSInteger i = 0; i < suggestionsDef.count; i++) {
+    [suggestions addObject:suggestionsDef[i]];
+  }
+  long inputMode;
+  NSString *inputModeDef = [self.userInputButtonDic valueForKey:@"inputMode"];
+  if ([inputModeDef isEqualToString:@"WKTextInputModeAllowAnimatedEmoji"]) {
+    inputMode = WKTextInputModeAllowAnimatedEmoji;
+  } else  if ([inputModeDef isEqualToString:@"WKTextInputModeAllowEmoji"]) {
+    inputMode = WKTextInputModeAllowEmoji;
+  } else {
+    inputMode = WKTextInputModePlain;
+  }
+  [self presentTextInputControllerWithSuggestions:suggestions allowedInputMode:inputMode completion:^(NSArray *results) {
+    // will be nil if dismissed
+    if (results != nil) {
+      // results is usually a String, but can be NSData (emoji image), see http://www.fiveminutewatchkit.com/blog/2015/3/15/how-to-get-text-input-from-the-user
+      [WatchKitHelper openParent:[self.userInputButtonDic objectForKey:@"callback"] withParams:results[0]];
+    }
+  }];
+}
+
+//- (void)table:(WKInterfaceTable *)table didSelectRowAtIndex:(NSInteger)rowIndex {}
 
 - (void)willActivate {
   // This method is called when watch view controller is about to be visible to the user

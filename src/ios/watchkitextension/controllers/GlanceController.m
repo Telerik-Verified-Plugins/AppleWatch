@@ -3,7 +3,7 @@
 
 #import "MMWormhole.h"
 
-
+// TODO integrate with other controllers for major reuse
 @interface GlanceController()
 
 @property (nonatomic, strong) MMWormhole *wormhole;
@@ -12,7 +12,6 @@
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *header;
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *message;
 @property (nonatomic, weak) IBOutlet WKInterfaceImage *image;
-// TODO map (landkaartje met posities)
 
 @end
 

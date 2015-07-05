@@ -1,5 +1,7 @@
 #import <WatchKit/WatchKit.h>
 #import <Foundation/Foundation.h>
+#import "WatchKitHelper.h"
+#import "WatchKitUIHelper.h"
 #import "MMWormhole.h"
 
 @interface ParentInterfaceController : WKInterfaceController
@@ -34,7 +36,5 @@
 @property (retain, nonatomic) NSString *contextMenuButton2Callback;
 @property (retain, nonatomic) NSString *contextMenuButton3Callback;
 @property (retain, nonatomic) NSString *contextMenuButton4Callback;
-
-- (void) openParent:(NSDictionary*)dic;
 
 @end

@@ -1,5 +1,8 @@
 #import <WatchKit/WatchKit.h>
 #import <Foundation/Foundation.h>
+#import "WatchKitHelper.h"
+#import "ImageLabelRowType.h"
+#import "TwoColumnsRowType.h"
 
 @interface WatchKitUIHelper : NSObject
 
@@ -13,4 +16,5 @@
 + (NSDictionary*) setUserInputButton:(WKInterfaceButton*)button fromDic:(NSDictionary*)dic;
 + (void) setTable:(WKInterfaceTable*)table fromDic:(NSDictionary*)dic;
 + (WKMenuItemIcon) WKMenuItemIconFromString:(NSString*)str;
+
 @end

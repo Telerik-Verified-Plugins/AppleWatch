@@ -41,7 +41,7 @@
 <script>
 
   setTimeout(function () {
-    document.getElementById("feedback").innerHTML = localStorage.getItem("someOption");
+    feedback(localStorage.getItem("someOption"));
   }, 500);
 
   var remoteGET = function () {
@@ -134,7 +134,7 @@
 
   function onSomeOptionSelected(on) {
     localStorage.setItem("someOption", on);
-    document.getElementById("feedback").innerHTML = on;
+    feedback(on);
   }
 
   function onVoted(val) {
@@ -144,7 +144,7 @@
   var sliderVal = 25;
   function onSliderChanged(val) {
     sliderVal = val;
-    document.getElementById("feedback").innerHTML = "<br/>slider update: " + val;
+    feedback("<br/>slider update: " + val);
   }
 
   function onAppDetailPageRequestsUpdate() {
@@ -183,6 +183,15 @@
         'color': '#1884C4',
         'alpha': 1, // default 1
         'callback': 'onDetailPageButtonPressed'
+      },
+      'contextMenu': {
+        'items': [
+          {
+            'title': 'Delete',
+            'iconNamed': 'trash',
+            'callback': 'onContextMenuDelete'
+          }
+        ]
       }
     };
     // TODO create sendMessageToWatchApp(payload) function
@@ -361,11 +370,15 @@
   }
 
   function onContextMenuPlay() {
-    document.getElementById("feedback").innerHTML = "Play";
+    feedback("Play");
   }
 
   function onContextMenuResume() {
-    document.getElementById("feedback").innerHTML = "Resume";
+    feedback("Resume");
+  }
+
+  function onContextMenuDelete() {
+    feedback("Delete");
   }
 
   function onNotificationRegistrationSuccess(msg) {
@@ -411,11 +424,17 @@
         },
         // TODO dynamic
         "group.nl.xservices.applewatch",
+        // TODO kill this param
         "onGlanceRequestsUpdate" // note that this will only work when the app is running on the phone (either in the foreground or background)
     );
   }
 
-  document.addEventListener('deviceready', initAppleWatch, false);
+  document.addEventListener('deviceready', function() {
+    applewatch.callback.onError = function(message) {
+      feedback("Error: " + message);
+    };
+    initAppleWatch();
+  }, false);
 
 </script>
 </body>

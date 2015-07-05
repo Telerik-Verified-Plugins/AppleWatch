@@ -3,9 +3,11 @@ var exec = require("cordova/exec");
 var AppleWatch = function () {
 };
 
-AppleWatch.prototype.init = function (onSuccess, onError, appGroupId) {
+// TODO refactor onGlanceRequestsUpdate away
+AppleWatch.prototype.init = function (onSuccess, onError, appGroupId, onGlanceRequestsUpdate) {
   exec(onSuccess, onError, "AppleWatch", "init", [{
-    "appGroupId": appGroupId
+        "appGroupId": appGroupId,
+        "onGlanceRequestsUpdate": onGlanceRequestsUpdate
   }]);
 };
 
