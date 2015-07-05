@@ -1,6 +1,5 @@
-#import <WatchKit/WatchKit.h>
-#import <Foundation/Foundation.h>
+#import "ParentInterfaceController.h"
 
-@interface GlanceController : WKInterfaceController
+@interface GlanceController : ParentInterfaceController
 
 @end

@@ -10,10 +10,13 @@
             <objects>
                 <controller id="AgC-eL-Hgc" userLabel="Main" customClass="InterfaceController">
                     <items>
+                        <label width="1" alignment="center" text="label1" textAlignment="left" numberOfLines="2" id="sZq-bJ-dYC" userLabel="label1">
+                            <fontDescription key="font" type="system" pointSize="14"/>
+                        </label>
                         <group width="1" alignment="center" contentMode="top" layout="vertical" id="RZ8-RP-zhP" userLabel="UpperGroup">
                             <items>
                                 <imageView width="1" height="80" alignment="center" verticalAlignment="center" contentMode="scaleAspectFit" id="NaD-mO-aAN"/>
-                                <label width="1" alignment="center" verticalAlignment="center" text="label" textAlignment="center" numberOfLines="2" id="n9N-LZ-vmP">
+                                <label width="1" alignment="center" verticalAlignment="center" text="label2" textAlignment="center" numberOfLines="2" id="n9N-LZ-vmP">
                                     <fontDescription key="font" type="system" pointSize="14"/>
                                 </label>
                             </items>
@@ -110,8 +113,9 @@
                     </items>
                     <connections>
                         <outlet property="actionButton" destination="D6t-Ze-euK" id="NJH-vg-MHP"/>
-                        <outlet property="header" destination="n9N-LZ-vmP" id="NnA-Rx-mT3"/>
                         <outlet property="image" destination="NaD-mO-aAN" id="727-rs-Pxn"/>
+                        <outlet property="label1" destination="sZq-bJ-dYC" id="kHk-VH-1T7"/>
+                        <outlet property="label2" destination="n9N-LZ-vmP" id="Ze3-xx-6b1"/>
                         <outlet property="map" destination="cFR-Wx-pIT" id="NIp-Vc-8Iu"/>
                         <outlet property="modalNavButton" destination="7nw-Oc-fPW" id="zw1-YB-qzg"/>
                         <outlet property="pushNavButton" destination="yD4-4L-Xgu" id="xgM-T6-cld"/>
@@ -132,10 +136,13 @@
             <objects>
                 <controller id="dvy-i0-5db" userLabel="Details" customClass="DetailInterfaceController">
                     <items>
+                        <label width="1" alignment="center" text="label1" textAlignment="left" numberOfLines="2" id="as2-Ed-kFR" userLabel="label1">
+                            <fontDescription key="font" type="system" pointSize="14"/>
+                        </label>
                         <group width="1" alignment="center" contentMode="top" layout="vertical" id="LRL-pB-9bB" userLabel="UpperGroup">
                             <items>
                                 <imageView width="1" height="80" alignment="center" verticalAlignment="center" contentMode="scaleAspectFit" id="lC1-lp-Jr9"/>
-                                <label alignment="center" verticalAlignment="center" text="no js value yet" textAlignment="center" numberOfLines="2" id="y0M-ho-qYE">
+                                <label alignment="center" verticalAlignment="center" text="label2" textAlignment="center" numberOfLines="2" id="y0M-ho-qYE">
                                     <fontDescription key="font" type="system" pointSize="14"/>
                                 </label>
                             </items>
@@ -220,8 +227,9 @@
                     </items>
                     <connections>
                         <outlet property="actionButton" destination="Nsj-YO-GEe" id="Mhw-3g-avh"/>
-                        <outlet property="header" destination="y0M-ho-qYE" id="oBn-uB-VRC"/>
                         <outlet property="image" destination="lC1-lp-Jr9" id="HHR-3B-msQ"/>
+                        <outlet property="label1" destination="as2-Ed-kFR" id="LaR-PC-IuO"/>
+                        <outlet property="label2" destination="y0M-ho-qYE" id="x0r-34-0cZ"/>
                         <outlet property="map" destination="ptt-vg-k2n" id="ySN-Ij-Gct"/>
                         <outlet property="slider" destination="rZm-nF-rOi" id="7WA-bW-54L"/>
                         <outlet property="sliderGroup" destination="Uzv-it-m86" id="nYe-PF-N5S"/>
@@ -242,10 +250,10 @@
                     <items>
                         <group alignment="left" contentMode="center" layout="vertical" spacing="2" id="t8f-Gd-c4y">
                             <items>
-                                <label width="136" alignment="left" text="Header" id="Sug-Ye-hJw">
+                                <label width="136" alignment="left" text="label1" id="Sug-Ye-hJw">
                                     <fontDescription key="font" type="boldSystem" pointSize="12"/>
                                 </label>
-                                <label width="1" alignment="left" text="Message" numberOfLines="3" id="3QK-1v-Dmk">
+                                <label width="1" alignment="left" text="label2" numberOfLines="3" id="3QK-1v-Dmk">
                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                     <fontDescription key="font" type="system" pointSize="10"/>
                                 </label>
@@ -260,10 +268,10 @@
                     </items>
                     <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="14"/>
                     <connections>
-                        <outlet property="header" destination="Sug-Ye-hJw" id="V0n-b8-map"/>
-                        <outlet property="image" destination="kHn-tH-09y" id="5jE-5h-XGE"/>
-                        <outlet property="map" destination="Fmd-Ph-e4s" id="CNW-LY-awG"/>
-                        <outlet property="message" destination="3QK-1v-Dmk" id="ab1-5y-56P"/>
+                        <outlet property="image" destination="kHn-tH-09y" id="Ifj-61-GuB"/>
+                        <outlet property="label1" destination="Sug-Ye-hJw" id="5AF-1h-1u0"/>
+                        <outlet property="label2" destination="3QK-1v-Dmk" id="B11-Ba-Mfe"/>
+                        <outlet property="map" destination="Fmd-Ph-e4s" id="UM6-2Q-bAT"/>
                     </connections>
                 </glanceController>
             </objects>

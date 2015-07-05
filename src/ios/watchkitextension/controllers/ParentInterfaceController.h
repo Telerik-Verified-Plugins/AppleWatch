@@ -8,11 +8,16 @@
 
 @property (nonatomic, strong) MMWormhole *wormhole;
 
-@property (weak, nonatomic) IBOutlet WKInterfaceLabel *header;
+@property (weak, nonatomic) IBOutlet WKInterfaceLabel *label1;
+@property (weak, nonatomic) IBOutlet WKInterfaceLabel *label2;
+
 @property (weak, nonatomic) IBOutlet WKInterfaceTable *table;
+
 @property (weak, nonatomic) IBOutlet WKInterfaceImage *image;
+
 @property (weak, nonatomic) IBOutlet WKInterfaceSwitch *switch1;
 @property (weak, nonatomic) IBOutlet WKInterfaceSwitch *switch2;
+
 @property (weak, nonatomic) IBOutlet WKInterfaceMap *map;
 
 @property (weak, nonatomic) IBOutlet WKInterfaceGroup *sliderGroup;

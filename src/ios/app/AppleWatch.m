@@ -57,17 +57,15 @@
 
 - (void) sendMessage:(CDVInvokedUrlCommand*)command {
   NSDictionary *args = [command.arguments objectAtIndex:0];
-
-  NSString *queueName = [args objectForKey:@"queueName"];
-  NSMutableDictionary *dic = [args objectForKey:@"message"];
+  NSMutableDictionary *dic = [args objectForKey:@"payload"];
 
   NSString *pageID = [dic objectForKey:@"id"];
-  // TODO make this mandatory for sendMessageToWatchApp (which will be extracted from this method)
-  if (pageID != nil) {
-    queueName = [[queueName stringByAppendingString:@"-"] stringByAppendingString:pageID];
+  if (pageID == nil) {
+    [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"id is mandatory"] callbackId:command.callbackId];
+    return;
   }
-  
-  // TODO if we want to validate the input, do it here, not upstream
+
+  NSString* queueName = [@"fromjstowatchapp-" stringByAppendingString:pageID];
   
   // TODO for mulitple images, add an element in the json so we can translate to nsdata here [{}, {}]
   // TODO see SocialSharing for how to download images from the interwebs

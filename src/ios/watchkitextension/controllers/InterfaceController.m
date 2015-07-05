@@ -1,5 +1,5 @@
 #import "InterfaceController.h"
-#import "WatchKitUIHelper.h"
+#import "WatchKitHelper.h"
 
 @implementation InterfaceController
 
@@ -7,14 +7,10 @@
   return @"main";
 }
 
-- (void)awakeWithContext:(id)context {
-  [super awakeWithContext:context];
-}
-
 - (void)willActivate {
-  // This method is called when the watch view controller is about to be visible to the user
   [super willActivate];
-  [WKInterfaceController openParentApplication:@{@"action" : @"onAppRequestsUpdate"} reply:nil];
+  // TODO applewatch.callback.onAppRequestsUpdate
+  [WatchKitHelper openParent:@"onAppRequestsUpdate"];
 }
 
 # pragma custom callback actions

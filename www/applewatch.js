@@ -15,10 +15,9 @@ AppleWatch.prototype.registerNotifications = function (onSuccess, onError) {
   exec(onSuccess, onError, "AppleWatch", "registerNotifications", []);
 };
 
-AppleWatch.prototype.sendMessage = function (message, queueName, onSuccess, onError) {
+AppleWatch.prototype.sendMessage = function (payload, onSuccess, onError) {
   exec(onSuccess, onError, "AppleWatch", "sendMessage", [{
-    "queueName": queueName,
-    "message": message
+        "payload": payload
   }]);
 };
 
@@ -64,6 +63,13 @@ AppleWatch.prototype.purgeQueue = function (queueName, onSuccess, onError) {
 
 AppleWatch.prototype.purgeAllQueues = function (onSuccess, onError) {
   exec(onSuccess, onError, "AppleWatch", "purgeAllQueues", []);
+};
+
+// add a few default callbacks, override as you see fit (applewatch.callback.<callbackname> = function() {}
+AppleWatch.prototype.callback = {};
+// invoked when you've specified invalid UI elements, or in case you omitted a mandatory property
+AppleWatch.prototype.callback.onError = function(message) {
+  console.log("Error from Watch: " + message);
 };
 
 module.exports = new AppleWatch();

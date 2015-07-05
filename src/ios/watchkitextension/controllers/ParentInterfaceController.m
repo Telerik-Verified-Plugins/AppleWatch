@@ -27,7 +27,8 @@
 }
 
 - (void) hideAllWidgets {
-  [self.header setHidden:YES];
+  [self.label1 setHidden:YES];
+  [self.label2 setHidden:YES];
   [self.table setHidden:YES];
   [self.image setHidden:YES];
   [self.switch1 setHidden:YES];
@@ -64,7 +65,8 @@
   }
 
   // TODO rename to label1, etc
-  [WatchKitUIHelper setLabel:self.header fromDic:[messageObject valueForKey:@"header"]];
+  [WatchKitUIHelper setLabel:self.label1 fromDic:[messageObject valueForKey:@"label1"]];
+  [WatchKitUIHelper setLabel:self.label2 fromDic:[messageObject valueForKey:@"label2"]];
   [WatchKitUIHelper setImage:self.image fromDic:[messageObject valueForKey:@"image"]];
   [WatchKitUIHelper setTable:self.table fromDic:[messageObject valueForKey:@"table"]];
   [WatchKitUIHelper setMap:self.map fromDic:[messageObject valueForKey:@"map"]];
@@ -153,13 +155,13 @@
 
 //- (void)table:(WKInterfaceTable *)table didSelectRowAtIndex:(NSInteger)rowIndex {}
 
+// This method is called when watch view controller is about to be visible to the user
 - (void)willActivate {
-  // This method is called when watch view controller is about to be visible to the user
   [super willActivate];
 }
 
+// This method is called when watch view controller is no longer visible
 - (void)didDeactivate {
-  // This method is called when watch view controller is no longer visible
   [super didDeactivate];
   // be a good citizen.. btw, doing this here seems ugly but it's better than forgetting to do it in a subclass and leaving a mess
   if (![@"main" isEqualToString:[self getPageID]]) {

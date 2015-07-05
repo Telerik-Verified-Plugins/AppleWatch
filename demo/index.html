@@ -86,31 +86,34 @@
 
   function sendImageGlance() {
     var payload = {
+      'id': 'glance',
       'image': {
         'src': 'www/img/logo.png'
       }
     };
-    applewatch.sendMessage(payload, "fromjstowatchglance");
+    applewatch.sendMessage(payload);
   }
 
   function sendMessageImageGlance() {
     var payload = {
-      'message': {'value': 'Red message, a bit smaller image, no header to allow 3 lines', 'color': '#DD0000'}, // optional, max 2 lines
+      'id': 'glance',
+      'label2': {'value': 'Red message, a bit smaller image, no header to allow 3 lines', 'color': '#DD0000'}, // optional, max 2 lines
       'image': {'src': 'www/img/logo.png', 'width': '60'} // optional
     };
-    applewatch.sendMessage(payload, "fromjstowatchglance");
+    applewatch.sendMessage(payload);
   }
 
   function sendHeaderMessageImageGlance() {
     var payload = {
-      'header': {
+      'id': 'glance',
+      'label1': {
         'value': 'A gorgeous blue header',
         'color': '#1884C4',
         'font': { // optional
           'size': 10
         }
       }, // optional, max 1 line -> TODO JS object with color and value attribs?
-      'message': { // optional, max 2 lines
+      'label2': { // optional, max 2 lines
         'value': 'With a white message, served @ ' + new Date(),
         'color': '#FFFFFF',
         'font': {
@@ -119,7 +122,7 @@
       }, // optional, max 1 line -> TODO JS object with color and value attribs?
       'image': {'src': 'www/img/logo.png', 'alpha': 0.7} // optional
     };
-    applewatch.sendMessage(payload, "fromjstowatchglance");
+    applewatch.sendMessage(payload);
   }
 
   function onMainAppPageButtonPressed() {
@@ -151,8 +154,8 @@
     var d = new Date();
     var payload = {
       'id': 'detail', // mandatory
-      'title': 'Back', // optional, shown in the navbar
-      'header': {
+      'title': 'Back', // optional, shown in the navbar. Better not to set it if this is shown modally (because the default 'Cancel' is shown briefly first)
+      'label': {
         'value': 'Refreshed @ ' + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds(),
         'color': '#1884C4',
         'font': { // optional
@@ -195,7 +198,7 @@
       }
     };
     // TODO create sendMessageToWatchApp(payload) function
-    applewatch.sendMessage(payload, "fromjstowatchapp");
+    applewatch.sendMessage(payload);
   }
 
   function loadMainAppPage() {
@@ -203,15 +206,15 @@
     var payload = {
       'id': 'main', // mandatory
       'title': 'Demo', // optional
-      'header': {
-        'value': 'Updated at ' + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds(),
+      'label1': {
+        'value': 'Blue header label',
         'color': '#1884C4',
         'font': { // optional
           'size': 10
         }
       }, // optional, max 1 line -> TODO JS object with color and value attribs?
-      'message': { // optional, max 2 lines
-        'value': 'With a white message, served @ ' + new Date(),
+      'label2': { // optional, max 2 lines
+        'value': 'UI built @ ' + new Date(),
         'color': '#FFFFFF',
         'font': {
           'size': 8 // default 12
@@ -366,7 +369,7 @@
         ]
       }
     };
-    applewatch.sendMessage(payload, "fromjstowatchapp");
+    applewatch.sendMessage(payload);
   }
 
   function onContextMenuPlay() {
@@ -403,18 +406,6 @@
 
   function initAppleWatch() {
     applewatch.init(function (appGroupId) {
-          //                        alert("bla: " + appGroupId);
-          /*
-           // success, messages may now be sent or listened for
-           applewatch.addListener("fromwatchglancetojs", function (message) {
-           alert("msg received from glance: " + message);
-           });
-
-           applewatch.addListener("fromwatchapptojs", function (message) {
-           alert("msg received from app: " + message);
-           });
-           */
-
           // register for notifications
           //                        applewatch.registerNotifications(onNotificationRegistrationSuccess, onNotificationRegistrationError);
 
