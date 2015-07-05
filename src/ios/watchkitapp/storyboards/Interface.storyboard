@@ -182,11 +182,36 @@
                                 </tableRow>
                             </items>
                         </table>
-                        <switch width="1" alignment="left" hidden="YES" value="YES" title="Toggle" id="xbl-02-taT" userLabel="Switch">
+                        <switch width="1" alignment="left" value="YES" title="Switch1" id="QXf-VN-HRc" userLabel="Switch1">
+                            <fontDescription key="font" type="system" pointSize="12"/>
                             <connections>
-                                <action selector="switch1Action:" destination="dvy-i0-5db" id="hBm-Pr-ayT"/>
+                                <action selector="switch1Action:" destination="dvy-i0-5db" id="9AE-cF-3DI"/>
                             </connections>
                         </switch>
+                        <switch width="1" alignment="left" value="YES" title="Switch2" id="181-GK-FU9" userLabel="Switch2">
+                            <fontDescription key="font" type="system" pointSize="12"/>
+                            <connections>
+                                <action selector="switch2Action:" destination="dvy-i0-5db" id="wGq-jg-Haw"/>
+                            </connections>
+                        </switch>
+                        <group width="1" alignment="left" layout="vertical" id="Uzv-it-m86" userLabel="SliderGroup">
+                            <items>
+                                <slider width="1" alignment="left" value="50" maximum="100" steps="10" id="rZm-nF-rOi">
+                                    <connections>
+                                        <action selector="sliderAction:" destination="dvy-i0-5db" id="y6b-dc-lcz"/>
+                                    </connections>
+                                </slider>
+                                <label alignment="center" text="Slider value" textAlignment="center" id="1zH-1u-9br" userLabel="SliderLabel">
+                                    <fontDescription key="font" type="system" pointSize="10"/>
+                                </label>
+                            </items>
+                        </group>
+                        <map height="100" alignment="center" id="ptt-vg-k2n"/>
+                        <button width="1" alignment="center" title="Ask user input" id="m3c-9K-kv8" userLabel="UserInputButton">
+                            <connections>
+                                <action selector="userInputButtonAction" destination="dvy-i0-5db" id="27L-PQ-2Qx"/>
+                            </connections>
+                        </button>
                         <button width="1" alignment="left" title="Do action" id="Nsj-YO-GEe" userLabel="ActionButton">
                             <connections>
                                 <action selector="buttonAction" destination="dvy-i0-5db" id="Obl-ej-b2f"/>
@@ -197,12 +222,18 @@
                         <outlet property="actionButton" destination="Nsj-YO-GEe" id="Mhw-3g-avh"/>
                         <outlet property="header" destination="y0M-ho-qYE" id="oBn-uB-VRC"/>
                         <outlet property="image" destination="lC1-lp-Jr9" id="HHR-3B-msQ"/>
-                        <outlet property="switch1" destination="xbl-02-taT" id="Lq4-w6-Bsa"/>
+                        <outlet property="map" destination="ptt-vg-k2n" id="ySN-Ij-Gct"/>
+                        <outlet property="slider" destination="rZm-nF-rOi" id="7WA-bW-54L"/>
+                        <outlet property="sliderGroup" destination="Uzv-it-m86" id="nYe-PF-N5S"/>
+                        <outlet property="sliderLabel" destination="1zH-1u-9br" id="lda-vV-03W"/>
+                        <outlet property="switch1" destination="QXf-VN-HRc" id="DAt-cA-Uq8"/>
+                        <outlet property="switch2" destination="181-GK-FU9" id="Ou2-zO-Q82"/>
                         <outlet property="table" destination="zu2-85-OBs" id="3KK-ZX-5f9"/>
+                        <outlet property="userInputButton" destination="m3c-9K-kv8" id="fT1-UA-B5M"/>
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="205" y="-11.75"/>
+            <point key="canvasLocation" x="140" y="-16.75"/>
         </scene>
         <!--Glance Interface Controller-->
         <scene sceneID="BOz-TT-tkC">
@@ -220,9 +251,10 @@
                                 </label>
                             </items>
                         </group>
-                        <group alignment="left" id="uCw-4Q-Ouw">
+                        <group alignment="left" layout="vertical" id="uCw-4Q-Ouw">
                             <items>
-                                <imageView width="1" height="1" alignment="center" verticalAlignment="center" contentMode="scaleAspectFit" id="kHn-tH-09y"/>
+                                <imageView width="1" height="1" alignment="center" contentMode="scaleAspectFit" id="kHn-tH-09y"/>
+                                <map height="100" alignment="center" id="Fmd-Ph-e4s"/>
                             </items>
                         </group>
                     </items>
@@ -230,6 +262,7 @@
                     <connections>
                         <outlet property="header" destination="Sug-Ye-hJw" id="V0n-b8-map"/>
                         <outlet property="image" destination="kHn-tH-09y" id="5jE-5h-XGE"/>
+                        <outlet property="map" destination="Fmd-Ph-e4s" id="CNW-LY-awG"/>
                         <outlet property="message" destination="3QK-1v-Dmk" id="ab1-5y-56P"/>
                     </connections>
                 </glanceController>

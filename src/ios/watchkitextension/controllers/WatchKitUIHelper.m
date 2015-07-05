@@ -6,11 +6,17 @@
 }
 
 + (NSAttributedString*) getAttributedStringFrom:(NSDictionary*)dic {
-  NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:[dic valueForKey:@"value"]];
+  NSString* value = [dic valueForKey:@"value"];
+  if (value == nil) {
+    value = @"";
+    [WatchKitHelper logError:@"No 'value' specified, using '' as default"];
+  }
+  NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:value];
 
   NSString *hexColor = [dic valueForKey:@"color"];
+  // default white
   UIColor *color = hexColor == nil ? [UIColor whiteColor] : [self colorFromHexString:hexColor];
-  [attrString addAttribute:NSForegroundColorAttributeName value:color range:NSMakeRange(0, attrString.string.length)];
+  [attrString addAttribute:NSForegroundColorAttributeName value:color range:NSMakeRange(0, value.length)];
 
   NSDictionary *fontdef = [dic valueForKey:@"font"];
   if (fontdef != nil && [fontdef valueForKey:@"size"] != nil) {
@@ -27,7 +33,7 @@
     UIFont *font = [UIFont systemFontOfSize:fsize];
     if (font != nil) {
       // range can be used to apply the style to a substring of the label
-      [attrString addAttribute:NSFontAttributeName value:font range:NSMakeRange(0, attrString.string.length)];
+      [attrString addAttribute:NSFontAttributeName value:font range:NSMakeRange(0, value.length)];
     }
   }
   return attrString;
@@ -47,13 +53,6 @@
     [image setHidden:YES];
   } else {
     [image setImageData:[dic valueForKey:@"src"]];
-    
-    NSNumber *width = [dic valueForKey:@"width"];
-    [image setWidth:width == nil ? 0 /* natural size */ : width.doubleValue];
-    
-    NSNumber *height = [dic valueForKey:@"height"];
-    [image setHeight:height == nil ? 0 /* natural size */ : height.doubleValue];
-    
     [self setCommonPropertiesAndShow:image fromDic:dic];
   }
 }
@@ -65,6 +64,7 @@
     CLLocationCoordinate2D coordinate = [self makeCoordinate:[dic valueForKey:@"center"]];
     NSNumber *zoom = [dic valueForKey:@"zoom"];
     if (zoom == nil) {
+      [WatchKitHelper logError:@"No 'zoom' specified, using '0.1' by default"];
       zoom = [NSNumber numberWithFloat:0.1];
     }
     MKCoordinateSpan span = MKCoordinateSpanMake([zoom floatValue], [zoom floatValue]);
@@ -74,24 +74,18 @@
     [map removeAllAnnotations];
     NSArray *annotations = [dic valueForKey:@"annotations"];
     for (int i = 0; i < annotations.count; i++) {
-      NSDictionary* annotationDef = annotations[i];
-      [self addAnnotation:annotationDef forItemAtIndex:i toMap:map];
+      NSDictionary* anDef = annotations[i];
+      [map addAnnotation:[self makeCoordinate:anDef] withPinColor:[self WKInterfaceMapPinColorFromString:[anDef valueForKey:@"pinColor"]]];
     }
-
     [self setCommonPropertiesAndShow:map fromDic:dic];
   }
-}
-
-+ (void) addAnnotation:(NSDictionary*)annotation forItemAtIndex:(int)index toMap:(WKInterfaceMap*)map {
-  WKInterfaceMapPinColor color = [self WKInterfaceMapPinColorFromString:[annotation valueForKey:@"pinColor"]];
-  [map addAnnotation:[self makeCoordinate:annotation] withPinColor:color];
 }
 
 + (CLLocationCoordinate2D) makeCoordinate:(NSDictionary*) dic {
   NSNumber *lat = [dic valueForKey:@"lat"];
   NSNumber *lng = [dic valueForKey:@"lng"];
   if (lat == nil || lng == nil) {
-    [WatchKitHelper logError:@"Please specify 'lat' and 'lng', using defaults."];
+    [WatchKitHelper logError:@"Please specify 'lat' and 'lng', using defaults (0)"];
   }
   return CLLocationCoordinate2DMake([lat floatValue], [lng floatValue]);
 }
@@ -230,14 +224,20 @@
   else if ([str isEqualToString:@"shuffle"]) return WKMenuItemIconShuffle;
   else if ([str isEqualToString:@"speaker"]) return WKMenuItemIconSpeaker;
   else if ([str isEqualToString:@"trash"])   return WKMenuItemIconTrash;
-  else                                       return WKMenuItemIconInfo; // default
+  else {
+    [WatchKitHelper logError:@"No 'iconNamed' specified, using 'info' by default"];
+    return WKMenuItemIconInfo;
+  }
 }
 
 + (WKInterfaceMapPinColor) WKInterfaceMapPinColorFromString:(NSString*)str {
        if ([str isEqualToString:@"green"])   return WKInterfaceMapPinColorGreen;
   else if ([str isEqualToString:@"purple"])  return WKInterfaceMapPinColorPurple;
   else if ([str isEqualToString:@"red"])     return WKInterfaceMapPinColorRed;
-  else                                       return WKInterfaceMapPinColorRed; // default
+  else {
+    [WatchKitHelper logError:@"No 'pinColor' specified, using 'red' by default"];
+    return WKInterfaceMapPinColorRed;
+  }
 }
 
 # pragma common methods in WKInterfaceObject

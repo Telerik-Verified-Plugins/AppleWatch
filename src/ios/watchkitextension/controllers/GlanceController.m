@@ -12,6 +12,7 @@
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *header;
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *message;
 @property (nonatomic, weak) IBOutlet WKInterfaceImage *image;
+@property (nonatomic, weak) IBOutlet WKInterfaceMap *map;
 
 @end
 
@@ -25,6 +26,7 @@
   [self.header setHidden:YES];
   [self.message setHidden:YES];
   [self.image setHidden:YES];
+  [self.map setHidden:YES];
   
   self.wormhole = [[MMWormhole alloc] initWithApplicationGroupIdentifier:@"group.nl.xservices.applewatch"
                                                        optionalDirectory:@"wormhole"];
