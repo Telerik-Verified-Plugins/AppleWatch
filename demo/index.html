@@ -118,7 +118,7 @@
         }
       }, // optional, max 1 line -> TODO JS object with color and value attribs?
       'image': {'src': 'www/img/logo.png', 'alpha': 0.7} // optional
-    }
+    };
     applewatch.sendMessage(payload, "fromjstowatchglance");
   }
 
@@ -137,8 +137,8 @@
     document.getElementById("feedback").innerHTML = on;
   }
 
-  function onUserInputResult(val) {
-    feedback("User input: " + val);
+  function onVoted(val) {
+    feedback("voted: " + val);
   }
 
   var sliderVal = 25;
@@ -218,11 +218,42 @@
         'callback': 'onSliderChanged',
         'hideValue': false // default false, allows to now show the value below the slider
       },
-      'switch': {
+      'switch1': {
         'title': localStorage.getItem("origin"),
         'on': (localStorage.getItem("someOption") == "true"),
         'color': '#CC0000',
         'callback': 'onSomeOptionSelected'
+      },
+      'switch2': {
+        'title': 'Foo?',
+        'on': true,
+        'color': '#02779E'
+      },
+      'map': {
+        'center' : {
+          // Eddy's home
+          'lat': 52.1851552,
+          'lng': 5.3996181
+        },
+        // Entire Netherlands
+        'zoom' : 4.1, // 0.001 is about streetlevel, 4 fits the entire Netherlands
+        'annotations': [ // up to 5 annotations (custom pins), any more are ignored (play with the zoom value to make them all fit)
+          {
+            'pinColor':'green',
+            'lat':52.1851,
+            'lng':5.3996
+          },
+          {
+            'pinColor':'red',
+            'lat':51.751,
+            'lng':8.4
+          },
+          {
+            'pinColor':'purple',
+            'lat':50.2251,
+            'lng':4.7196
+          }
+        ]
       },
       // NOTE: switch is not possible because it needs an outlet for the returnvalue.. and those can't be inside repeating elements (rowtype)
       'table': { // this element is superawesomesauce! It's mighty flexible and extendible :)
@@ -264,24 +295,24 @@
       'actionButton': {
         'title': {
           'value': 'Refresh',
-          'color': '#BBBBBB',
+          'color': '#02779E',
           'font': {
-            'size': 20 // default 15
+            'size': 18 // default 15
           }
         },
-        'color': '#1884C4',
-        'width':90,
-        'height':50,
+        'color': '#FFFFFF',
+        'width':80,
+        'height':44,
         'alpha': 1, // default 1
         'callback': 'onMainAppPageButtonPressed'
       },
       'userInputButton': {
         'inputMode': 'WKTextInputModeAllowAnimatedEmoji', // WKTextInputModePlain, WKTextInputModeAllowEmoji, WKTextInputModeAllowAnimatedEmoji
-        'suggestions': ['Yes', 'No', 'Maybe'],
+        'suggestions': ['foo', 'bar', 'shaz'],
         'width':50,
         'height':25,
         'title': {
-          'value': 'Going?',
+          'value': 'Vote',
           'color': '#FFFFFF',
           'font': {
             'size': 10 // default 15
@@ -289,7 +320,7 @@
         },
         'color': '#CC0000',
         'alpha': 1, // default 1
-        'callback': 'onUserInputResult'
+        'callback': 'onVoted'
       },
       'pushNavButton': {
         'backTitle': 'baaack',
@@ -309,18 +340,18 @@
       // triggered by force touch
       // TODO see https://developer.apple.com/library/ios/documentation/General/Conceptual/WatchKitProgrammingGuide/Menus.html#//apple_ref/doc/uid/TP40014969-CH15-SW1
       'contextMenu': {
-        // configure up to 4 items
+        // configure up to 4 items (any more will be ignored)
         'items': [
           {
             'title': 'Play',
             //                     'image':'www/..',
             //                     'imageNamed':'',
-            'iconNamed': 'Play', // https://developer.apple.com/library/ios/documentation/WatchKit/Reference/WKInterfaceController_class/index.html#//apple_ref/doc/c_ref/WKMenuItemIcon
+            'iconNamed': 'play', // https://developer.apple.com/library/ios/documentation/WatchKit/Reference/WKInterfaceController_class/index.html#//apple_ref/doc/c_ref/WKMenuItemIcon
             'callback': 'onContextMenuPlay'
           },
           {
             'title': 'Resume',
-            'iconNamed': 'Resume',
+            'iconNamed': 'resume',
             'callback': 'onContextMenuResume'
           }
         ]

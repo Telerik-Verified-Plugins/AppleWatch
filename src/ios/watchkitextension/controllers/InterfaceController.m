@@ -55,7 +55,15 @@
 }
 
 - (IBAction)switch1Action:(BOOL)on {
-  [self openParent:@{@"action" : self.switchCallback, @"params" : @(on ? "true" : "false")}];
+  if (self.switch1Callback) {
+    [self openParent:@{@"action" : self.switch1Callback, @"params" : @(on ? "true" : "false")}];
+  }
+}
+
+- (IBAction)switch2Action:(BOOL)on {
+  if (self.switch2Callback) {
+    [self openParent:@{@"action" : self.switch2Callback, @"params" : @(on ? "true" : "false")}];
+  }
 }
 
 - (IBAction)sliderAction:(float)value {

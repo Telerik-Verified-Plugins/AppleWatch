@@ -61,6 +61,39 @@
   }
 }
 
++ (void) setMap:(WKInterfaceMap*)map fromDic:(NSDictionary*)dic {
+  if (dic == nil) {
+    [map setHidden:YES];
+  } else {
+    CLLocationCoordinate2D coordinate = [self makeCoordinate:[dic valueForKey:@"center"]];
+    NSNumber *zoom = [dic valueForKey:@"zoom"];
+    MKCoordinateSpan span = MKCoordinateSpanMake([zoom floatValue], [zoom floatValue]);
+    MKCoordinateRegion region = MKCoordinateRegionMake(coordinate, span);
+    [map setRegion:region];
+
+    [map removeAllAnnotations];
+    NSArray *annotations = [dic valueForKey:@"annotations"];
+    for (int i = 0; i < annotations.count; i++) {
+      NSDictionary* annotationDef = annotations[i];
+      [self addAnnotation:annotationDef forItemAtIndex:i toMap:map];
+    }
+
+    [self setCommonPropertiesAndShow:map fromDic:dic];
+  }
+}
+
++ (void) addAnnotation:(NSDictionary*)annotation forItemAtIndex:(int)index toMap:(WKInterfaceMap*)map {
+  WKInterfaceMapPinColor color = [self WKInterfaceMapPinColorFromString:[annotation valueForKey:@"pinColor"]];
+  [map addAnnotation:[self makeCoordinate:annotation] withPinColor:color];
+}
+
++ (CLLocationCoordinate2D) makeCoordinate:(NSDictionary*) dic {
+  NSNumber *lat = [dic valueForKey:@"lat"];
+  NSNumber *lng = [dic valueForKey:@"lng"];
+  CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake([lat floatValue], [lng floatValue]);
+  return coordinate;
+}
+
 + (void) setButton:(WKInterfaceButton*)button fromDic:(NSDictionary*)dic {
   if (dic == nil) {
     [button setHidden:YES];
@@ -178,25 +211,32 @@
   return [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
 }
 
-// st00pid ObjC enums :{
+#pragma st00pid ObjC enums
 + (WKMenuItemIcon) WKMenuItemIconFromString:(NSString*)str {
-       if ([str isEqualToString:@"Accept"])  return WKMenuItemIconAccept;
-  else if ([str isEqualToString:@"Add"])     return WKMenuItemIconAdd;
-  else if ([str isEqualToString:@"Block"])   return WKMenuItemIconBlock;
-  else if ([str isEqualToString:@"Decline"]) return WKMenuItemIconDecline;
-  else if ([str isEqualToString:@"Info"])    return WKMenuItemIconInfo;
-  else if ([str isEqualToString:@"Maybe"])   return WKMenuItemIconMaybe;
-  else if ([str isEqualToString:@"More"])    return WKMenuItemIconMore;
-  else if ([str isEqualToString:@"Mute"])    return WKMenuItemIconMute;
-  else if ([str isEqualToString:@"Pause"])   return WKMenuItemIconPause;
-  else if ([str isEqualToString:@"Play"])    return WKMenuItemIconPlay;
-  else if ([str isEqualToString:@"Repeat"])  return WKMenuItemIconRepeat;
-  else if ([str isEqualToString:@"Resume"])  return WKMenuItemIconResume;
-  else if ([str isEqualToString:@"Share"])   return WKMenuItemIconShare;
-  else if ([str isEqualToString:@"Shuffle"]) return WKMenuItemIconShuffle;
-  else if ([str isEqualToString:@"Speaker"]) return WKMenuItemIconSpeaker;
-  else if ([str isEqualToString:@"Trash"])   return WKMenuItemIconTrash;
+       if ([str isEqualToString:@"accept"])  return WKMenuItemIconAccept;
+  else if ([str isEqualToString:@"add"])     return WKMenuItemIconAdd;
+  else if ([str isEqualToString:@"block"])   return WKMenuItemIconBlock;
+  else if ([str isEqualToString:@"decline"]) return WKMenuItemIconDecline;
+  else if ([str isEqualToString:@"info"])    return WKMenuItemIconInfo;
+  else if ([str isEqualToString:@"maybe"])   return WKMenuItemIconMaybe;
+  else if ([str isEqualToString:@"more"])    return WKMenuItemIconMore;
+  else if ([str isEqualToString:@"mute"])    return WKMenuItemIconMute;
+  else if ([str isEqualToString:@"pause"])   return WKMenuItemIconPause;
+  else if ([str isEqualToString:@"play"])    return WKMenuItemIconPlay;
+  else if ([str isEqualToString:@"repeat"])  return WKMenuItemIconRepeat;
+  else if ([str isEqualToString:@"resume"])  return WKMenuItemIconResume;
+  else if ([str isEqualToString:@"share"])   return WKMenuItemIconShare;
+  else if ([str isEqualToString:@"shuffle"]) return WKMenuItemIconShuffle;
+  else if ([str isEqualToString:@"speaker"]) return WKMenuItemIconSpeaker;
+  else if ([str isEqualToString:@"trash"])   return WKMenuItemIconTrash;
   else                                       return WKMenuItemIconInfo; // default
+}
+
++ (WKInterfaceMapPinColor) WKInterfaceMapPinColorFromString:(NSString*)str {
+       if ([str isEqualToString:@"green"])   return WKInterfaceMapPinColorGreen;
+  else if ([str isEqualToString:@"purple"])  return WKInterfaceMapPinColorPurple;
+  else if ([str isEqualToString:@"red"])     return WKInterfaceMapPinColorRed;
+  else                                       return WKInterfaceMapPinColorRed; // default
 }
 
 # pragma common methods in WKInterfaceObject

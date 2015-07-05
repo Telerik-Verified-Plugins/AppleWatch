@@ -62,10 +62,16 @@
                                 </tableRow>
                             </items>
                         </table>
-                        <switch width="1" alignment="left" value="YES" title="Switch" id="WQK-vU-RvF" userLabel="Switch">
+                        <switch width="1" alignment="left" value="YES" title="Switch1" id="WQK-vU-RvF" userLabel="Switch1">
                             <fontDescription key="font" type="system" pointSize="12"/>
                             <connections>
                                 <action selector="switch1Action:" destination="AgC-eL-Hgc" id="0rB-Pi-TOt"/>
+                            </connections>
+                        </switch>
+                        <switch width="1" alignment="left" value="YES" title="Switch2" id="IqS-rZ-9pa" userLabel="Switch2">
+                            <fontDescription key="font" type="system" pointSize="12"/>
+                            <connections>
+                                <action selector="switch2Action:" destination="AgC-eL-Hgc" id="Rhz-Je-LpF"/>
                             </connections>
                         </switch>
                         <group width="1" alignment="left" layout="vertical" id="FRS-JD-ZEz" userLabel="SliderGroup">
@@ -80,6 +86,7 @@
                                 </label>
                             </items>
                         </group>
+                        <map height="100" alignment="center" id="cFR-Wx-pIT"/>
                         <button width="1" alignment="center" title="Ask user input" id="ePd-8c-jy1" userLabel="UserInputButton">
                             <connections>
                                 <action selector="userInputButtonAction" destination="AgC-eL-Hgc" id="iZc-cn-nH4"/>
@@ -105,12 +112,14 @@
                         <outlet property="actionButton" destination="D6t-Ze-euK" id="NJH-vg-MHP"/>
                         <outlet property="header" destination="n9N-LZ-vmP" id="NnA-Rx-mT3"/>
                         <outlet property="image" destination="NaD-mO-aAN" id="727-rs-Pxn"/>
+                        <outlet property="map" destination="cFR-Wx-pIT" id="NIp-Vc-8Iu"/>
                         <outlet property="modalNavButton" destination="7nw-Oc-fPW" id="zw1-YB-qzg"/>
                         <outlet property="pushNavButton" destination="yD4-4L-Xgu" id="xgM-T6-cld"/>
                         <outlet property="slider" destination="ZmR-gh-Ovk" id="JL2-xQ-Gxb"/>
                         <outlet property="sliderGroup" destination="FRS-JD-ZEz" id="M7D-vW-pLq"/>
                         <outlet property="sliderLabel" destination="TkT-SV-2k0" id="wQm-U8-ws5"/>
                         <outlet property="switch1" destination="WQK-vU-RvF" id="eWb-jc-JC2"/>
+                        <outlet property="switch2" destination="IqS-rZ-9pa" id="2XN-TV-PGh"/>
                         <outlet property="table" destination="IW0-Zg-Deq" id="Htj-hg-YSB"/>
                         <outlet property="userInputButton" destination="ePd-8c-jy1" id="FDx-IE-Iwh"/>
                     </connections>

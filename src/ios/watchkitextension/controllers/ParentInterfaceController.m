@@ -32,6 +32,8 @@
   [self.table setHidden:YES];
   [self.image setHidden:YES];
   [self.switch1 setHidden:YES];
+  [self.switch2 setHidden:YES];
+  [self.map setHidden:YES];
   [self.sliderGroup setHidden:YES];
   [self.slider setHidden:YES];
   [self.sliderLabel setHidden:YES];
@@ -62,10 +64,13 @@
     self.contextMenuButton4Callback = [self addContextMenuItem:items forItemAtIndex:3 performSelector:@selector(contextMenuButton4Action)];
   }
 
+  // TODO rename to label1, etc
   [WatchKitUIHelper setLabel:self.header fromDic:[messageObject valueForKey:@"header"]];
   [WatchKitUIHelper setImage:self.image fromDic:[messageObject valueForKey:@"image"]];
   [WatchKitUIHelper setTable:self.table fromDic:[messageObject valueForKey:@"table"]];
-  self.switchCallback = [WatchKitUIHelper setSwitch:self.switch1 fromDic:[messageObject valueForKey:@"switch"]];
+  [WatchKitUIHelper setMap:self.map fromDic:[messageObject valueForKey:@"map"]];
+  self.switch1Callback = [WatchKitUIHelper setSwitch:self.switch1 fromDic:[messageObject valueForKey:@"switch1"]];
+  self.switch2Callback = [WatchKitUIHelper setSwitch:self.switch2 fromDic:[messageObject valueForKey:@"switch2"]];
   self.sliderCallback = [WatchKitUIHelper setSlider:self.slider withLabel:self.sliderLabel inGroup:self.sliderGroup fromDic:[messageObject valueForKey:@"slider"]];
   self.pushNavButtonCallback = [WatchKitUIHelper setButtonWithCallback:self.pushNavButton fromDic:[messageObject valueForKey:@"pushNavButton"]];
   self.modalNavButtonCallback = [WatchKitUIHelper setButtonWithCallback:self.modalNavButton fromDic:[messageObject valueForKey:@"modalNavButton"]];
