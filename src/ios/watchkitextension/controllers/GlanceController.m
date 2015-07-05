@@ -9,7 +9,7 @@
 
 - (void)willActivate {
   [super willActivate];
-  // TODO applewatch.callback.onGlanceRequestsUpdate
+  // TODO applewatch.callback.onGlanceRequestsUpdate, or something with [self getPageID]
   [WatchKitHelper openParent:@"onGlanceRequestsUpdate"];
 }
 
