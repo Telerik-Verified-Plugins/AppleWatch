@@ -1,7 +1,7 @@
 #import <WatchKit/WatchKit.h>
 #import <Foundation/Foundation.h>
 
-@interface ImageLabelRowType : NSObject
+@interface SelectableImageLabelRowType : NSObject
 
 @property (weak, nonatomic) IBOutlet WKInterfaceGroup* group;
 

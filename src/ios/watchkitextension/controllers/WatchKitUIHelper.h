@@ -1,11 +1,13 @@
 #import <WatchKit/WatchKit.h>
 #import <Foundation/Foundation.h>
 #import "WatchKitHelper.h"
+#import "SelectableImageLabelRowType.h"
 #import "ImageLabelRowType.h"
 #import "TwoColumnsRowType.h"
 
 @interface WatchKitUIHelper : NSObject
 
++ (void) setGroup:(WKInterfaceGroup*)group fromDic:(NSDictionary*)dic;
 + (void) setLabel:(WKInterfaceLabel*)label fromDic:(NSDictionary*)dic;
 + (void) setImage:(WKInterfaceImage*)image fromDic:(NSDictionary*)dic;
 + (void) setButton:(WKInterfaceButton*)button fromDic:(NSDictionary*)dic;

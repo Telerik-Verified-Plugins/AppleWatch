@@ -8,6 +8,8 @@
 
 @property (nonatomic, strong) MMWormhole *wormhole;
 
+@property (weak, nonatomic) IBOutlet WKInterfaceGroup *wrapper;
+
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *label1;
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *label2;
 

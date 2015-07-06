@@ -48,6 +48,20 @@
   }
 }
 
++ (void) setGroup:(WKInterfaceGroup*)group fromDic:(NSDictionary*)dic {
+  NSString *hexColor = [dic valueForKey:@"backgroundColor"];
+  if (hexColor != nil) {
+    [group setBackgroundColor:[self colorFromHexString:hexColor]];
+  }
+
+  NSNumber *cornerRadius = [dic valueForKey:@"cornerRadius"];
+  if (cornerRadius != nil) {
+    [group setCornerRadius:[cornerRadius floatValue]];
+  }
+
+  [self setCommonPropertiesAndShow:group fromDic:dic];
+}
+
 + (void) setImage:(WKInterfaceImage*)image fromDic:(NSDictionary*)dic {
   if (dic == nil) {
     [image setHidden:YES];
@@ -96,7 +110,7 @@
   } else {
     [button setAttributedTitle:[self getAttributedStringFrom:[dic valueForKey:@"title"]]];
 
-    NSString *hexColor = [dic valueForKey:@"color"];
+    NSString *hexColor = [dic valueForKey:@"backgroundColor"];
     if (hexColor != nil) {
       UIColor *theColor = [self colorFromHexString:hexColor];
       [button setBackgroundColor:theColor];
@@ -181,16 +195,23 @@
     for (NSInteger i = 0; i < rows.count; i++) {
       NSDictionary* rowDef = rows[i];
 
-      if ([rowTypes[i] isEqualToString:@"ImageLabelRowType"]) {
+      if ([rowTypes[i] isEqualToString:@"SelectableImageLabelRowType"]) {
+        SelectableImageLabelRowType* row = [table rowControllerAtIndex:i];
+        // TODO images
+        [self setLabel:row.label fromDic:[rowDef objectForKey:@"label"]];
+        [self setGroup:row.group fromDic:[rowDef objectForKey:@"group"]];
+
+      } else if ([rowTypes[i] isEqualToString:@"ImageLabelRowType"]) {
         ImageLabelRowType* row = [table rowControllerAtIndex:i];
-        [row.label setText:[rowDef objectForKey:@"label"]];
-      }
-      
-      // See this for clickable rows: http://blog.numerousapp.com/2014/12/09/watch-dev-2.html
-      if ([rowTypes[i] isEqualToString:@"TwoColumnsRowType"]) {
+        // TODO images
+        [self setLabel:row.label fromDic:[rowDef objectForKey:@"label"]];
+        [self setGroup:row.group fromDic:[rowDef objectForKey:@"group"]];
+
+      } else if ([rowTypes[i] isEqualToString:@"TwoColumnsRowType"]) {
         TwoColumnsRowType* row = [table rowControllerAtIndex:i];
         [self setLabel:row.col1label fromDic:[rowDef objectForKey:@"col1label"]];
         [self setLabel:row.col2label fromDic:[rowDef objectForKey:@"col2label"]];
+        [self setGroup:row.group fromDic:[rowDef objectForKey:@"group"]];
       }
     }
     [self setCommonPropertiesAndShow:table fromDic:dic];

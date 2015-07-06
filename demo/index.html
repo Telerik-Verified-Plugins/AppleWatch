@@ -132,7 +132,7 @@
 
   function onDetailPageButtonPressed() {
     // do some action here, then update the app
-    onAppDetailPageRequestsUpdate();
+    onAppDetailPageRequestsUpdate('Did action ;)');
   }
 
   function onSomeOptionSelected(on) {
@@ -150,28 +150,42 @@
     feedback("<br/>slider update: " + val);
   }
 
-  function onAppDetailPageRequestsUpdate() {
+  function onAppDetailPageRequestsUpdate(fromAction) {
     var d = new Date();
     var payload = {
       'id': 'detail', // mandatory
+      'group': { // the page wrapper. the defaults are probably best though
+        'cornerRadius':0
+      },
       'title': 'Back', // optional, shown in the navbar. Better not to set it if this is shown modally (because the default 'Cancel' is shown briefly first)
-      'label': {
+      'label1': {
         'value': 'Refreshed @ ' + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds(),
         'color': '#1884C4',
         'font': { // optional
           'size': 10
         }
       },
+      'label2': {
+        'value' : fromAction === undefined ? 'Default text :)' : fromAction
+      },
       'table': { // this element is superawesome.. it's quite flexible and extendible, but it can't have actions
         'rows': [
           {
             'type': 'ImageLabelRowType', // available types are specified in ObjC
-            'label': 'With image',
+            'group': {
+              'backgroundColor':'#1884C4',
+              'cornerRadius':8
+            },
+            'label': {'value':'With image'},
             'image': 'www/img/logo.png' // TODO process in plugin code
           },
           {
             'type': 'ImageLabelRowType',
-            'label': '2nd, no image'
+            'group': {
+              'backgroundColor':'#1884C4',
+              'cornerRadius':8
+            },
+            'label': {'value':'2nd, no img'}
           }
         ]
       },
@@ -205,6 +219,10 @@
     var d = new Date();
     var payload = {
       'id': 'main', // mandatory
+      'group': { // the page wrapper. the defaults are probably best
+        'backgroundColor':'#1884C4',
+        'cornerRadius':0
+      },
       'title': 'Demo', // optional
       'label1': {
         'value': 'Blue header label',
@@ -226,7 +244,7 @@
       'slider': {
         'steps': 20, // of 100, so each step is 5 in this case
         'value': sliderVal, // of 100, so this is a percentage
-        'color': '#1884C4',
+        'color': '#FFA500',
         'callback': 'onSliderChanged',
         'hideValue': false // default false, allows to now show the value below the slider
       },
@@ -270,8 +288,7 @@
       // NOTE: switch is not possible because it needs an outlet for the returnvalue.. and those can't be inside repeating elements (rowtype)
       'table': { // this element is superawesomesauce! It's mighty flexible and extendible :)
         'alpha': 1,
-        // TODO rename ImageLabelRowType to OneColumnRowType
-        // TODO also, a 'selectable' version of the OneColumnRowType (rowtype property, see https://developer.apple.com/library/ios/documentation/General/Conceptual/WatchKitProgrammingGuide/Tables.html)
+        // TODO rename (Selectable)ImageLabelRowType to (Selectable)OneColumnRowType .. and stack everything horizontally
         'rows': [
           /*
            {
@@ -281,15 +298,34 @@
            },
            */
           {
+            // interesting doc on selectable items in a row: http://blog.numerousapp.com/2014/12/09/watch-dev-2.html
+            'type': 'SelectableImageLabelRowType',
+            'label': {
+              'value': 'Selectable row, no img',
+              'color': '#FFFFFF',
+              'font': {
+                'size': 10
+              }
+            }
+          },
+          {
             'type': 'ImageLabelRowType',
-            'label': 'First row, no img' // TODO like header (with font, etc)
+            // wrapping these in a group so its usage and processing is predictable
+            'group': {
+              'backgroundColor':'#FFFFFF',
+              'cornerRadius':16
+            },
+            'label': {
+              'value':'Right img (todo)',
+              'color':'#1884C4'
+            }
           },
           {
             'type': 'TwoColumnsRowType',
-            // TODO or col1 : {}, etc?
+            // TODO or col1 : {}, etc? probably better, so we can reuse the col object (even for the 1 col rows)
             'col1label': {
               'value': '50%',
-              'color': '#CC0000',
+              'color': '#FFA500',
               'font': {
                 'size': 18 // default 12
               }
@@ -305,11 +341,12 @@
         ]
       },
       'actionButton': {
+        'x-backgroundColor': '#1884C4',
         'title': {
           'value': 'Refresh',
-          'color': '#02779E',
+          'color': '#FFA500',
           'font': {
-            'size': 18 // default 15
+            'size': 17
           }
         },
         'color': '#FFFFFF',
@@ -330,7 +367,7 @@
             'size': 10 // default 15
           }
         },
-        'color': '#CC0000',
+        'backgroundColor': '#CC0000',
         'alpha': 1, // default 1
         'callback': 'onVoted'
       },
@@ -339,7 +376,7 @@
         'title': {
           'value': 'Push nav'
         },
-        'color': '#1884C4',
+        'backgroundColor': '#FFA500',
         'alpha': 1 // default 1
       },
       'modalNavButton': {
@@ -347,7 +384,7 @@
         'title': {
           'value': 'Modal nav'
         },
-        'color': '#1884C4'
+        'backgroundColor': '#FFA500'
       },
       // triggered by force touch
       // TODO see https://developer.apple.com/library/ios/documentation/General/Conceptual/WatchKitProgrammingGuide/Menus.html#//apple_ref/doc/uid/TP40014969-CH15-SW1

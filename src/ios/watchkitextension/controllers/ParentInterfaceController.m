@@ -26,6 +26,18 @@
                                userInfo:nil];
 }
 
+- (id)contextForSegueWithIdentifier:(NSString*)segueIdentifier {
+  // here we can pass data to the next page's awakeWithContext method
+  return nil;
+}
+
+- (void)table:(WKInterfaceTable *)table didSelectRowAtIndex:(NSInteger)rowIndex {
+  // TODO we probably want to:
+  // a) nav to the detailpage here, or
+  // b) send the selected item back to JS, or
+  // c) both
+}
+
 - (void) hideAllWidgets {
   [self.label1 setHidden:YES];
   [self.label2 setHidden:YES];
@@ -56,7 +68,7 @@
   if ([messageObject valueForKey:@"contextMenu"] != nil) {
     [self clearAllMenuItems];
     NSDictionary *contextMenuItems = [messageObject valueForKey:@"contextMenu"];
-    // TODO if items can not be found, nslog it - same for other expected values as well
+    // TODO if items can not be found, log it - same for other expected values
     NSArray *items = [contextMenuItems valueForKey:@"items"];
     self.contextMenuButton1Callback = [self addContextMenuItem:items forItemAtIndex:0 performSelector:@selector(contextMenuButton1Action)];
     self.contextMenuButton2Callback = [self addContextMenuItem:items forItemAtIndex:1 performSelector:@selector(contextMenuButton2Action)];
@@ -64,7 +76,7 @@
     self.contextMenuButton4Callback = [self addContextMenuItem:items forItemAtIndex:3 performSelector:@selector(contextMenuButton4Action)];
   }
 
-  // TODO rename to label1, etc
+  [WatchKitUIHelper setGroup:self.wrapper fromDic:[messageObject valueForKey:@"group"]];
   [WatchKitUIHelper setLabel:self.label1 fromDic:[messageObject valueForKey:@"label1"]];
   [WatchKitUIHelper setLabel:self.label2 fromDic:[messageObject valueForKey:@"label2"]];
   [WatchKitUIHelper setImage:self.image fromDic:[messageObject valueForKey:@"image"]];
@@ -153,7 +165,15 @@
   }];
 }
 
-//- (void)table:(WKInterfaceTable *)table didSelectRowAtIndex:(NSInteger)rowIndex {}
+// when the app is launched from a notification. If launched from app icon in notification UI, identifier will be empty
+- (void)handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)remoteNotification {
+  //  int i=0; // eg. "firstButtonAction"
+}
+
+// when the app is launched from a notification. If launched from app icon in notification UI, identifier will be empty
+- (void)handleActionWithIdentifier:(NSString *)identifier forLocalNotification:(UILocalNotification *)localNotification {
+  //  int i=0;
+}
 
 // This method is called when watch view controller is about to be visible to the user
 - (void)willActivate {

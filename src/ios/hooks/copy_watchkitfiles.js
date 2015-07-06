@@ -13,6 +13,7 @@ module.exports = function (context) {
     "InterfaceController.h",
     "NotificationController.h",
     "ParentInterfaceController.h",
+    "SelectableImageLabelRowType.h",
     "TwoColumnsRowType.h",
     "WatchKitHelper.h",
     "WatchKitUIHelper.h"
@@ -25,6 +26,7 @@ module.exports = function (context) {
     "InterfaceController.m",
     "NotificationController.m",
     "ParentInterfaceController.m",
+    "SelectableImageLabelRowType.m",
     "TwoColumnsRowType.m",
     "WatchKitHelper.m",
     "WatchKitUIHelper.m"

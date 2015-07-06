@@ -3,6 +3,8 @@
 
 @interface TwoColumnsRowType : NSObject
 
+@property (weak, nonatomic) IBOutlet WKInterfaceGroup* group;
+
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel* col1label;
 @property (weak, nonatomic) IBOutlet WKInterfaceImage* col1image;
 
