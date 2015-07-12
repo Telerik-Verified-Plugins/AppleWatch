@@ -34,6 +34,7 @@
 
     <div>Feedback from Watch App:</div>
     <div style="font-weight:bold" id="feedback"></div>
+    <img id="image" src="" style="max-width: 150px"/>
   </div>
 </div>
 <script type="text/javascript" src="cordova.js"></script>
@@ -42,7 +43,7 @@
 
   setTimeout(function () {
     feedback(localStorage.getItem("someOption"));
-  }, 500);
+  }, 1000);
 
   var remoteGET = function () {
     if (localStorage.getItem("origin") != null) {
@@ -70,7 +71,7 @@
   function onAppRequestsUpdate() {
     // proof that remote networking works with the app being inactive,
     // but I don't want to wait for it to return before rendering the watch UI (need a fast dev cycle)
-    remoteGET();
+    //remoteGET();
     loadMainAppPage();
   }
 
@@ -82,11 +83,10 @@
     alert("noti send nok: " + msg);
   }
 
-  // TODO convenience methods in the plugin JS API would be nice: applewatch.sendToGlance/App(/Both?)
-
+  // TODO convenience methods in the plugin JS API would be nice: applewatch.sendToGlance/AppMain/AppDetail which sets the ID
   function sendImageGlance() {
     var payload = {
-      'id': 'glance',
+      'id': 'Glance',
       'image': {
         'src': 'www/img/logo.png'
       }
@@ -96,7 +96,7 @@
 
   function sendMessageImageGlance() {
     var payload = {
-      'id': 'glance',
+      'id': 'Glance',
       'label2': {'value': 'Red message, a bit smaller image, no header to allow 3 lines', 'color': '#DD0000'}, // optional, max 2 lines
       'image': {'src': 'www/img/logo.png', 'width': '60'} // optional
     };
@@ -105,7 +105,7 @@
 
   function sendHeaderMessageImageGlance() {
     var payload = {
-      'id': 'glance',
+      'id': 'Glance',
       'label1': {
         'value': 'A gorgeous blue header',
         'color': '#1884C4',
@@ -140,8 +140,13 @@
     feedback(on);
   }
 
-  function onVoted(val) {
-    feedback("voted: " + val);
+  function onVoted(result) {
+    if (result.type == "base64img") {
+      feedback("vote result:");
+      document.getElementById("image").src = result.data;
+    } else {
+      feedback("vote result: " + result.data);
+    }
   }
 
   var sliderVal = 25;
@@ -153,7 +158,7 @@
   function onAppDetailPageRequestsUpdate(fromAction) {
     var d = new Date();
     var payload = {
-      'id': 'detail', // mandatory
+      'id': 'AppDetail', // mandatory
       'group': { // the page wrapper. the defaults are probably best though
         'cornerRadius':0
       },
@@ -218,7 +223,7 @@
   function loadMainAppPage() {
     var d = new Date();
     var payload = {
-      'id': 'main', // mandatory
+      'id': 'AppMain', // mandatory
       'group': { // the page wrapper. the defaults are probably best
         'backgroundColor':'#1884C4',
         'cornerRadius':0
@@ -358,13 +363,13 @@
       'userInputButton': {
         'inputMode': 'WKTextInputModeAllowAnimatedEmoji', // WKTextInputModePlain, WKTextInputModeAllowEmoji, WKTextInputModeAllowAnimatedEmoji
         'suggestions': ['foo', 'bar', 'shaz'],
-        'width':50,
-        'height':25,
+        'width':60,
+        'height':30,
         'title': {
           'value': 'Vote',
           'color': '#FFFFFF',
           'font': {
-            'size': 10 // default 15
+            'size': 12 // default 15
           }
         },
         'backgroundColor': '#CC0000',
@@ -432,9 +437,9 @@
       "badge": 0
     };
 
-    //        setTimeout(function() {
-    //            applewatch.sendNotification(onNotificationSendSuccess, onNotificationSendError, payload);
-    //        }, 4000);
+    //setTimeout(function() {
+    //  applewatch.sendNotification(onNotificationSendSuccess, onNotificationSendError, payload);
+    //}, 4000);
   }
 
   function onNotificationRegistrationError(msg) {
@@ -444,15 +449,18 @@
   function initAppleWatch() {
     applewatch.init(function (appGroupId) {
           // register for notifications
-          //                        applewatch.registerNotifications(onNotificationRegistrationSuccess, onNotificationRegistrationError);
-
-        }, function (err) {
-          alert("err: " + JSON.stringify(err));
+          //applewatch.registerNotifications(onNotificationRegistrationSuccess, onNotificationRegistrationError);
+        },
+        function (err) {
           // an error occurred
+          alert("err: " + JSON.stringify(err));
         },
         // TODO dynamic
         "group.nl.xservices.applewatch"
     );
+    applewatch.callback.onLoadAppMain = onAppRequestsUpdate;
+    applewatch.callback.onLoadAppDetail = onAppDetailPageRequestsUpdate;
+    applewatch.callback.onLoadGlance = onGlanceRequestsUpdate;
   }
 
   document.addEventListener('deviceready', function() {

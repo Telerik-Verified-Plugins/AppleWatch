@@ -4,13 +4,7 @@
 @implementation GlanceController
 
 - (NSString*) getPageID {
-  return @"glance";
-}
-
-- (void)willActivate {
-  [super willActivate];
-  // TODO applewatch.callback.onGlanceRequestsUpdate, or something with [self getPageID]
-  [WatchKitHelper openParent:@"onGlanceRequestsUpdate"];
+  return @"Glance";
 }
 
 @end

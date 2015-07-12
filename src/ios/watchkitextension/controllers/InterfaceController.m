@@ -4,13 +4,7 @@
 @implementation InterfaceController
 
 - (NSString*) getPageID {
-  return @"main";
-}
-
-- (void)willActivate {
-  [super willActivate];
-  // TODO applewatch.callback.onAppRequestsUpdate, or something with [self getPageID]
-  [WatchKitHelper openParent:@"onAppRequestsUpdate"];
+  return @"AppMain";
 }
 
 @end

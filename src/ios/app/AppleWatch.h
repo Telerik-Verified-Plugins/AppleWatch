@@ -4,7 +4,6 @@
 @interface AppleWatch : CDVPlugin
 
 @property BOOL initDone;
-@property (nonatomic, copy) NSString *callback;
 
 - (void) init:(CDVInvokedUrlCommand*)command;
 - (void) registerNotifications:(CDVInvokedUrlCommand*)command;

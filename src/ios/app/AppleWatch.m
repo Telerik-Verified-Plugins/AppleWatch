@@ -11,15 +11,12 @@
 
 @implementation AppleWatch
 
-@synthesize callback;
-
 - (void) init:(CDVInvokedUrlCommand*)command;
 {
     CDVPluginResult* pluginResult = nil;
 
     NSMutableDictionary *args = [command.arguments objectAtIndex:0];
     NSString *appGroupId = [args objectForKey:@"appGroupId"];
-    self.callback = [args objectForKey:@"onGlanceRequestsUpdate"];
 
     if ([appGroupId length] == 0)
     {

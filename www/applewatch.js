@@ -69,5 +69,11 @@ AppleWatch.prototype.callback = {};
 AppleWatch.prototype.callback.onError = function(message) {
   console.log("Error from Watch: " + message);
 };
+//AppleWatch.prototype.callback.reportIfNotDefined = function(what) {
+//  console.log("Please implement the function applewatch.callback." + what + " = function() { your code here }");
+//};
+//AppleWatch.prototype.callback.updatemain   = AppleWatch.callback.reportIfNotDefined("updatemain");
+//AppleWatch.prototype.callback.updatedetail = AppleWatch.callback.reportIfNotDefined("updatedetail");
+//AppleWatch.prototype.callback.updateglance = AppleWatch.callback.reportIfNotDefined("updateglance");
 
 module.exports = new AppleWatch();

@@ -2,6 +2,7 @@
 #import "AppleWatch.h"
 #import <objc/runtime.h>
 #import "MainViewController.h"
+#import <ImageIO/ImageIO.h>
 
 static char watchKitRequestKey;
 
@@ -17,13 +18,22 @@ static char watchKitRequestKey;
   NSString* jsFunction = [userInfo objectForKey:@"action"];
 
   // TODO if params is NSData, we should transform it into an image
-  NSString* params = [userInfo objectForKey:@"params"];
+  NSString* params;
+  
+  if ([jsFunction isEqualToString:@"onVoted"]) {
+    if ([[userInfo objectForKey:@"params"] isKindOfClass:[NSData class]]) {
+      // animated gif
+      params = [NSString stringWithFormat:@"{'type':'base64img', 'data':'data:image/gif;base64,%@'}", [[userInfo objectForKey:@"params"] base64EncodedStringWithOptions:0]];
+    } else {
+      // text label, emoji, dictated text
+      params = [NSString stringWithFormat:@"{'type':'text', 'data':'%@'}", [userInfo objectForKey:@"params"]];
+    }
+  } else {
+    params = [NSString stringWithFormat:@"'%@'", [userInfo objectForKey:@"params"]];
+  }
 
-  NSMutableString *result = [[NSMutableString alloc] init];
-  [result appendString:jsFunction];
-  [result appendString:@"(\""];
-  [result appendString:params == nil ? @"" : params];
-  [result appendString:@"\")"];
+  // TODO stringwithformat
+  NSString* result = [NSString stringWithFormat:@"%@(%@)", jsFunction, params == nil ? @"" : params];
   [self callJavascriptFunctionWhenAvailable:result];
 
   // no need to wait as data is passed back async
