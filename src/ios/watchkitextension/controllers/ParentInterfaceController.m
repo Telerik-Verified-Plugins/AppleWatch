@@ -9,8 +9,11 @@
   [self hideAllWidgets];
 
   // Initialize the wormhole
-  // TODO appgroupID must be dynamic
-  self.wormhole = [[MMWormhole alloc] initWithApplicationGroupIdentifier:@"group.nl.xservices.applewatch"
+  NSString *appGroup = [NSString stringWithFormat:@"group.%@", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"]];
+  appGroup = [appGroup stringByReplacingOccurrencesOfString:@".watchkitextension" withString:@""];
+
+  // @"group.nl.xservices.applewatch"
+  self.wormhole = [[MMWormhole alloc] initWithApplicationGroupIdentifier:appGroup
                                                        optionalDirectory:@"wormhole"];
   
   NSString *wormholeIdentifier = [@"fromjstowatchapp-" stringByAppendingString:[self getPageID]];

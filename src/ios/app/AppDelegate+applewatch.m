@@ -2,24 +2,13 @@
 #import "AppleWatch.h"
 #import <objc/runtime.h>
 #import "MainViewController.h"
-#import <ImageIO/ImageIO.h>
-
-static char watchKitRequestKey;
 
 @implementation AppDelegate (applewatch)
 
-// static UIBackgroundTaskIdentifier backgroundTaskId;
-
 - (void)application:(UIApplication *)application handleWatchKitExtensionRequest:(NSDictionary *)userInfo reply:(void(^)(NSDictionary *replyInfo))reply {
 
-  // TODO not used yet, consider removing
-  self.watchKitRequest = userInfo;
-
   NSString* jsFunction = [userInfo objectForKey:@"action"];
-
-  // TODO if params is NSData, we should transform it into an image
   NSString* params;
-  
   if ([jsFunction isEqualToString:@"onVoted"]) {
     if ([[userInfo objectForKey:@"params"] isKindOfClass:[NSData class]]) {
       // animated gif
@@ -32,7 +21,6 @@ static char watchKitRequestKey;
     params = [NSString stringWithFormat:@"'%@'", [userInfo objectForKey:@"params"]];
   }
 
-  // TODO stringwithformat
   NSString* result = [NSString stringWithFormat:@"%@(%@)", jsFunction, params == nil ? @"" : params];
   [self callJavascriptFunctionWhenAvailable:result];
 
@@ -46,7 +34,6 @@ static char watchKitRequestKey;
   AppleWatch *appleWatch = [self.viewController getCommandInstance:@"AppleWatch"];
   if (appleWatch.initDone) {
     [appleWatch.webView stringByEvaluatingJavaScriptFromString:function];
-//    [appleWatch test2];
   } else {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 25 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
       [self callJavascriptFunctionWhenAvailable:function];
@@ -56,18 +43,5 @@ static char watchKitRequestKey;
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
 }
-
-- (NSMutableArray *)watchKitRequest {
-  return objc_getAssociatedObject(self, &watchKitRequestKey);
-}
-
-- (void)setWatchKitRequest:(NSDictionary *)aDictionary {
-  objc_setAssociatedObject(self, &watchKitRequestKey, aDictionary, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (void)dealloc {
-  self.watchKitRequest	= nil;
-}
-
 
 @end

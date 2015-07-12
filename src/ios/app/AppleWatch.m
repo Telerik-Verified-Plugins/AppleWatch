@@ -11,23 +11,12 @@
 
 @implementation AppleWatch
 
-- (void) init:(CDVInvokedUrlCommand*)command;
-{
-    CDVPluginResult* pluginResult = nil;
+- (void) init:(CDVInvokedUrlCommand*)command {
+    NSString *appGroup = [NSString stringWithFormat:@"group.%@", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"]];
 
-    NSMutableDictionary *args = [command.arguments objectAtIndex:0];
-    NSString *appGroupId = [args objectForKey:@"appGroupId"];
+    self.wormhole = [[MMWormhole alloc] initWithApplicationGroupIdentifier:appGroup optionalDirectory:@"wormhole"];
 
-    if ([appGroupId length] == 0)
-    {
-        appGroupId = [NSString stringWithFormat:@"group.%@", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"]];
-    }
-
-    self.wormhole = [[MMWormhole alloc] initWithApplicationGroupIdentifier:appGroupId optionalDirectory:@"wormhole"];
-
-    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:appGroupId];
-
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
 
     self.initDone = YES;
 }

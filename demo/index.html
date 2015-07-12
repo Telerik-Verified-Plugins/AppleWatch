@@ -447,28 +447,24 @@
   }
 
   function initAppleWatch() {
-    applewatch.init(function (appGroupId) {
+    applewatch.init(function () {
           // register for notifications
           //applewatch.registerNotifications(onNotificationRegistrationSuccess, onNotificationRegistrationError);
         },
         function (err) {
           // an error occurred
           alert("err: " + JSON.stringify(err));
-        },
-        // TODO dynamic
-        "group.nl.xservices.applewatch"
-    );
+        });
+
     applewatch.callback.onLoadAppMain = onAppRequestsUpdate;
     applewatch.callback.onLoadAppDetail = onAppDetailPageRequestsUpdate;
     applewatch.callback.onLoadGlance = onGlanceRequestsUpdate;
-  }
-
-  document.addEventListener('deviceready', function() {
     applewatch.callback.onError = function(message) {
       feedback("Error: " + message);
     };
-    initAppleWatch();
-  }, false);
+  }
+
+  document.addEventListener('deviceready', initAppleWatch, false);
 
 </script>
 </body>
