@@ -73,6 +73,23 @@
   [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
 }
 
+- (void) navigate:(CDVInvokedUrlCommand*)command {
+  NSDictionary *args = [command.arguments objectAtIndex:0];
+  NSMutableDictionary *dic = [args objectForKey:@"payload"];
+  
+  NSString *pageID = [dic objectForKey:@"id"];
+  if (pageID == nil) {
+    [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"id is mandatory"] callbackId:command.callbackId];
+    return;
+  }
+  
+  // the main page handles page navigation sa that's the page who's wormhole should be active
+  NSString* queueName = @"fromjstowatchapp-navigation";
+  
+  [self.wormhole passMessageObject:dic identifier:queueName];
+  [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
+}
+
 // TODO: this doesn't work in the sim, so perhaps return an error in that case (see calendar plugin)
 // -- OR BETTER YET in that case: reroute to remote notification which does work in sim
 - (void) sendNotification:(CDVInvokedUrlCommand*)command;

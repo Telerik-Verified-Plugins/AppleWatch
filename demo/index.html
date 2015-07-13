@@ -149,6 +149,25 @@
     }
   }
 
+    function onTableRowSelected(index) {
+      feedback('Selected row: ' + index);
+      if (index == 0) {
+
+        // TODO this will change
+        var payload = {
+          'id': 'AppDetail'
+        };
+
+//        applewatch.navigateToDetail();
+        applewatch.navigate(payload);
+
+      }
+    }
+
+    function onDetailTableRowSelected(index) {
+      feedback('Selected detail row: ' + index);
+    }
+
   var sliderVal = 25;
   function onSliderChanged(val) {
     sliderVal = val;
@@ -173,7 +192,8 @@
       'label2': {
         'value' : fromAction === undefined ? 'Default text :)' : fromAction
       },
-      'table': { // this element is superawesome.. it's quite flexible and extendible, but it can't have actions
+        'table': { // this element is superawesome.. it's quite flexible and extendible. It can't have buttons, but it can have a callback which gets the selected row index.
+          'callback':'onDetailTableRowSelected',
         'rows': [
           {
             'type': 'ImageLabelRowType', // available types are specified in ObjC
@@ -290,10 +310,10 @@
           }
         ]
       },
-      // NOTE: switch is not possible because it needs an outlet for the returnvalue.. and those can't be inside repeating elements (rowtype)
-      'table': { // this element is superawesomesauce! It's mighty flexible and extendible :)
+        'table': { // this element is superawesome.. it's quite flexible and extendible. It can't have buttons, but it can have a callback which gets the selected row index.
+          'callback':'onTableRowSelected',
         'alpha': 1,
-        // TODO rename (Selectable)ImageLabelRowType to (Selectable)OneColumnRowType .. and stack everything horizontally
+          // TODO rename (Selectable)ImageLabelRowType to (Selectable)OneColumnRowType
         'rows': [
           /*
            {

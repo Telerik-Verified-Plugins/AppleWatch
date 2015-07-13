@@ -179,9 +179,10 @@
   }
 }
 
-+ (void) setTable:(WKInterfaceTable*)table fromDic:(NSDictionary*)dic {
++ (NSString*) setTable:(WKInterfaceTable*)table fromDic:(NSDictionary*)dic {
   if (dic == nil) {
     [table setHidden:YES];
+    return nil;
   } else {
     NSMutableArray *rowTypes = [NSMutableArray arrayWithCapacity:2];
     NSArray *rows = [dic valueForKey:@"rows"];
@@ -215,6 +216,7 @@
       }
     }
     [self setCommonPropertiesAndShow:table fromDic:dic];
+    return [dic valueForKey:@"callback"];
   }
 }
 

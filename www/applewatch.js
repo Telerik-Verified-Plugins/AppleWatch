@@ -19,6 +19,12 @@ AppleWatch.prototype.sendMessage = function (payload, onSuccess, onError) {
   }]);
 };
 
+AppleWatch.prototype.navigate = function (payload, onSuccess, onError) {
+  exec(onSuccess, onError, "AppleWatch", "navigate", [{
+        "payload": payload
+  }]);
+};
+
 AppleWatch.prototype.sendNotification = function (onSuccess, onError, payload) {
   exec(onSuccess, onError, "AppleWatch", "sendNotification", [payload]);
 };

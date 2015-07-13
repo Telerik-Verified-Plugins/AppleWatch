@@ -35,6 +35,7 @@
 @property (retain, nonatomic) NSString *actionButtonCallback;
 @property (retain, nonatomic) NSString *pushNavButtonCallback;
 @property (retain, nonatomic) NSString *modalNavButtonCallback;
+@property (retain, nonatomic) NSString *tableCallback;
 @property (retain, nonatomic) NSString *switch1Callback;
 @property (retain, nonatomic) NSString *switch2Callback;
 @property (retain, nonatomic) NSString *sliderCallback;

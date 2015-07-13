@@ -8,7 +8,7 @@
         <!--Main-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller id="AgC-eL-Hgc" userLabel="Main" customClass="InterfaceController">
+                <controller identifier="AppMain" id="AgC-eL-Hgc" userLabel="Main" customClass="InterfaceController">
                     <items>
                         <group width="1" alignment="center" layout="vertical" id="7W0-qv-nMv" userLabel="Wrapper">
                             <items>
@@ -162,7 +162,7 @@
         <!--Details-->
         <scene sceneID="Gjw-3i-SCP">
             <objects>
-                <controller id="dvy-i0-5db" userLabel="Details" customClass="DetailInterfaceController">
+                <controller identifier="AppDetail" id="dvy-i0-5db" userLabel="Details" customClass="DetailInterfaceController">
                     <items>
                         <group width="1" alignment="center" layout="vertical" id="DYL-tI-8n4" userLabel="Wrapper">
                             <items>

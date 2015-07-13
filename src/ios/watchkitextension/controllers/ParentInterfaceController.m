@@ -16,9 +16,14 @@
   self.wormhole = [[MMWormhole alloc] initWithApplicationGroupIdentifier:appGroup
                                                        optionalDirectory:@"wormhole"];
   
+  // TODO a wormhole is only started when navigated to, so js can't send a message to a new page...
   NSString *wormholeIdentifier = [@"fromjstowatchapp-" stringByAppendingString:[self getPageID]];
   [self.wormhole listenForMessageWithIdentifier:wormholeIdentifier listener:^(id messageObject) {
-    [self buildUI:messageObject];
+//    if ([messageObject valueForKey:@"navigateTo"] != nil) {
+//      [self pushControllerWithName:@"details" context:messageObject];
+//    } else {
+      [self buildUI:messageObject];
+//    }
   }];
 }
 
@@ -39,6 +44,11 @@
   // a) nav to the detailpage here, or
   // b) send the selected item back to JS, or
   // c) both
+  if (self.tableCallback) {
+    [WatchKitHelper openParent:self.tableCallback withParams:[@(rowIndex) stringValue]];
+  } else {
+    [WatchKitHelper logError:@"A table row was selected, but no callback was specified"];
+  }
 }
 
 - (void) hideAllWidgets {
@@ -59,8 +69,6 @@
 }
 
 - (void) buildUI:(NSDictionary*)messageObject {
-  //  [WatchKitUIHelper setLabel:self.message fromDic:[messageObject valueForKey:@"message"]];
-
   // the page title, in case we're not showing the root page
   if ([messageObject valueForKey:@"title"] != nil) {
     [self setTitle:[messageObject valueForKey:@"title"]];
@@ -68,6 +76,7 @@
     [self setTitle:nil];
   }
 
+  // the menu, triggered by a force touch
   if ([messageObject valueForKey:@"contextMenu"] != nil) {
     [self clearAllMenuItems];
     NSDictionary *contextMenuItems = [messageObject valueForKey:@"contextMenu"];
@@ -83,8 +92,8 @@
   [WatchKitUIHelper setLabel:self.label1 fromDic:[messageObject valueForKey:@"label1"]];
   [WatchKitUIHelper setLabel:self.label2 fromDic:[messageObject valueForKey:@"label2"]];
   [WatchKitUIHelper setImage:self.image fromDic:[messageObject valueForKey:@"image"]];
-  [WatchKitUIHelper setTable:self.table fromDic:[messageObject valueForKey:@"table"]];
   [WatchKitUIHelper setMap:self.map fromDic:[messageObject valueForKey:@"map"]];
+  self.tableCallback = [WatchKitUIHelper setTable:self.table fromDic:[messageObject valueForKey:@"table"]];
   self.switch1Callback = [WatchKitUIHelper setSwitch:self.switch1 fromDic:[messageObject valueForKey:@"switch1"]];
   self.switch2Callback = [WatchKitUIHelper setSwitch:self.switch2 fromDic:[messageObject valueForKey:@"switch2"]];
   self.sliderCallback = [WatchKitUIHelper setSlider:self.slider withLabel:self.sliderLabel inGroup:self.sliderGroup fromDic:[messageObject valueForKey:@"slider"]];
