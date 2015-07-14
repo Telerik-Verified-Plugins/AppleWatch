@@ -196,22 +196,26 @@
     for (NSInteger i = 0; i < rows.count; i++) {
       NSDictionary* rowDef = rows[i];
 
-      if ([rowTypes[i] isEqualToString:@"SelectableImageLabelRowType"]) {
-        SelectableImageLabelRowType* row = [table rowControllerAtIndex:i];
-        // TODO images
+      if ([rowTypes[i] isEqualToString:@"OneColumnSelectableRowType"]) {
+        OneColumnSelectableRowType* row = [table rowControllerAtIndex:i];
         [self setLabel:row.label fromDic:[rowDef objectForKey:@"label"]];
         [self setGroup:row.group fromDic:[rowDef objectForKey:@"group"]];
+        [self setImage:row.imageLeft fromDic:[rowDef objectForKey:@"imageLeft"]];
+        [self setImage:row.imageRight fromDic:[rowDef objectForKey:@"imageRight"]];
 
-      } else if ([rowTypes[i] isEqualToString:@"ImageLabelRowType"]) {
-        ImageLabelRowType* row = [table rowControllerAtIndex:i];
-        // TODO images
+      } else if ([rowTypes[i] isEqualToString:@"OneColumnRowType"]) {
+        OneColumnRowType* row = [table rowControllerAtIndex:i];
         [self setLabel:row.label fromDic:[rowDef objectForKey:@"label"]];
         [self setGroup:row.group fromDic:[rowDef objectForKey:@"group"]];
+        [self setImage:row.imageLeft fromDic:[rowDef objectForKey:@"imageLeft"]];
+        [self setImage:row.imageRight fromDic:[rowDef objectForKey:@"imageRight"]];
 
       } else if ([rowTypes[i] isEqualToString:@"TwoColumnsRowType"]) {
         TwoColumnsRowType* row = [table rowControllerAtIndex:i];
         [self setLabel:row.col1label fromDic:[rowDef objectForKey:@"col1label"]];
         [self setLabel:row.col2label fromDic:[rowDef objectForKey:@"col2label"]];
+        [self setImage:row.col1image fromDic:[rowDef objectForKey:@"col1image"]];
+        [self setImage:row.col2image fromDic:[rowDef objectForKey:@"col2image"]];
         [self setGroup:row.group fromDic:[rowDef objectForKey:@"group"]];
       }
     }

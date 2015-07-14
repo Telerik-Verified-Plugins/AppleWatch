@@ -23,67 +23,67 @@
                                         </label>
                                     </items>
                                 </group>
-                                <table alignment="left" id="IW0-Zg-Deq">
+                                <table alignment="left" id="U8z-Qd-LKW">
                                     <items>
-                                        <tableRow identifier="SelectableImageLabelRowType" id="DQC-nM-lSP" userLabel="SelectableImageLabelRowType" customClass="ImageLabelRowType">
-                                            <group key="rootItem" width="1" alignment="left" id="6iv-2E-NEK">
+                                        <tableRow identifier="OneColumnSelectableRowType" id="co0-MQ-qde" customClass="OneColumnRowType">
+                                            <group key="rootItem" width="1" alignment="left" id="JmF-tZ-A09">
                                                 <items>
-                                                    <imageView alignment="left" verticalAlignment="center" id="mzz-lO-HMa" userLabel="ImageLeft"/>
-                                                    <label alignment="left" verticalAlignment="center" text="Label" id="Lyz-o2-uoq">
+                                                    <imageView width="1" height="1" alignment="left" verticalAlignment="center" id="QX8-FJ-zcv" userLabel="ImageLeft"/>
+                                                    <label alignment="left" verticalAlignment="center" text="Label" id="L0j-IU-XLp">
                                                         <fontDescription key="font" type="system" pointSize="12"/>
                                                     </label>
-                                                    <imageView alignment="right" verticalAlignment="center" id="fIA-QR-z0e" userLabel="ImageRight"/>
+                                                    <imageView width="1" alignment="right" verticalAlignment="center" id="J4v-Mr-q8u" userLabel="ImageRight"/>
                                                 </items>
                                             </group>
                                             <connections>
-                                                <outlet property="group" destination="6iv-2E-NEK" id="KKX-nW-61D"/>
-                                                <outlet property="imageLeft" destination="mzz-lO-HMa" id="vPu-J8-WWP"/>
-                                                <outlet property="imageRight" destination="fIA-QR-z0e" id="Wj6-sN-haG"/>
-                                                <outlet property="label" destination="Lyz-o2-uoq" id="3Cj-bQ-Ee5"/>
+                                                <outlet property="group" destination="JmF-tZ-A09" id="9aD-UL-DCz"/>
+                                                <outlet property="imageLeft" destination="QX8-FJ-zcv" id="o8o-wX-a7q"/>
+                                                <outlet property="imageRight" destination="J4v-Mr-q8u" id="q24-6V-cVx"/>
+                                                <outlet property="label" destination="L0j-IU-XLp" id="63D-7M-roG"/>
                                             </connections>
                                         </tableRow>
-                                        <tableRow identifier="ImageLabelRowType" selectable="NO" id="E1S-E9-3hf" customClass="ImageLabelRowType">
-                                            <group key="rootItem" width="1" alignment="left" id="HdI-dg-zCN">
+                                        <tableRow identifier="OneColumnRowType" selectable="NO" id="TuX-Vm-0W7" customClass="OneColumnRowType">
+                                            <group key="rootItem" width="1" alignment="left" id="nQM-JV-5Dy">
                                                 <items>
-                                                    <imageView alignment="left" verticalAlignment="center" id="w7r-jT-MDz" userLabel="ImageLeft"/>
-                                                    <label alignment="left" verticalAlignment="center" text="Label" id="ggN-mT-pie">
+                                                    <imageView width="1" height="1" alignment="left" verticalAlignment="center" id="9TL-Fp-sD5" userLabel="ImageLeft"/>
+                                                    <label alignment="left" verticalAlignment="center" text="Label" id="EUE-rD-g1w">
                                                         <fontDescription key="font" type="system" pointSize="12"/>
                                                     </label>
-                                                    <imageView alignment="right" verticalAlignment="center" id="BBd-U1-RpO" userLabel="ImageRight"/>
+                                                    <imageView width="1" height="1" alignment="right" verticalAlignment="center" id="75Q-nO-Ugr" userLabel="ImageRight"/>
                                                 </items>
                                             </group>
                                             <connections>
-                                                <outlet property="group" destination="HdI-dg-zCN" id="soo-aT-P9a"/>
-                                                <outlet property="imageLeft" destination="w7r-jT-MDz" id="MSU-A4-WoJ"/>
-                                                <outlet property="imageRight" destination="BBd-U1-RpO" id="IEJ-Iz-ZQd"/>
-                                                <outlet property="label" destination="ggN-mT-pie" id="hNH-1m-1E4"/>
+                                                <outlet property="group" destination="nQM-JV-5Dy" id="RZ7-lp-Bvr"/>
+                                                <outlet property="imageLeft" destination="9TL-Fp-sD5" id="9TO-ZA-5Rr"/>
+                                                <outlet property="imageRight" destination="75Q-nO-Ugr" id="bF6-fa-DFk"/>
+                                                <outlet property="label" destination="EUE-rD-g1w" id="h6K-C8-zXc"/>
                                             </connections>
                                         </tableRow>
-                                        <tableRow identifier="TwoColumnsRowType" selectable="NO" id="Z2l-hW-Quq" customClass="TwoColumnsRowType">
-                                            <group key="rootItem" width="1" alignment="left" id="K0i-ao-5ZQ">
+                                        <tableRow identifier="TwoColumnsRowType" selectable="NO" id="eXb-jE-A09" customClass="TwoColumnsRowType">
+                                            <group key="rootItem" width="1" alignment="left" id="uZF-qI-U4h">
                                                 <items>
-                                                    <group width="0.50000000000000011" alignment="center" verticalAlignment="center" layout="vertical" id="mNo-E2-45d" userLabel="col1">
+                                                    <group width="0.50000000000000011" alignment="center" verticalAlignment="center" layout="vertical" id="xCC-Jz-l7Y" userLabel="col1">
                                                         <items>
-                                                            <imageView alignment="left" id="LX3-TK-h0A" userLabel="col1image"/>
-                                                            <label alignment="center" verticalAlignment="center" text="Label" textAlignment="center" id="NZF-HM-vi8" userLabel="col1label"/>
+                                                            <imageView width="1" height="1" alignment="center" verticalAlignment="center" id="UHr-RA-zm4" userLabel="col1image"/>
+                                                            <label alignment="center" verticalAlignment="center" text="Label" textAlignment="center" id="nYn-UD-Klf" userLabel="col1label"/>
                                                         </items>
                                                         <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                                                     </group>
-                                                    <group width="0.50000000000000011" alignment="center" verticalAlignment="center" layout="vertical" id="4Ln-he-C7a" userLabel="col2">
+                                                    <group width="0.50000000000000011" alignment="center" verticalAlignment="center" layout="vertical" id="DsY-OQ-sDC" userLabel="col2">
                                                         <items>
-                                                            <imageView alignment="left" id="0dX-lO-NDj" userLabel="col2image"/>
-                                                            <label alignment="center" verticalAlignment="center" text="Label" textAlignment="center" id="HNS-5l-Hig" userLabel="col2label"/>
+                                                            <imageView width="1" height="1" alignment="center" verticalAlignment="center" id="k8m-Ma-t2x" userLabel="col2image"/>
+                                                            <label alignment="center" verticalAlignment="center" text="Label" textAlignment="center" id="l3R-wK-bb4" userLabel="col2label"/>
                                                         </items>
                                                         <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                                                     </group>
                                                 </items>
                                             </group>
                                             <connections>
-                                                <outlet property="col1image" destination="LX3-TK-h0A" id="Apc-y4-Fia"/>
-                                                <outlet property="col1label" destination="NZF-HM-vi8" id="fDi-BD-i9t"/>
-                                                <outlet property="col2image" destination="0dX-lO-NDj" id="rRx-hO-Rfm"/>
-                                                <outlet property="col2label" destination="HNS-5l-Hig" id="6ax-QW-dNL"/>
-                                                <outlet property="group" destination="K0i-ao-5ZQ" id="z44-ze-N5n"/>
+                                                <outlet property="col1image" destination="UHr-RA-zm4" id="Wos-zj-s8r"/>
+                                                <outlet property="col1label" destination="nYn-UD-Klf" id="V5H-8u-b8q"/>
+                                                <outlet property="col2image" destination="k8m-Ma-t2x" id="MGV-ne-4WC"/>
+                                                <outlet property="col2label" destination="l3R-wK-bb4" id="Nca-8o-CQZ"/>
+                                                <outlet property="group" destination="uZF-qI-U4h" id="dy4-Yk-B1j"/>
                                             </connections>
                                         </tableRow>
                                     </items>
@@ -135,7 +135,7 @@
                                 </button>
                             </items>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
+                            <edgeInsets key="margins" left="2" right="2" top="0.0" bottom="2"/>
                         </group>
                     </items>
                     <connections>
@@ -151,7 +151,7 @@
                         <outlet property="sliderLabel" destination="TkT-SV-2k0" id="wQm-U8-ws5"/>
                         <outlet property="switch1" destination="WQK-vU-RvF" id="eWb-jc-JC2"/>
                         <outlet property="switch2" destination="IqS-rZ-9pa" id="2XN-TV-PGh"/>
-                        <outlet property="table" destination="IW0-Zg-Deq" id="Htj-hg-YSB"/>
+                        <outlet property="table" destination="U8z-Qd-LKW" id="wCA-rx-nZe"/>
                         <outlet property="userInputButton" destination="ePd-8c-jy1" id="FDx-IE-Iwh"/>
                         <outlet property="wrapper" destination="7W0-qv-nMv" id="LG1-DF-YV2"/>
                     </connections>
@@ -177,67 +177,67 @@
                                         </label>
                                     </items>
                                 </group>
-                                <table alignment="left" id="9Xw-kk-2Z7">
+                                <table alignment="left" id="Hnx-T5-IIO">
                                     <items>
-                                        <tableRow identifier="SelectableImageLabelRowType" id="mMj-e2-7jO" userLabel="SelectableImageLabelRowType" customClass="ImageLabelRowType">
-                                            <group key="rootItem" width="1" alignment="left" id="jyQ-k6-IRm">
+                                        <tableRow identifier="OneColumnSelectableRowType" id="Uq3-DP-KHa" customClass="OneColumnRowType">
+                                            <group key="rootItem" width="1" alignment="left" id="kqb-vW-8C1">
                                                 <items>
-                                                    <imageView alignment="left" verticalAlignment="center" id="4co-Eu-Rbj" userLabel="ImageLeft"/>
-                                                    <label alignment="left" verticalAlignment="center" text="Label" id="fPN-J3-xx3">
+                                                    <imageView width="1" height="1" alignment="left" verticalAlignment="center" id="q6g-ZU-2fm" userLabel="ImageLeft"/>
+                                                    <label alignment="left" verticalAlignment="center" text="Label" id="WHH-eE-f48">
                                                         <fontDescription key="font" type="system" pointSize="12"/>
                                                     </label>
-                                                    <imageView alignment="right" verticalAlignment="center" id="iSc-YA-GzI" userLabel="ImageRight"/>
+                                                    <imageView width="1" alignment="right" verticalAlignment="center" id="wjQ-t8-K5L" userLabel="ImageRight"/>
                                                 </items>
                                             </group>
                                             <connections>
-                                                <outlet property="group" destination="jyQ-k6-IRm" id="CZ9-Sw-mjQ"/>
-                                                <outlet property="imageLeft" destination="4co-Eu-Rbj" id="Bzd-fF-QVU"/>
-                                                <outlet property="imageRight" destination="iSc-YA-GzI" id="zKb-Q8-O63"/>
-                                                <outlet property="label" destination="fPN-J3-xx3" id="636-Ay-fEF"/>
+                                                <outlet property="group" destination="kqb-vW-8C1" id="Cew-Jx-jwo"/>
+                                                <outlet property="imageLeft" destination="q6g-ZU-2fm" id="iwC-Dp-wXR"/>
+                                                <outlet property="imageRight" destination="wjQ-t8-K5L" id="6nC-wQ-oru"/>
+                                                <outlet property="label" destination="WHH-eE-f48" id="6Jn-bG-51g"/>
                                             </connections>
                                         </tableRow>
-                                        <tableRow identifier="ImageLabelRowType" selectable="NO" id="owC-ej-Se1" customClass="ImageLabelRowType">
-                                            <group key="rootItem" width="1" alignment="left" id="OPh-YX-ZSe">
+                                        <tableRow identifier="OneColumnRowType" selectable="NO" id="aiR-jY-iOS" customClass="OneColumnRowType">
+                                            <group key="rootItem" width="1" alignment="left" id="ccf-cG-Snb">
                                                 <items>
-                                                    <imageView alignment="left" verticalAlignment="center" id="0Wl-aX-ox3" userLabel="ImageLeft"/>
-                                                    <label alignment="left" verticalAlignment="center" text="Label" id="apW-Fg-XMG">
+                                                    <imageView width="1" height="1" alignment="left" verticalAlignment="center" id="W0I-Di-YYd" userLabel="ImageLeft"/>
+                                                    <label alignment="left" verticalAlignment="center" text="Label" id="jUs-JR-Lb5">
                                                         <fontDescription key="font" type="system" pointSize="12"/>
                                                     </label>
-                                                    <imageView alignment="right" verticalAlignment="center" id="Sk2-4Q-zml" userLabel="ImageRight"/>
+                                                    <imageView width="1" height="1" alignment="right" verticalAlignment="center" id="6QZ-No-Xkg" userLabel="ImageRight"/>
                                                 </items>
                                             </group>
                                             <connections>
-                                                <outlet property="group" destination="OPh-YX-ZSe" id="NW5-em-JO9"/>
-                                                <outlet property="imageLeft" destination="0Wl-aX-ox3" id="rlh-D4-8uY"/>
-                                                <outlet property="imageRight" destination="Sk2-4Q-zml" id="7Xj-1d-Kv2"/>
-                                                <outlet property="label" destination="apW-Fg-XMG" id="bvf-qD-Sat"/>
+                                                <outlet property="group" destination="ccf-cG-Snb" id="hcM-rG-Txa"/>
+                                                <outlet property="imageLeft" destination="W0I-Di-YYd" id="YlD-C2-njl"/>
+                                                <outlet property="imageRight" destination="6QZ-No-Xkg" id="I7e-Ud-Qr8"/>
+                                                <outlet property="label" destination="jUs-JR-Lb5" id="cZM-1N-QDe"/>
                                             </connections>
                                         </tableRow>
-                                        <tableRow identifier="TwoColumnsRowType" selectable="NO" id="MMY-tb-LJj" customClass="TwoColumnsRowType">
-                                            <group key="rootItem" width="1" alignment="left" id="6Gx-Yp-g1p">
+                                        <tableRow identifier="TwoColumnsRowType" selectable="NO" id="tP4-iF-2NA" customClass="TwoColumnsRowType">
+                                            <group key="rootItem" width="1" alignment="left" id="4nj-ky-1cD">
                                                 <items>
-                                                    <group width="0.50000000000000011" alignment="center" verticalAlignment="center" layout="vertical" id="fSa-PV-4Qu" userLabel="col1">
+                                                    <group width="0.50000000000000011" alignment="center" verticalAlignment="center" layout="vertical" id="JsX-dq-khg" userLabel="col1">
                                                         <items>
-                                                            <imageView alignment="left" id="EAh-dI-QvQ" userLabel="col1image"/>
-                                                            <label alignment="center" verticalAlignment="center" text="Label" textAlignment="center" id="gnL-Py-vQ2" userLabel="col1label"/>
+                                                            <imageView width="1" height="1" alignment="center" verticalAlignment="center" id="GQi-J2-7ZT" userLabel="col1image"/>
+                                                            <label alignment="center" verticalAlignment="center" text="Label" textAlignment="center" id="QVv-3f-f2M" userLabel="col1label"/>
                                                         </items>
                                                         <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                                                     </group>
-                                                    <group width="0.50000000000000011" alignment="center" verticalAlignment="center" layout="vertical" id="5ye-N9-whp" userLabel="col2">
+                                                    <group width="0.50000000000000011" alignment="center" verticalAlignment="center" layout="vertical" id="Xy1-56-w2j" userLabel="col2">
                                                         <items>
-                                                            <imageView alignment="left" id="RCn-lD-LxO" userLabel="col2image"/>
-                                                            <label alignment="center" verticalAlignment="center" text="Label" textAlignment="center" id="Ub6-2q-yS3" userLabel="col2label"/>
+                                                            <imageView width="1" height="1" alignment="center" verticalAlignment="center" id="lL0-hO-tMi" userLabel="col2image"/>
+                                                            <label alignment="center" verticalAlignment="center" text="Label" textAlignment="center" id="ZOs-Um-eUD" userLabel="col2label"/>
                                                         </items>
                                                         <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                                                     </group>
                                                 </items>
                                             </group>
                                             <connections>
-                                                <outlet property="col1image" destination="EAh-dI-QvQ" id="ld6-NS-qga"/>
-                                                <outlet property="col1label" destination="gnL-Py-vQ2" id="gjH-oo-uO9"/>
-                                                <outlet property="col2image" destination="RCn-lD-LxO" id="Pys-9P-OKh"/>
-                                                <outlet property="col2label" destination="Ub6-2q-yS3" id="iPA-Y0-BJO"/>
-                                                <outlet property="group" destination="6Gx-Yp-g1p" id="X5l-YV-Jlx"/>
+                                                <outlet property="col1image" destination="GQi-J2-7ZT" id="ghn-p6-tAa"/>
+                                                <outlet property="col1label" destination="QVv-3f-f2M" id="u1u-3s-bXX"/>
+                                                <outlet property="col2image" destination="lL0-hO-tMi" id="Aif-no-jrh"/>
+                                                <outlet property="col2label" destination="ZOs-Um-eUD" id="ig6-4e-CKd"/>
+                                                <outlet property="group" destination="4nj-ky-1cD" id="OtM-iT-BMR"/>
                                             </connections>
                                         </tableRow>
                                     </items>
@@ -279,7 +279,7 @@
                                 </button>
                             </items>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
+                            <edgeInsets key="margins" left="2" right="2" top="0.0" bottom="2"/>
                         </group>
                     </items>
                     <connections>
@@ -293,7 +293,7 @@
                         <outlet property="sliderLabel" destination="1zH-1u-9br" id="lda-vV-03W"/>
                         <outlet property="switch1" destination="QXf-VN-HRc" id="DAt-cA-Uq8"/>
                         <outlet property="switch2" destination="181-GK-FU9" id="Ou2-zO-Q82"/>
-                        <outlet property="table" destination="9Xw-kk-2Z7" id="KJi-PU-dTc"/>
+                        <outlet property="table" destination="Hnx-T5-IIO" id="nxz-gf-X0Y"/>
                         <outlet property="userInputButton" destination="m3c-9K-kv8" id="fT1-UA-B5M"/>
                         <outlet property="wrapper" destination="DYL-tI-8n4" id="vTR-Qf-xJD"/>
                     </connections>
@@ -316,12 +316,79 @@
                                     <fontDescription key="font" type="system" pointSize="10"/>
                                 </label>
                             </items>
+                            <edgeInsets key="margins" left="2" right="2" top="0.0" bottom="0.0"/>
                         </group>
                         <group alignment="left" layout="vertical" id="uCw-4Q-Ouw">
                             <items>
                                 <imageView width="1" height="1" alignment="center" contentMode="scaleAspectFit" id="kHn-tH-09y"/>
+                                <table alignment="left" id="CZa-ec-VH8">
+                                    <items>
+                                        <tableRow identifier="OneColumnSelectableRowType" id="njc-uQ-Wf2" customClass="OneColumnRowType">
+                                            <group key="rootItem" width="1" alignment="left" id="qMS-PY-Een">
+                                                <items>
+                                                    <imageView width="1" height="1" alignment="left" verticalAlignment="center" id="6hB-OO-Kmd" userLabel="ImageLeft"/>
+                                                    <label alignment="left" verticalAlignment="center" text="Label" id="g4k-uk-Si6">
+                                                        <fontDescription key="font" type="system" pointSize="12"/>
+                                                    </label>
+                                                    <imageView width="1" alignment="right" verticalAlignment="center" id="mm9-dJ-6Dn" userLabel="ImageRight"/>
+                                                </items>
+                                            </group>
+                                            <connections>
+                                                <outlet property="group" destination="qMS-PY-Een" id="KEe-tA-QOL"/>
+                                                <outlet property="imageLeft" destination="6hB-OO-Kmd" id="NaN-6w-W8q"/>
+                                                <outlet property="imageRight" destination="mm9-dJ-6Dn" id="Zfb-yW-Vdz"/>
+                                                <outlet property="label" destination="g4k-uk-Si6" id="NgN-Ik-o6K"/>
+                                            </connections>
+                                        </tableRow>
+                                        <tableRow identifier="OneColumnRowType" selectable="NO" id="eYs-UI-vHG" customClass="OneColumnRowType">
+                                            <group key="rootItem" width="1" alignment="left" id="vlF-YF-VV2">
+                                                <items>
+                                                    <imageView width="1" height="1" alignment="left" verticalAlignment="center" id="kQW-he-pNN" userLabel="ImageLeft"/>
+                                                    <label alignment="left" verticalAlignment="center" text="Label" id="YBu-dk-VZF">
+                                                        <fontDescription key="font" type="system" pointSize="12"/>
+                                                    </label>
+                                                    <imageView width="1" height="1" alignment="right" verticalAlignment="center" id="4RF-eb-2Gc" userLabel="ImageRight"/>
+                                                </items>
+                                            </group>
+                                            <connections>
+                                                <outlet property="group" destination="vlF-YF-VV2" id="2vX-Gj-Eyc"/>
+                                                <outlet property="imageLeft" destination="kQW-he-pNN" id="Yoa-10-ELl"/>
+                                                <outlet property="imageRight" destination="4RF-eb-2Gc" id="ydh-3t-5xB"/>
+                                                <outlet property="label" destination="YBu-dk-VZF" id="nDx-mv-kWB"/>
+                                            </connections>
+                                        </tableRow>
+                                        <tableRow identifier="TwoColumnsRowType" selectable="NO" id="wSA-gn-u33" customClass="TwoColumnsRowType">
+                                            <group key="rootItem" width="1" alignment="left" id="RWq-gH-16Z">
+                                                <items>
+                                                    <group width="0.50000000000000011" alignment="center" verticalAlignment="center" layout="vertical" id="NHW-XQ-gdZ" userLabel="col1">
+                                                        <items>
+                                                            <imageView width="1" height="1" alignment="center" verticalAlignment="center" id="Kkc-pY-AD5" userLabel="col1image"/>
+                                                            <label alignment="center" verticalAlignment="center" text="Label" textAlignment="center" id="gkj-8v-ZX9" userLabel="col1label"/>
+                                                        </items>
+                                                        <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
+                                                    </group>
+                                                    <group width="0.50000000000000011" alignment="center" verticalAlignment="center" layout="vertical" id="dKK-IJ-MFu" userLabel="col2">
+                                                        <items>
+                                                            <imageView width="1" height="1" alignment="center" verticalAlignment="center" id="Iu7-Mc-mjr" userLabel="col2image"/>
+                                                            <label alignment="center" verticalAlignment="center" text="Label" textAlignment="center" id="bL4-bK-fh6" userLabel="col2label"/>
+                                                        </items>
+                                                        <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
+                                                    </group>
+                                                </items>
+                                            </group>
+                                            <connections>
+                                                <outlet property="col1image" destination="Kkc-pY-AD5" id="9jZ-Tq-mna"/>
+                                                <outlet property="col1label" destination="gkj-8v-ZX9" id="IHU-ge-ec5"/>
+                                                <outlet property="col2image" destination="Iu7-Mc-mjr" id="SS6-8I-uyD"/>
+                                                <outlet property="col2label" destination="bL4-bK-fh6" id="mfG-9R-9jY"/>
+                                                <outlet property="group" destination="RWq-gH-16Z" id="unE-2l-wVp"/>
+                                            </connections>
+                                        </tableRow>
+                                    </items>
+                                </table>
                                 <map height="100" alignment="center" id="Fmd-Ph-e4s"/>
                             </items>
+                            <edgeInsets key="margins" left="2" right="2" top="0.0" bottom="2"/>
                         </group>
                     </items>
                     <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="14"/>
@@ -329,7 +396,8 @@
                         <outlet property="image" destination="kHn-tH-09y" id="Ifj-61-GuB"/>
                         <outlet property="label1" destination="Sug-Ye-hJw" id="5AF-1h-1u0"/>
                         <outlet property="label2" destination="3QK-1v-Dmk" id="B11-Ba-Mfe"/>
-                        <outlet property="map" destination="Fmd-Ph-e4s" id="UM6-2Q-bAT"/>
+                        <outlet property="map" destination="Fmd-Ph-e4s" id="Dbk-mx-Cg2"/>
+                        <outlet property="table" destination="CZa-ec-VH8" id="AbN-Ts-2vI"/>
                     </connections>
                 </glanceController>
             </objects>
@@ -349,14 +417,14 @@
                     </connections>
                 </notificationController>
             </objects>
-            <point key="canvasLocation" x="-214" y="426"/>
+            <point key="canvasLocation" x="-214" y="664"/>
         </scene>
         <!--Notification Controller-->
         <scene sceneID="KIl-fV-djm">
             <objects>
                 <controller id="gdX-wl-uQE" customClass="NotificationController"/>
             </objects>
-            <point key="canvasLocation" x="7" y="426"/>
+            <point key="canvasLocation" x="7" y="664"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

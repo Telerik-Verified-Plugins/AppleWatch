@@ -9,11 +9,11 @@ module.exports = function (context) {
   var headerFilesToAdd = [
     "DetailInterfaceController.h",
     "GlanceController.h",
-    "ImageLabelRowType.h",
     "InterfaceController.h",
     "NotificationController.h",
+    "OneColumnRowType.h",
+    "OneColumnSelectableRowType.h",
     "ParentInterfaceController.h",
-    "SelectableImageLabelRowType.h",
     "TwoColumnsRowType.h",
     "WatchKitHelper.h",
     "WatchKitUIHelper.h"
@@ -22,11 +22,11 @@ module.exports = function (context) {
   var sourceFilesToAdd = [
     "DetailInterfaceController.m",
     "GlanceController.m",
-    "ImageLabelRowType.m",
     "InterfaceController.m",
     "NotificationController.m",
+    "OneColumnRowType.m",
+    "OneColumnSelectableRowType.m",
     "ParentInterfaceController.m",
-    "SelectableImageLabelRowType.m",
     "TwoColumnsRowType.m",
     "WatchKitHelper.m",
     "WatchKitUIHelper.m"

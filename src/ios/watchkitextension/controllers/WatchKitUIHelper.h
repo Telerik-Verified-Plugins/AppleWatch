@@ -1,8 +1,8 @@
 #import <WatchKit/WatchKit.h>
 #import <Foundation/Foundation.h>
 #import "WatchKitHelper.h"
-#import "SelectableImageLabelRowType.h"
-#import "ImageLabelRowType.h"
+#import "OneColumnSelectableRowType.h"
+#import "OneColumnRowType.h"
 #import "TwoColumnsRowType.h"
 
 @interface WatchKitUIHelper : NSObject

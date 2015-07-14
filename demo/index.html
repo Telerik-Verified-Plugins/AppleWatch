@@ -28,6 +28,8 @@
     <br/>
     <button onclick="sendMessageImageGlance()">glance: message, img</button>
     <button onclick="sendImageGlance()">glance: img</button>
+    <button onclick="sendTableGlance()">glance: table</button>
+    <button onclick="sendMapGlance()">glance: map</button>
     <br/><br/>
     <button onclick="loadMainAppPage()">update app UI</button>
     <br/><br/>
@@ -63,9 +65,8 @@
     }
   };
 
-  // TODO split into onGlanceInit and Update? KISS for now..
   function onGlanceRequestsUpdate() {
-    sendHeaderMessageImageGlance();
+    sendTableGlance();
   }
 
   function onAppRequestsUpdate() {
@@ -87,6 +88,7 @@
   function sendImageGlance() {
     var payload = {
       'id': 'Glance',
+      // TODO rename image to image1, so we can add an image2 later?
       'image': {
         'src': 'www/img/logo.png'
       }
@@ -98,10 +100,65 @@
     var payload = {
       'id': 'Glance',
       'label2': {'value': 'Red message, a bit smaller image, no header to allow 3 lines', 'color': '#DD0000'}, // optional, max 2 lines
-      'image': {'src': 'www/img/logo.png', 'width': '60'} // optional
+      'image': {'src': 'www/img/logo.png', 'width': 60} // optional
     };
     applewatch.sendMessage(payload);
   }
+
+  function sendTableGlance() {
+    var payload = {
+      'id': 'Glance',
+      'label2': {'value': 'Here\'s a table with a few of different colors. One even has an image!', 'color': '#FFFFFF'},
+      'table': { // don't add selectable rows to a glance since glances are read-only
+        'rows': [
+          {
+            'type': 'OneColumnRowType', // available types are specified in ObjC
+            'group': {
+              'backgroundColor':'#1884C4',
+              'cornerRadius':8
+            },
+            'label': {'value':'  images!'}, // unlike HTML, multiple spaces have effect
+            'imageLeft': {'src': 'www/img/logo.png', 'width': 25, 'height': 30},
+            'imageRight': {'src': 'www/img/logo.png', 'width': 25, 'height': 30}
+          },
+          {
+            'type': 'OneColumnRowType',
+            'group': {
+              'backgroundColor':'#7884C4',
+              'cornerRadius':8
+            },
+            'label': {'value':'2nd row, no img'}
+          }
+        ]
+      }
+    };
+    applewatch.sendMessage(payload);
+  }
+
+  function sendMapGlance() {
+    var payload = {
+      'id': 'Glance',
+      'label1': {'value': 'Here\'s a map of NL', 'color': '#FFFFFF'},
+      'map': {
+        'center' : {
+          // Eddy's home
+          'lat': 52.1851552,
+          'lng': 5.3996181
+        },
+        // Entire Netherlands
+        'zoom' : 3.55, // 0.001 is about streetlevel, 4 fits the entire Netherlands
+        'annotations': [ // up to 5 annotations (custom pins), any more are ignored (play with the zoom value to make them all fit)
+          {
+            'pinColor':'green',
+            'lat':52.1851,
+            'lng':5.3996
+          }
+        ]
+      }
+    };
+    applewatch.sendMessage(payload);
+  }
+
 
   function sendHeaderMessageImageGlance() {
     var payload = {
@@ -149,24 +206,24 @@
     }
   }
 
-    function onTableRowSelected(index) {
-      feedback('Selected row: ' + index);
-      if (index == 0) {
+  function onTableRowSelected(index) {
+    feedback('Selected row: ' + index);
+    if (index == 0) {
 
-        // TODO this will change
-        var payload = {
-          'id': 'AppDetail'
-        };
+      // TODO this will change
+      var payload = {
+        'id': 'AppDetail'
+      };
 
 //        applewatch.navigateToDetail();
-        applewatch.navigate(payload);
+      applewatch.navigate(payload);
 
-      }
     }
+  }
 
-    function onDetailTableRowSelected(index) {
-      feedback('Selected detail row: ' + index);
-    }
+  function onDetailTableRowSelected(index) {
+    feedback('Selected detail row: ' + index);
+  }
 
   var sliderVal = 25;
   function onSliderChanged(val) {
@@ -192,20 +249,20 @@
       'label2': {
         'value' : fromAction === undefined ? 'Default text :)' : fromAction
       },
-        'table': { // this element is superawesome.. it's quite flexible and extendible. It can't have buttons, but it can have a callback which gets the selected row index.
-          'callback':'onDetailTableRowSelected',
+      'table': { // this element is superawesome.. it's quite flexible and extendible. It can't have buttons, but it can have a callback which gets the selected row index.
+        'callback':'onDetailTableRowSelected',
         'rows': [
           {
-            'type': 'ImageLabelRowType', // available types are specified in ObjC
+            'type': 'OneColumnRowType', // available types are specified in ObjC
             'group': {
               'backgroundColor':'#1884C4',
               'cornerRadius':8
             },
             'label': {'value':'With image'},
-            'image': 'www/img/logo.png' // TODO process in plugin code
+            'imageRight': {'src': 'www/img/logo.png', 'width': 30}
           },
           {
-            'type': 'ImageLabelRowType',
+            'type': 'OneColumnRowType',
             'group': {
               'backgroundColor':'#1884C4',
               'cornerRadius':8
@@ -310,21 +367,12 @@
           }
         ]
       },
-        'table': { // this element is superawesome.. it's quite flexible and extendible. It can't have buttons, but it can have a callback which gets the selected row index.
-          'callback':'onTableRowSelected',
+      'table': { // this element is superawesome.. it's quite flexible and extendible. It can't have buttons, but it can have a callback which gets the selected row index.
+        'callback':'onTableRowSelected',
         'alpha': 1,
-          // TODO rename (Selectable)ImageLabelRowType to (Selectable)OneColumnRowType
         'rows': [
-          /*
-           {
-           'type' : 'ImageLabelRowType', // available types are specified in ObjC
-           'label' : 'With image',
-           'image' : 'www/img/logo.png' // TODO process in plugin code
-           },
-           */
           {
-            // interesting doc on selectable items in a row: http://blog.numerousapp.com/2014/12/09/watch-dev-2.html
-            'type': 'SelectableImageLabelRowType',
+            'type': 'OneColumnSelectableRowType',
             'label': {
               'value': 'Selectable row, no img',
               'color': '#FFFFFF',
@@ -334,16 +382,17 @@
             }
           },
           {
-            'type': 'ImageLabelRowType',
+            'type': 'OneColumnRowType',
             // wrapping these in a group so its usage and processing is predictable
             'group': {
               'backgroundColor':'#FFFFFF',
               'cornerRadius':16
             },
             'label': {
-              'value':'Right img (todo)',
+              'value':'Right img',
               'color':'#1884C4'
-            }
+            },
+            'imageRight': {'src': 'www/img/logo.png', 'width': 25, 'height': 30}
           },
           {
             'type': 'TwoColumnsRowType',
@@ -352,16 +401,10 @@
               'value': '50%',
               'color': '#FFA500',
               'font': {
-                'size': 18 // default 12
+                'size': 16
               }
             },
-            'col2label': {
-              'value': '12x',
-              'color': '#FFFFFF',
-              'font': {
-                'size': 18 // default 12
-              }
-            }
+            'col2image': {'src': 'www/img/logo.png', 'width': 25, 'height': 30}
           }
         ]
       },

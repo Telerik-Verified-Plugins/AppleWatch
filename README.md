@@ -1,8 +1,7 @@
 AppleWatch Config steps (for Cordova CLI users):
 ================================================
 
-DO NOT USE YET AS EVERYTHING IS IN ALPHA STATE AND WILL CHANGE!
-
+Mostly done, a few things will change before the 1.0.0 release, but most major parts are ready for primetime!
 
 ####Prep:
 Install npm 'xcode' package because our hooks need it: `npm install -g xcode`

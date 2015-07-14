@@ -53,13 +53,31 @@
 
   NSString* queueName = [@"fromjstowatchapp-" stringByAppendingString:pageID];
   
-  // TODO for mulitple images, add an element in the json so we can translate to nsdata here [{}, {}]
   // TODO see SocialSharing for how to download images from the interwebs
-  NSMutableDictionary *imageDic = [dic valueForKey:@"image"];
+  // TODO rename to image1?
+  [self bundleImage:[dic valueForKey:@"image"] withCallbackId:command.callbackId];
+  NSDictionary* table = [dic valueForKey:@"table"];
+  if (table != nil) {
+    NSArray *rows = [table valueForKey:@"rows"];
+    for (NSInteger i = 0; i < rows.count; i++) {
+      NSMutableDictionary* rowDef = rows[i];
+      // TODO we should use a 'col' object, with the left and right images, even for onecol rows
+      [self bundleImage:[rowDef valueForKey:@"imageLeft"] withCallbackId:command.callbackId];
+      [self bundleImage:[rowDef valueForKey:@"imageRight"] withCallbackId:command.callbackId];
+      [self bundleImage:[rowDef valueForKey:@"col1image"] withCallbackId:command.callbackId];
+      [self bundleImage:[rowDef valueForKey:@"col2image"] withCallbackId:command.callbackId];
+    }
+  }
+
+  [self.wormhole passMessageObject:dic identifier:queueName];
+  [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
+}
+
+- (void) bundleImage:(NSMutableDictionary*)imageDic withCallbackId:(NSString*)callbackId {
   if (imageDic != nil) {
     NSString *imageSrc = [imageDic valueForKey:@"src"];
     if (imageSrc == nil) {
-      [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"missing src attribute for image"] callbackId:command.callbackId];
+      [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"missing src attribute for image"] callbackId:callbackId];
     } else {
       // NOTE: this expects a path like 'www/img/img.png'
       UIImage *image = [UIImage imageNamed:imageSrc];
@@ -68,9 +86,6 @@
       [imageDic setObject:imageData forKey:@"src"];
     }
   }
-
-  [self.wormhole passMessageObject:dic identifier:queueName];
-  [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
 }
 
 - (void) navigate:(CDVInvokedUrlCommand*)command {

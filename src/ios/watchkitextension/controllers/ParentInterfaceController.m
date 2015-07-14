@@ -19,11 +19,7 @@
   // TODO a wormhole is only started when navigated to, so js can't send a message to a new page...
   NSString *wormholeIdentifier = [@"fromjstowatchapp-" stringByAppendingString:[self getPageID]];
   [self.wormhole listenForMessageWithIdentifier:wormholeIdentifier listener:^(id messageObject) {
-//    if ([messageObject valueForKey:@"navigateTo"] != nil) {
-//      [self pushControllerWithName:@"details" context:messageObject];
-//    } else {
       [self buildUI:messageObject];
-//    }
   }];
 }
 

@@ -1,16 +1,16 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <plugin
     id="cordova-plugin-applewatch"
-    version="0.0.9-dev"
+    version="0.1.0"
     xmlns="http://apache.org/cordova/ns/plugins/1.0">
 
   <name>Apple Watch</name>
 
   <author>Telerik</author>
 
-  <description>TODO</description>
+  <description>AppleWatch plugin for your Cordova project. You build the UI with JS, so no XCode native code hacking required.</description>
 
-  <keywords>TODO</keywords>
+  <keywords>AppleWatch</keywords>
 
   <license>MIT</license>
 
