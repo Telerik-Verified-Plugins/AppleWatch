@@ -45,4 +45,6 @@
 @property (retain, nonatomic) NSString *contextMenuButton3Callback;
 @property (retain, nonatomic) NSString *contextMenuButton4Callback;
 
+- (NSString*) getAppGroup;
+
 @end

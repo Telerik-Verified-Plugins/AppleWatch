@@ -61,7 +61,6 @@
     NSArray *rows = [table valueForKey:@"rows"];
     for (NSInteger i = 0; i < rows.count; i++) {
       NSMutableDictionary* rowDef = rows[i];
-      // TODO we should use a 'col' object, with the left and right images, even for onecol rows
       [self bundleImage:[rowDef valueForKey:@"imageLeft"] withCallbackId:command.callbackId];
       [self bundleImage:[rowDef valueForKey:@"imageRight"] withCallbackId:command.callbackId];
       [self bundleImage:[rowDef valueForKey:@"col1image"] withCallbackId:command.callbackId];

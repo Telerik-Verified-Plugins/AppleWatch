@@ -169,14 +169,14 @@
         'font': { // optional
           'size': 10
         }
-      }, // optional, max 1 line -> TODO JS object with color and value attribs?
+      },
       'label2': { // optional, max 2 lines
         'value': 'With a white message, served @ ' + new Date(),
         'color': '#FFFFFF',
         'font': {
           'size': 8 // default 12
         }
-      }, // optional, max 1 line -> TODO JS object with color and value attribs?
+      },
       'image': {'src': 'www/img/logo.png', 'alpha': 0.7} // optional
     };
     applewatch.sendMessage(payload);
@@ -312,14 +312,14 @@
         'font': { // optional
           'size': 10
         }
-      }, // optional, max 1 line -> TODO JS object with color and value attribs?
+      },
       'label2': { // optional, max 2 lines
         'value': 'UI built @ ' + new Date(),
         'color': '#FFFFFF',
         'font': {
           'size': 8 // default 12
         }
-      }, // optional, max 1 line -> TODO JS object with color and value attribs?
+      },
       'image': { // optional
         'src': 'www/img/logo.png'
       },
@@ -396,7 +396,6 @@
           },
           {
             'type': 'TwoColumnsRowType',
-            // TODO or col1 : {}, etc? probably better, so we can reuse the col object (even for the 1 col rows)
             'col1label': {
               'value': '50%',
               'color': '#FFA500',
@@ -409,10 +408,10 @@
         ]
       },
       'actionButton': {
-        'x-backgroundColor': '#1884C4',
+        'disabled--backgroundColor': '#1884C4',
         'title': {
           'value': 'Refresh',
-          'color': '#FFA500',
+          'color': 'blaaaaaaa', // testing robustness, should fall back to black
           'font': {
             'size': 17
           }
@@ -455,7 +454,6 @@
         'backgroundColor': '#FFA500'
       },
       // triggered by force touch
-      // TODO see https://developer.apple.com/library/ios/documentation/General/Conceptual/WatchKitProgrammingGuide/Menus.html#//apple_ref/doc/uid/TP40014969-CH15-SW1
       'contextMenu': {
         // configure up to 4 items (any more will be ignored)
         'items': [

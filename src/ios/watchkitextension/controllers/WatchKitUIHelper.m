@@ -2,9 +2,6 @@
 
 @implementation WatchKitUIHelper
 
-- (void)awakeWithContext:(id)context {
-}
-
 + (NSAttributedString*) getAttributedStringFrom:(NSDictionary*)dic {
   NSString* value = [dic valueForKey:@"value"];
   if (value == nil) {
@@ -78,7 +75,7 @@
     CLLocationCoordinate2D coordinate = [self makeCoordinate:[dic valueForKey:@"center"]];
     NSNumber *zoom = [dic valueForKey:@"zoom"];
     if (zoom == nil) {
-      [WatchKitHelper logError:@"No 'zoom' specified, using '0.1' by default"];
+      [WatchKitHelper logError:@"No 'zoom' specified, using '0.1' as default"];
       zoom = [NSNumber numberWithFloat:0.1];
     }
     MKCoordinateSpan span = MKCoordinateSpanMake([zoom floatValue], [zoom floatValue]);
@@ -99,7 +96,7 @@
   NSNumber *lat = [dic valueForKey:@"lat"];
   NSNumber *lng = [dic valueForKey:@"lng"];
   if (lat == nil || lng == nil) {
-    [WatchKitHelper logError:@"Please specify 'lat' and 'lng', using defaults (0)"];
+    [WatchKitHelper logError:@"Please specify 'lat' and 'lng', using defaults (0) which is an odd place btw."];
   }
   return CLLocationCoordinate2DMake([lat floatValue], [lng floatValue]);
 }
@@ -224,7 +221,7 @@
   }
 }
 
-// Assumes input like "#00FF00" (#RRGGBB)
+// Assumes input like "#00FF00" (#RRGGBB). Will be black on bogus input
 + (UIColor *)colorFromHexString:(NSString *)hexString {
   unsigned rgbValue = 0;
   NSScanner *scanner = [NSScanner scannerWithString:hexString];

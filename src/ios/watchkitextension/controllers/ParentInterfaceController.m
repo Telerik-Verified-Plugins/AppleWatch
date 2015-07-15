@@ -9,14 +9,9 @@
   [self hideAllWidgets];
 
   // Initialize the wormhole
-  NSString *appGroup = [NSString stringWithFormat:@"group.%@", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"]];
-  appGroup = [appGroup stringByReplacingOccurrencesOfString:@".watchkitextension" withString:@""];
-
-  // @"group.nl.xservices.applewatch"
-  self.wormhole = [[MMWormhole alloc] initWithApplicationGroupIdentifier:appGroup
+  self.wormhole = [[MMWormhole alloc] initWithApplicationGroupIdentifier:[self getAppGroup]
                                                        optionalDirectory:@"wormhole"];
   
-  // TODO a wormhole is only started when navigated to, so js can't send a message to a new page...
   NSString *wormholeIdentifier = [@"fromjstowatchapp-" stringByAppendingString:[self getPageID]];
   [self.wormhole listenForMessageWithIdentifier:wormholeIdentifier listener:^(id messageObject) {
       [self buildUI:messageObject];
@@ -30,16 +25,17 @@
                                userInfo:nil];
 }
 
+- (NSString*) getAppGroup {
+  NSString *appGroup = [NSString stringWithFormat:@"group.%@", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"]];
+  return [appGroup stringByReplacingOccurrencesOfString:@".watchkitextension" withString:@""];
+}
+
 - (id)contextForSegueWithIdentifier:(NSString*)segueIdentifier {
   // here we can pass data to the next page's awakeWithContext method
   return nil;
 }
 
 - (void)table:(WKInterfaceTable *)table didSelectRowAtIndex:(NSInteger)rowIndex {
-  // TODO we probably want to:
-  // a) nav to the detailpage here, or
-  // b) send the selected item back to JS, or
-  // c) both
   if (self.tableCallback) {
     [WatchKitHelper openParent:self.tableCallback withParams:[@(rowIndex) stringValue]];
   } else {
@@ -72,16 +68,18 @@
     [self setTitle:nil];
   }
 
-  // the menu, triggered by a force touch
+  // a menu, triggered by a force touch
   if ([messageObject valueForKey:@"contextMenu"] != nil) {
     [self clearAllMenuItems];
-    NSDictionary *contextMenuItems = [messageObject valueForKey:@"contextMenu"];
-    // TODO if items can not be found, log it - same for other expected values
-    NSArray *items = [contextMenuItems valueForKey:@"items"];
-    self.contextMenuButton1Callback = [self addContextMenuItem:items forItemAtIndex:0 performSelector:@selector(contextMenuButton1Action)];
-    self.contextMenuButton2Callback = [self addContextMenuItem:items forItemAtIndex:1 performSelector:@selector(contextMenuButton2Action)];
-    self.contextMenuButton3Callback = [self addContextMenuItem:items forItemAtIndex:2 performSelector:@selector(contextMenuButton3Action)];
-    self.contextMenuButton4Callback = [self addContextMenuItem:items forItemAtIndex:3 performSelector:@selector(contextMenuButton4Action)];
+    NSArray *items = [[messageObject valueForKey:@"contextMenu"] valueForKey:@"items"];
+    if (items == nil || items.count == 0) {
+      [WatchKitHelper logError:@"A 'contextMenu' was specified, but we can't find an 'items' array. The menu will not be rendered."];
+    } else {
+      self.contextMenuButton1Callback = [self addContextMenuItem:items forItemAtIndex:0 performSelector:@selector(contextMenuButton1Action)];
+      self.contextMenuButton2Callback = [self addContextMenuItem:items forItemAtIndex:1 performSelector:@selector(contextMenuButton2Action)];
+      self.contextMenuButton3Callback = [self addContextMenuItem:items forItemAtIndex:2 performSelector:@selector(contextMenuButton3Action)];
+      self.contextMenuButton4Callback = [self addContextMenuItem:items forItemAtIndex:3 performSelector:@selector(contextMenuButton4Action)];
+    }
   }
 
   [WatchKitUIHelper setGroup:self.wrapper fromDic:[messageObject valueForKey:@"group"]];
