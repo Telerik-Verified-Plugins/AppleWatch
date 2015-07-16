@@ -14,15 +14,23 @@ Let's start off with the fun stuff: how do we create those Watch widgets with Ja
 <img src="doc/screenshots/switch.png" width="276px" height="166px" alt="Switch"/>
 
 ```js
+var fooSwitchOn = true;
+var barSwitchOn = false;
+
+function onFooSwitchChanged(changedTo) {
+  fooSwitchOn = changedTo;
+  console.log("Foo switch changed to " + changedTo);
+}
+
 'switch': {
   'title': 'Want foo?',
-  'on': true,
-  'color': '#CC0000',
-  'callback': 'onSomeOptionSelected'
+  'on': fooSwitchOn, // the initial state of the switch when rendering
+  'color': '#CC0000', // red in this case
+  'callback': 'onFooSwitchChanged' // optional, but pretty useful
 },
 'switch2': {
   'title': 'And bar?',
-  'on': false,
+  'on': barSwitchOn,
   'color': '#02779E'
 }
  ```
