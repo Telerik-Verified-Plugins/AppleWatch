@@ -403,7 +403,7 @@ by invoking the `applewatch.callback.onLoadGlance` method. If you don't provide 
 
 <img src="doc/pages/glance.png" width="268px" height="324px" alt="Glance"/>
 
-It's recommended that you do something like this on `deviceready` to configure the glance UI shown above:
+It's recommended that you do this on `deviceready` to configure the glance. To create the UI shown above:
 
 ```js
 function onGlanceRequestsUpdate() {
@@ -433,7 +433,7 @@ function onGlanceRequestsUpdate() {
 applewatch.callback.onLoadGlance = onGlanceRequestsUpdate;
 ```
 
-And here's another way to write this code. In this case we'll only show an image.
+And here's a more concise way to configure a glance. In this case we'll only show an image.
 ```js
 applewatch.callback.onLoadGlance = function() {
   applewatch.loadGlance({
@@ -441,11 +441,32 @@ applewatch.callback.onLoadGlance = function() {
   });
 }
 ```
-##Loading an app page
 
+Glances can't have buttons (the're readonly remember), so tapping anywhere on the glance will launch your app.
+
+The allowed widgets and its order are precooked in the storyboard.
+A glance is divided in two sections and can't show more than one page (they don't scroll).
+The supported widgets are (in this rendering order, and they're all optional):
+
+######Top section
+- label
+- label2
+
+######Bottom section
+- image
+- table
+- map
+
+##Loading an app page
+TODO
 
 ##Notifications
 Remote/local and callbacks
+
+
+##Using your own storyboard
+If you want more control over the layout, you can open the `Interface.storyboard` file in XCode,
+adjust it, and have the app load it by placing it here: `www/custom-watchkit-storyboards/Interface.storyboard`.
 
 
 ##Installation
