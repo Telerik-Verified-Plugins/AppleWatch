@@ -78,7 +78,7 @@ function onSliderChanged(val) {
   'zoom': 4.1, // 0.001 is streetlevel, 4 fits the entire Netherlands
   'annotations': [ // up to 5 annotations (custom pins), any more are ignored (play with the zoom value to make them all fit)
     {
-      'pinColor': 'green', // green|red|purple
+      'pinColor': 'green', // green | red | purple
       'lat': 52.1851,
       'lng': 5.3996
     },
@@ -95,51 +95,6 @@ function onSliderChanged(val) {
   ]
 }
  ```
-
-####Button
-<img src="doc/widgets/button.png" width="266px" height="250px" alt="Button"/>
-
-All types of buttons can be styled with a bunch of properties.
-Those buttons above are rendered by this code:
-
-```js
-// the red one
-'userInputButton': {
-  'width': 60, // default full width, see the orange buttons
-  'height': 30,
-  'title': {
-    'value': 'Vote',
-    'color': '#FFFFFF',
-    'font': {
-      'size': 12
-    }
-  },
-  'backgroundColor': '#CC0000',
-  'alpha': 1 // which is the default
-},
-
-// the blue one
-'actionButton': {
-  'title': {
-    'value': 'Refresh',
-    'color': 'blaaaaaaa', // because this is rubbish, we fall back to the default (black)
-    'font': {
-      'size': 17
-    }
-  },
-  'color': '#FFFFFF',
-  'width':80,
-  'height':44
-},
-
-// the orange one
-'pushNavButton': {
-  'title': {
-    'value': 'Push nav'
-  },
-  'backgroundColor': '#FFA500'
-}
-```
 
 ####Menu
 <img src="doc/widgets/menu.png" width="270px" height="324px" alt="Menu"/>
@@ -179,7 +134,7 @@ The `iconNamed` property must be one of:
 |decline |<img src="https://developer.apple.com/library/ios/documentation/WatchKit/Reference/WKInterfaceController_class/Art/SPMenuItemDecline-regular_2x.png"  width="27px" height="27px"/>|
 |info    |<img src="https://developer.apple.com/library/ios/documentation/WatchKit/Reference/WKInterfaceController_class/Art/SPMenuItemInfo-regular_2x.png"     width="11px" height="30px"/>|
 |maybe   |<img src="https://developer.apple.com/library/ios/documentation/WatchKit/Reference/WKInterfaceController_class/Art/SPMenuItemMaybe-regular_2x.png"    width="19px" height="32px"/>|
-|more    |<img src="https://developer.apple.com/library/ios/documentation/WatchKit/Reference/WKInterfaceController_class/Art/SPMenuItemMore-regular_2x.png"     width="31px" height="7px"/>|
+|more    |<img src="https://developer.apple.com/library/ios/documentation/WatchKit/Reference/WKInterfaceController_class/Art/SPMenuItemMore-regular_2x.png"     width="31px" height="7px"/> |
 |mute    |<img src="https://developer.apple.com/library/ios/documentation/WatchKit/Reference/WKInterfaceController_class/Art/SPMenuItemMute-regular_2x.png"     width="31px" height="27px"/>|
 |pause   |<img src="https://developer.apple.com/library/ios/documentation/WatchKit/Reference/WKInterfaceController_class/Art/SPMenuItemPause-regular_2x.png"    width="18px" height="25px"/>|
 |play    |<img src="https://developer.apple.com/library/ios/documentation/WatchKit/Reference/WKInterfaceController_class/Art/SPMenuItemPlay-regular_2x.png"     width="23px" height="26px"/>|
@@ -199,7 +154,7 @@ In the future we may add support for loading images from other locations (like t
 
 ```js
 'image': {
-  // by not passing widht and height the image is shown full size
+  // by not passing width and height the image is shown full size
   'src': 'www/img/logo.png'
 }
 ```
@@ -307,8 +262,137 @@ The row's `type` attribute must be one of:
 |-----------|-----|
 |OneColumnRowType |A readonly row which can contain images and a lable.|
 |TwoColumnsRowType |A readonly row with two evenly distributed columns. Each column can contain a centered label and/or image.|
-|OneColumnSelectableRowType |Same as `OneColumnRowType` but the entire row is 'clickable'. Once that's done, a `callback` specified on the table level will be invoked. Don't add this to a glance since those are readonly.
-|Want more?|This element is easily extendible, so please let us know what you want to see here..|
+|OneColumnSelectableRowType |Same as `OneColumnRowType` but the entire row is 'clickable'. Once that's done, a `callback` specified on the table level will be invoked. Don't add this to a glance since those are readonly.|
+|Need something else?|This element is easily extensible, so please let us know what you want to see here..|
+
+
+####Button
+<img src="doc/widgets/button.png" width="266px" height="250px" alt="Button"/>
+
+All types of buttons can be styled with a bunch of properties.
+Those buttons above are rendered by this code:
+
+```js
+// the red one
+'userInputButton': {
+  'width': 60, // default full width, see the orange buttons
+  'height': 30,
+  'title': {
+    'value': 'Vote',
+    'color': '#FFFFFF',
+    'font': {
+      'size': 12
+    }
+  },
+  'backgroundColor': '#CC0000',
+  'alpha': 1 // which is the default
+},
+
+// the blue one
+'actionButton': {
+  'title': {
+    'value': 'Refresh',
+    'color': 'blaaaaaaa', // because this is rubbish, we fall back to the default (black)
+    'font': {
+      'size': 17
+    }
+  },
+  'color': '#FFFFFF',
+  'width':80,
+  'height':44
+},
+
+// the orange one
+'pushNavButton': {
+  'title': {
+    'value': 'Push nav'
+  },
+  'backgroundColor': '#FFA500'
+}
+```
+
+#####User input (button)
+<img src="doc/widgets/userinput.png" width="270px" height="336px" alt="User input"/>
+
+The `userInputButton` can be used to get input from the user (duh).
+
+```js
+function onUserInput(result) {
+  if (result.type == "base64img") {
+    console.log("An animated Emoji was selected");
+    // you can show the image, for example add this: <img id="myImage" src=""/> and do this:
+    document.getElementById("myImage").src = result.data;
+  } else {
+    // one of the pre-cooked anwers was picked, or a (non animated) Emoji, or even some fancy speech-to-text (dictation)
+    feedback("User input: " + result.data);
+  }
+}
+
+// the same button as above, but without the layout bits
+'userInputButton': {
+  'inputMode': 'WKTextInputModeAllowAnimatedEmoji', // see the table below for options
+  'suggestions': ['foo', 'bar', 'shaz'], // up to three possible options
+  'title': {
+    'value': 'Vote',
+  },
+  'callback': 'onUserInput'
+```
+
+The `inputMode` attribute must be one of:
+
+|`inputMode`|Description|
+|-----------|-----|
+|WKTextInputModePlain | Dictation/suggested text only. The emoji button will be hidden. If you don't provide `suggestions` the dictation interface will be shown directly.|
+|WKTextInputModeAllowEmoji |Dictation, suggested text, and non-animated emoji.|
+|WKTextInputModeAllowAnimatedEmoji |Dictation, suggested text, and both animated and non-animated emoji.|
+
+
+#####Action button
+
+Of course you can do anything you like when a user pressed a button.
+Like fetching items from a remote server and navigating to a detail page on the watch.
+
+```js
+function onRefreshButtonPressed() {
+  console.log("Reloading the page");
+  applewatch.loadApp(payload);
+}
+
+'actionButton': {
+  'title': {
+    'value': 'Refresh!',
+  },
+  'callback': 'onRefreshButtonPressed'
+}
+```
+
+#####Navigation button
+
+There are two styles of navigation: 'push' and 'modal'.
+The former performs a left-right slide animation and has a back button.
+the latter stacks the new page on top of the other with a slide animation from the bottom and has a done/close button.
+
+These buttons can only be used on the first app page and will navigate to the `AppDetail` page when activated.
+
+Push
+```js
+'pushNavButton': {
+  'backTitle': 'Back off', // optional, only an arrow is shown if not provided
+  'title': {
+    'value': 'Push nav'
+  }
+}
+```
+
+Modal
+```js
+'modalNavButton': {
+  'closeTitle': 'Shut it', // optional, and it's recommended to use the default 'Close' because that's shown a short moment anyway
+  'title': {
+    'value': 'Modal nav'
+  }
+}
+```
 
 ##Installation
 
