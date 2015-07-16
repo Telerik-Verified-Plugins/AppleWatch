@@ -9,9 +9,11 @@ Mostly done, a few things will change before the 1.0.0 release, but most major p
 ###UI widgets:
 Let's start off with the fun stuff: how do we create those Watch widgets with JavaScript?
 
-Widget | JavaScript
---- | ---
-<img src="doc/screenshots/switch.png" width="276px" height="166px" alt="Switch"/> | ```js
+
+####Switch
+<img src="doc/screenshots/switch.png" width="276px" height="166px" alt="Switch"/>
+
+```js
 'switch': {
   'title': 'Want foo?',
   'on': true,
@@ -25,19 +27,47 @@ Widget | JavaScript
 }
  ```
 
-####Sliders
-<img src="doc/screenshots/switch.png" width="276px" height="166px" alt="Switch"/>
+####Slider
+<img src="doc/screenshots/slider.png" width="276px" height="113px" alt="Slider"/>
 
-'switch': {
-  'title': 'Want foo?',
-  'on': true,
-  'color': '#CC0000',
-  'callback': 'onSomeOptionSelected'
-},
-'switch2': {
-  'title': 'And bar?',
-  'on': false,
-  'color': '#02779E'
+```js
+'slider': {
+  'steps': 20, // of 100, so each step is 5 in this case
+  'value': sliderVal, // of 100, so this is a percentage
+  'color': '#CC0000', // the color of the dots, red in this case
+  'callback': 'onSliderChanged',
+  'hideValue': false // default false, shows the current value below the slider
+}
+ ```
+
+####Map
+<img src="doc/screenshots/switch.png" width="276px" height="208px" alt="Map"/>
+
+```js
+'map': {
+  'center': {
+    // Amersfoort, The Netherlands
+    'lat': 52.1851552,
+    'lng': 5.3996181
+  },
+  'zoom': 4.1, // 0.001 is streetlevel, 4 fits the entire Netherlands
+  'annotations': [ // up to 5 annotations (custom pins), any more are ignored (play with the zoom value to make them all fit)
+    {
+      'pinColor': 'green', // green|red|purple
+      'lat': 52.1851,
+      'lng': 5.3996
+    },
+    {
+      'pinColor': 'red',
+      'lat': 51.751,
+      'lng': 8.4
+    },
+    {
+      'pinColor': 'purple',
+      'lat': 50.2251,
+      'lng': 4.7196
+    }
+  ]
 }
  ```
 
