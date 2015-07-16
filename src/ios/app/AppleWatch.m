@@ -3,6 +3,10 @@
 #import "AppleWatch.h"
 #import "MMWormhole.h"
 
+static NSString *const AWPlugin_Page_Glance = @"Glance";
+static NSString *const AWPlugin_Page_AppMain = @"AppMain";
+static NSString *const AWPlugin_Page_AppDetail = @"AppDetail";
+
 @interface AppleWatch ()
 
 @property (nonatomic, strong) MMWormhole* wormhole;
@@ -41,21 +45,40 @@
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
+- (void) loadGlance:(CDVInvokedUrlCommand*)command {
+  [self sendMessage:command forPage:AWPlugin_Page_Glance];
+}
+
+- (void) loadApp:(CDVInvokedUrlCommand*)command {
+  [self sendMessage:command forPage:AWPlugin_Page_AppMain];
+}
+
+- (void) loadAppDetail:(CDVInvokedUrlCommand*)command {
+  [self sendMessage:command forPage:AWPlugin_Page_AppDetail];
+}
+
 - (void) sendMessage:(CDVInvokedUrlCommand*)command {
   NSDictionary *args = [command.arguments objectAtIndex:0];
   NSMutableDictionary *dic = [args objectForKey:@"payload"];
-
+  
   NSString *pageID = [dic objectForKey:@"id"];
   if (pageID == nil) {
     [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"id is mandatory"] callbackId:command.callbackId];
     return;
   }
+  
+  [self sendMessage:command forPage:pageID];
+}
+
+- (void) sendMessage:(CDVInvokedUrlCommand*)command forPage:(NSString*)pageID {
+  NSDictionary *args = [command.arguments objectAtIndex:0];
+  NSMutableDictionary *dic = [args objectForKey:@"payload"];
 
   NSString* queueName = [@"fromjstowatchapp-" stringByAppendingString:pageID];
   
-  // TODO see SocialSharing for how to download images from the interwebs
-  // TODO rename to image1?
+  // TODO add support for non-local images by downloading them here from the interwebs
   [self bundleImage:[dic valueForKey:@"image"] withCallbackId:command.callbackId];
+  [self bundleImage:[dic valueForKey:@"image2"] withCallbackId:command.callbackId];
   NSDictionary* table = [dic valueForKey:@"table"];
   if (table != nil) {
     NSArray *rows = [table valueForKey:@"rows"];
@@ -87,17 +110,24 @@
   }
 }
 
-- (void) navigate:(CDVInvokedUrlCommand*)command {
+- (void) navigateToAppDetail:(CDVInvokedUrlCommand*)command {
+  [self navigate:command toPage:AWPlugin_Page_AppDetail];
+}
+
+- (void) navigateToAppMain:(CDVInvokedUrlCommand*)command {
+  [self navigate:command toPage:AWPlugin_Page_AppMain];
+}
+
+- (void) navigate:(CDVInvokedUrlCommand*)command toPage:(NSString*)id {
   NSDictionary *args = [command.arguments objectAtIndex:0];
   NSMutableDictionary *dic = [args objectForKey:@"payload"];
-  
-  NSString *pageID = [dic objectForKey:@"id"];
-  if (pageID == nil) {
-    [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"id is mandatory"] callbackId:command.callbackId];
-    return;
+  if (dic == nil) {
+    dic = [[NSMutableDictionary alloc] init];
   }
-  
-  // the main page handles page navigation sa that's the page who's wormhole should be active
+  if ([dic valueForKey:@"id"] == nil) {
+    [dic setObject:id forKey:@"id"];
+  }
+
   NSString* queueName = @"fromjstowatchapp-navigation";
   
   [self.wormhole passMessageObject:dic identifier:queueName];
@@ -125,84 +155,14 @@
     localNotification.alertBody = [args objectForKey:@"body"];
     localNotification.applicationIconBadgeNumber = [[args objectForKey:@"badge"] intValue];
 
-    // TODO remove delay (added it for testing purposes)
-    NSDate *in5seconds = [NSDate dateWithTimeIntervalSinceNow:5];
-    localNotification.fireDate = in5seconds; // [NSDate date];
+    // enable this if you want a delay
+    // NSDate *in5seconds = [NSDate dateWithTimeIntervalSinceNow:5];
+    // localNotification.fireDate = in5seconds; // [NSDate date];
+    localNotification.fireDate = [NSDate date];
     localNotification.soundName = UILocalNotificationDefaultSoundName;
 
     [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
 
     [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
 }
-
-- (void) sendUserDefaults:(CDVInvokedUrlCommand*)command;
-{
-    CDVPluginResult* pluginResult = nil;
-
-    NSMutableDictionary *args = [command.arguments objectAtIndex:0];
-    NSString *key = [args objectForKey:@"key"];
-    NSString *value = [args objectForKey:@"value"];
-    NSString *appGroupId = [args objectForKey:@"appGroupId"];
-
-    if ([appGroupId length] == 0)
-    {
-        appGroupId = [NSString stringWithFormat:@"group.%@", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"]];
-    }
-
-    NSUserDefaults *userDefaults = [[NSUserDefaults alloc] initWithSuiteName:appGroupId];
-    [userDefaults setObject:value forKey:key];
-    [userDefaults synchronize];
-
-    if ([[userDefaults stringForKey:key] isEqualToString:value])
-    {
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    }
-    else
-    {
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_IO_EXCEPTION];
-    }
-
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-}
-
-- (void) addListener:(CDVInvokedUrlCommand*)command;
-{
-    NSMutableDictionary *args = [command.arguments objectAtIndex:0];
-    NSString *queueName = [args objectForKey:@"queueName"];
-
-    [self.wormhole listenForMessageWithIdentifier:queueName listener:^(id message) {
-        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:message];
-        [pluginResult setKeepCallbackAsBool:YES];
-
-        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-    }];
-}
-
-- (void) removeListener:(CDVInvokedUrlCommand*)command;
-{
-    NSMutableDictionary *args = [command.arguments objectAtIndex:0];
-    NSString *queueName = [args objectForKey:@"queueName"];
-
-    [self.wormhole stopListeningForMessageWithIdentifier:queueName];
-
-    [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
-}
-
-- (void) purgeQueue:(CDVInvokedUrlCommand*)command;
-{
-    NSMutableDictionary *args = [command.arguments objectAtIndex:0];
-    NSString *queueName = [args objectForKey:@"queueName"];
-
-    [self.wormhole clearMessageContentsForIdentifier:queueName];
-
-    [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
-}
-
-- (void) purgeAllQueues:(CDVInvokedUrlCommand*)command;
-{
-    [self.wormhole clearAllMessageContents];
-
-    [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
-}
-
 @end

@@ -3,25 +3,41 @@ var exec = require("cordova/exec");
 var AppleWatch = function () {
 };
 
-AppleWatch.prototype.init = function (onSuccess, onError, appGroupId) {
-  exec(onSuccess, onError, "AppleWatch", "init", [{
-        "appGroupId": appGroupId
-  }]);
+AppleWatch.prototype.init = function (onSuccess, onError) {
+  exec(onSuccess, onError, "AppleWatch", "init", []);
 };
 
 AppleWatch.prototype.registerNotifications = function (onSuccess, onError) {
   exec(onSuccess, onError, "AppleWatch", "registerNotifications", []);
 };
 
-AppleWatch.prototype.sendMessage = function (payload, onSuccess, onError) {
-  exec(onSuccess, onError, "AppleWatch", "sendMessage", [{
-        "payload": payload
+AppleWatch.prototype.loadGlance = function (payload, onSuccess, onError) {
+  exec(onSuccess, onError, "AppleWatch", "loadGlance", [{
+    "payload": payload
   }]);
 };
 
-AppleWatch.prototype.navigate = function (payload, onSuccess, onError) {
-  exec(onSuccess, onError, "AppleWatch", "navigate", [{
-        "payload": payload
+AppleWatch.prototype.loadApp = function (payload, onSuccess, onError) {
+  exec(onSuccess, onError, "AppleWatch", "loadApp", [{
+    "payload": payload
+  }]);
+};
+
+AppleWatch.prototype.loadAppDetail = function (payload, onSuccess, onError) {
+  exec(onSuccess, onError, "AppleWatch", "loadAppDetail", [{
+    "payload": payload
+  }]);
+};
+
+AppleWatch.prototype.navigateToAppDetail = function (payload, onSuccess, onError) {
+  exec(onSuccess, onError, "AppleWatch", "navigateToAppDetail", [{
+    "payload": payload
+  }]);
+};
+
+AppleWatch.prototype.navigateToAppMain = function (payload, onSuccess, onError) {
+  exec(onSuccess, onError, "AppleWatch", "navigateToAppMain", [{
+    "payload": payload
   }]);
 };
 
@@ -29,50 +45,10 @@ AppleWatch.prototype.sendNotification = function (onSuccess, onError, payload) {
   exec(onSuccess, onError, "AppleWatch", "sendNotification", [payload]);
 };
 
-AppleWatch.prototype.sendUserDefaults = function (onSuccess, onError, obj, appGroupId) {
-  var key = Object.keys(obj)[0];
-  var payload = {
-    "key": key,
-    "value": obj[key],
-    "appGroupId": appGroupId
-  };
-  exec(onSuccess, onError, "AppleWatch", "sendUserDefaults", [payload]);
-};
-
-AppleWatch.prototype.addListener = function (queueName, onMessage) {
-  var wrappedOnMessage = function (message) {
-    try {
-      message = JSON.parse(message);
-    } catch (e) {
-    }
-    onMessage(message);
-  };
-
-  exec(wrappedOnMessage, null, "AppleWatch", "addListener", [{
-    "queueName": queueName
-  }]);
-};
-
-AppleWatch.prototype.removeListener = function (queueName, onSuccess, onError) {
-  exec(onSuccess, onError, "AppleWatch", "removeListener", [{
-    "queueName": queueName
-  }]);
-};
-
-AppleWatch.prototype.purgeQueue = function (queueName, onSuccess, onError) {
-  exec(onSuccess, onError, "AppleWatch", "purgeQueue", [{
-    "queueName": queueName
-  }]);
-};
-
-AppleWatch.prototype.purgeAllQueues = function (onSuccess, onError) {
-  exec(onSuccess, onError, "AppleWatch", "purgeAllQueues", []);
-};
-
 // add a few default callbacks, override as you see fit (applewatch.callback.<callbackname> = function() {}
 AppleWatch.prototype.callback = {};
 // invoked when you've specified invalid UI elements, or in case you omitted a mandatory property
-AppleWatch.prototype.callback.onError = function(message) {
+AppleWatch.prototype.callback.onError = function (message) {
   console.log("Error from Watch: " + message);
 };
 //AppleWatch.prototype.callback.reportIfNotDefined = function(what) {

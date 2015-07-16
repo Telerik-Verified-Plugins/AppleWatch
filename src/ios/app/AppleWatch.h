@@ -7,13 +7,13 @@
 
 - (void) init:(CDVInvokedUrlCommand*)command;
 - (void) registerNotifications:(CDVInvokedUrlCommand*)command;
-- (void) sendMessage:(CDVInvokedUrlCommand*)command;
-- (void) navigate:(CDVInvokedUrlCommand*)command;
 - (void) sendNotification:(CDVInvokedUrlCommand*)command;
-- (void) sendUserDefaults:(CDVInvokedUrlCommand*)command;
-- (void) addListener:(CDVInvokedUrlCommand*)command;
-- (void) removeListener:(CDVInvokedUrlCommand*)command;
-- (void) purgeQueue:(CDVInvokedUrlCommand*)command;
-- (void) purgeAllQueues:(CDVInvokedUrlCommand*)command;
+
+- (void) loadGlance:(CDVInvokedUrlCommand*)command;
+- (void) loadApp:(CDVInvokedUrlCommand*)command;
+- (void) loadAppDetail:(CDVInvokedUrlCommand*)command;
+
+- (void) navigateToAppDetail:(CDVInvokedUrlCommand*)command;
+- (void) navigateToAppMain:(CDVInvokedUrlCommand*)command;
 
 @end

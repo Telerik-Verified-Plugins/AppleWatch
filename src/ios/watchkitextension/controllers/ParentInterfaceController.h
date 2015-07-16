@@ -10,14 +10,14 @@
 
 @property (weak, nonatomic) IBOutlet WKInterfaceGroup *wrapper;
 
-@property (weak, nonatomic) IBOutlet WKInterfaceLabel *label1;
+@property (weak, nonatomic) IBOutlet WKInterfaceLabel *label;
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *label2;
 
 @property (weak, nonatomic) IBOutlet WKInterfaceTable *table;
 
 @property (weak, nonatomic) IBOutlet WKInterfaceImage *image;
 
-@property (weak, nonatomic) IBOutlet WKInterfaceSwitch *switch1;
+@property (weak, nonatomic) IBOutlet WKInterfaceSwitch *switch1; // 'switch' is a reserved keyword
 @property (weak, nonatomic) IBOutlet WKInterfaceSwitch *switch2;
 
 @property (weak, nonatomic) IBOutlet WKInterfaceMap *map;
@@ -36,7 +36,7 @@
 @property (retain, nonatomic) NSString *pushNavButtonCallback;
 @property (retain, nonatomic) NSString *modalNavButtonCallback;
 @property (retain, nonatomic) NSString *tableCallback;
-@property (retain, nonatomic) NSString *switch1Callback;
+@property (retain, nonatomic) NSString *switchCallback;
 @property (retain, nonatomic) NSString *switch2Callback;
 @property (retain, nonatomic) NSString *sliderCallback;
 

@@ -12,7 +12,7 @@
                     <items>
                         <group width="1" alignment="center" layout="vertical" id="7W0-qv-nMv" userLabel="Wrapper">
                             <items>
-                                <label width="1" alignment="center" text="label1" textAlignment="left" numberOfLines="2" id="sZq-bJ-dYC" userLabel="label1">
+                                <label width="1" alignment="center" text="label" textAlignment="left" numberOfLines="2" id="sZq-bJ-dYC" userLabel="label">
                                     <fontDescription key="font" type="system" pointSize="14"/>
                                 </label>
                                 <group width="1" alignment="center" contentMode="top" layout="vertical" id="RZ8-RP-zhP" userLabel="UpperGroup">
@@ -88,10 +88,10 @@
                                         </tableRow>
                                     </items>
                                 </table>
-                                <switch width="1" alignment="left" value="YES" title="Switch1" id="WQK-vU-RvF">
+                                <switch width="1" alignment="left" value="YES" title="Switch" id="WQK-vU-RvF" userLabel="Switch">
                                     <fontDescription key="font" type="system" pointSize="12"/>
                                     <connections>
-                                        <action selector="switch1Action:" destination="AgC-eL-Hgc" id="0rB-Pi-TOt"/>
+                                        <action selector="switchAction:" destination="AgC-eL-Hgc" id="bif-rt-u4x"/>
                                     </connections>
                                 </switch>
                                 <switch width="1" alignment="left" value="YES" title="Switch2" id="IqS-rZ-9pa" userLabel="Switch2">
@@ -115,12 +115,12 @@
                                 <map height="100" alignment="center" id="cFR-Wx-pIT"/>
                                 <button width="1" alignment="center" title="Ask user input" id="ePd-8c-jy1" userLabel="UserInputButton">
                                     <connections>
-                                        <action selector="userInputButtonAction" destination="AgC-eL-Hgc" id="iZc-cn-nH4"/>
+                                        <action selector="userInputButtonAction" destination="AgC-eL-Hgc" id="TeV-4O-NKQ"/>
                                     </connections>
                                 </button>
                                 <button width="1" alignment="center" title="Do action" id="D6t-Ze-euK" userLabel="ActionButton">
                                     <connections>
-                                        <action selector="buttonAction" destination="AgC-eL-Hgc" id="TYR-f3-gMf"/>
+                                        <action selector="actionButtonAction" destination="AgC-eL-Hgc" id="Ek8-3a-Ymn"/>
                                     </connections>
                                 </button>
                                 <button width="1" alignment="center" title="Show as page" id="yD4-4L-Xgu" userLabel="PushNavButton">
@@ -139,9 +139,9 @@
                         </group>
                     </items>
                     <connections>
-                        <outlet property="actionButton" destination="D6t-Ze-euK" id="NJH-vg-MHP"/>
-                        <outlet property="image" destination="NaD-mO-aAN" id="727-rs-Pxn"/>
-                        <outlet property="label1" destination="sZq-bJ-dYC" id="kHk-VH-1T7"/>
+                        <outlet property="actionButton" destination="D6t-Ze-euK" id="zOq-u2-iW4"/>
+                        <outlet property="image" destination="NaD-mO-aAN" id="2ta-wC-RCh"/>
+                        <outlet property="label" destination="sZq-bJ-dYC" id="LiF-aA-4qU"/>
                         <outlet property="label2" destination="n9N-LZ-vmP" id="Ze3-xx-6b1"/>
                         <outlet property="map" destination="cFR-Wx-pIT" id="NIp-Vc-8Iu"/>
                         <outlet property="modalNavButton" destination="7nw-Oc-fPW" id="zw1-YB-qzg"/>
@@ -149,24 +149,24 @@
                         <outlet property="slider" destination="ZmR-gh-Ovk" id="JL2-xQ-Gxb"/>
                         <outlet property="sliderGroup" destination="FRS-JD-ZEz" id="M7D-vW-pLq"/>
                         <outlet property="sliderLabel" destination="TkT-SV-2k0" id="wQm-U8-ws5"/>
-                        <outlet property="switch1" destination="WQK-vU-RvF" id="eWb-jc-JC2"/>
+                        <outlet property="switch1" destination="WQK-vU-RvF" id="jhx-Ud-GSz"/>
                         <outlet property="switch2" destination="IqS-rZ-9pa" id="2XN-TV-PGh"/>
                         <outlet property="table" destination="U8z-Qd-LKW" id="wCA-rx-nZe"/>
-                        <outlet property="userInputButton" destination="ePd-8c-jy1" id="FDx-IE-Iwh"/>
+                        <outlet property="userInputButton" destination="ePd-8c-jy1" id="6Es-u7-ySH"/>
                         <outlet property="wrapper" destination="7W0-qv-nMv" id="LG1-DF-YV2"/>
                     </connections>
                 </controller>
             </objects>
             <point key="canvasLocation" x="-214" y="-238"/>
         </scene>
-        <!--Details-->
+        <!--Detail-->
         <scene sceneID="Gjw-3i-SCP">
             <objects>
-                <controller identifier="AppDetail" id="dvy-i0-5db" userLabel="Details" customClass="DetailInterfaceController">
+                <controller identifier="AppDetail" id="dvy-i0-5db" userLabel="Detail" customClass="DetailInterfaceController">
                     <items>
                         <group width="1" alignment="center" layout="vertical" id="DYL-tI-8n4" userLabel="Wrapper">
                             <items>
-                                <label width="1" alignment="center" text="label1" textAlignment="left" numberOfLines="2" id="as2-Ed-kFR" userLabel="label1">
+                                <label width="1" alignment="center" text="label" textAlignment="left" numberOfLines="2" id="as2-Ed-kFR" userLabel="label">
                                     <fontDescription key="font" type="system" pointSize="14"/>
                                 </label>
                                 <group width="1" alignment="center" contentMode="top" layout="vertical" id="LRL-pB-9bB" userLabel="UpperGroup">
@@ -242,10 +242,10 @@
                                         </tableRow>
                                     </items>
                                 </table>
-                                <switch width="1" alignment="left" value="YES" title="Switch1" id="QXf-VN-HRc" userLabel="Switch1">
+                                <switch width="1" alignment="left" value="YES" title="Switch" id="QXf-VN-HRc" userLabel="Switch">
                                     <fontDescription key="font" type="system" pointSize="12"/>
                                     <connections>
-                                        <action selector="switch1Action:" destination="dvy-i0-5db" id="9AE-cF-3DI"/>
+                                        <action selector="switchAction:" destination="dvy-i0-5db" id="mFF-Hb-Q6L"/>
                                     </connections>
                                 </switch>
                                 <switch width="1" alignment="left" value="YES" title="Switch2" id="181-GK-FU9" userLabel="Switch2">
@@ -269,12 +269,12 @@
                                 <map height="100" alignment="center" id="ptt-vg-k2n"/>
                                 <button width="1" alignment="center" title="Ask user input" id="m3c-9K-kv8" userLabel="UserInputButton">
                                     <connections>
-                                        <action selector="userInputButtonAction" destination="dvy-i0-5db" id="6yu-Ms-M4j"/>
+                                        <action selector="userInputButtonAction" destination="dvy-i0-5db" id="Im3-4m-rdT"/>
                                     </connections>
                                 </button>
                                 <button width="1" alignment="left" title="Do action" id="Nsj-YO-GEe" userLabel="ActionButton">
                                     <connections>
-                                        <action selector="buttonAction" destination="dvy-i0-5db" id="i9v-3V-5y4"/>
+                                        <action selector="actionButtonAction" destination="dvy-i0-5db" id="UcI-Pj-Ojd"/>
                                     </connections>
                                 </button>
                             </items>
@@ -283,18 +283,18 @@
                         </group>
                     </items>
                     <connections>
-                        <outlet property="actionButton" destination="Nsj-YO-GEe" id="1iR-SM-tQ4"/>
-                        <outlet property="image" destination="lC1-lp-Jr9" id="HHR-3B-msQ"/>
-                        <outlet property="label1" destination="as2-Ed-kFR" id="LaR-PC-IuO"/>
+                        <outlet property="actionButton" destination="Nsj-YO-GEe" id="j04-7G-nEI"/>
+                        <outlet property="image" destination="lC1-lp-Jr9" id="QaG-t9-Aiz"/>
+                        <outlet property="label" destination="as2-Ed-kFR" id="IIC-Ew-3Zn"/>
                         <outlet property="label2" destination="y0M-ho-qYE" id="x0r-34-0cZ"/>
                         <outlet property="map" destination="ptt-vg-k2n" id="ySN-Ij-Gct"/>
                         <outlet property="slider" destination="rZm-nF-rOi" id="7WA-bW-54L"/>
                         <outlet property="sliderGroup" destination="Uzv-it-m86" id="nYe-PF-N5S"/>
                         <outlet property="sliderLabel" destination="1zH-1u-9br" id="lda-vV-03W"/>
-                        <outlet property="switch1" destination="QXf-VN-HRc" id="DAt-cA-Uq8"/>
+                        <outlet property="switch1" destination="QXf-VN-HRc" id="ddl-7r-prs"/>
                         <outlet property="switch2" destination="181-GK-FU9" id="Ou2-zO-Q82"/>
                         <outlet property="table" destination="Hnx-T5-IIO" id="nxz-gf-X0Y"/>
-                        <outlet property="userInputButton" destination="m3c-9K-kv8" id="fT1-UA-B5M"/>
+                        <outlet property="userInputButton" destination="m3c-9K-kv8" id="Kgu-h1-tvv"/>
                         <outlet property="wrapper" destination="DYL-tI-8n4" id="vTR-Qf-xJD"/>
                     </connections>
                 </controller>
@@ -308,7 +308,7 @@
                     <items>
                         <group alignment="left" contentMode="center" layout="vertical" spacing="2" id="t8f-Gd-c4y">
                             <items>
-                                <label width="136" alignment="left" text="label1" id="Sug-Ye-hJw">
+                                <label width="136" alignment="left" text="label1" id="Sug-Ye-hJw" userLabel="label">
                                     <fontDescription key="font" type="boldSystem" pointSize="12"/>
                                 </label>
                                 <label width="1" alignment="left" text="label2" numberOfLines="3" id="3QK-1v-Dmk">
@@ -393,8 +393,8 @@
                     </items>
                     <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="14"/>
                     <connections>
-                        <outlet property="image" destination="kHn-tH-09y" id="Ifj-61-GuB"/>
-                        <outlet property="label1" destination="Sug-Ye-hJw" id="5AF-1h-1u0"/>
+                        <outlet property="image" destination="kHn-tH-09y" id="fKu-oc-g4D"/>
+                        <outlet property="label" destination="Sug-Ye-hJw" id="mNm-3r-M7f"/>
                         <outlet property="label2" destination="3QK-1v-Dmk" id="B11-Ba-Mfe"/>
                         <outlet property="map" destination="Fmd-Ph-e4s" id="Dbk-mx-Cg2"/>
                         <outlet property="table" destination="CZa-ec-VH8" id="AbN-Ts-2vI"/>

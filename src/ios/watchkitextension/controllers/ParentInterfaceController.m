@@ -44,7 +44,7 @@
 }
 
 - (void) hideAllWidgets {
-  [self.label1 setHidden:YES];
+  [self.label setHidden:YES];
   [self.label2 setHidden:YES];
   [self.table setHidden:YES];
   [self.image setHidden:YES];
@@ -83,12 +83,12 @@
   }
 
   [WatchKitUIHelper setGroup:self.wrapper fromDic:[messageObject valueForKey:@"group"]];
-  [WatchKitUIHelper setLabel:self.label1 fromDic:[messageObject valueForKey:@"label1"]];
+  [WatchKitUIHelper setLabel:self.label fromDic:[messageObject valueForKey:@"label"]];
   [WatchKitUIHelper setLabel:self.label2 fromDic:[messageObject valueForKey:@"label2"]];
   [WatchKitUIHelper setImage:self.image fromDic:[messageObject valueForKey:@"image"]];
   [WatchKitUIHelper setMap:self.map fromDic:[messageObject valueForKey:@"map"]];
   self.tableCallback = [WatchKitUIHelper setTable:self.table fromDic:[messageObject valueForKey:@"table"]];
-  self.switch1Callback = [WatchKitUIHelper setSwitch:self.switch1 fromDic:[messageObject valueForKey:@"switch1"]];
+  self.switchCallback = [WatchKitUIHelper setSwitch:self.switch1 fromDic:[messageObject valueForKey:@"switch"]];
   self.switch2Callback = [WatchKitUIHelper setSwitch:self.switch2 fromDic:[messageObject valueForKey:@"switch2"]];
   self.sliderCallback = [WatchKitUIHelper setSlider:self.slider withLabel:self.sliderLabel inGroup:self.sliderGroup fromDic:[messageObject valueForKey:@"slider"]];
   self.pushNavButtonCallback = [WatchKitUIHelper setButtonWithCallback:self.pushNavButton fromDic:[messageObject valueForKey:@"pushNavButton"]];
@@ -123,11 +123,11 @@
   [WatchKitHelper openParent:self.contextMenuButton4Callback];
 }
 
-- (IBAction)switch1Action:(BOOL)on {
-  if (self.switch1Callback) {
-    [WatchKitHelper openParent:self.switch1Callback withParams:@(on ? "true" : "false")];
+- (IBAction)switchAction:(BOOL)on {
+  if (self.switchCallback) {
+    [WatchKitHelper openParent:self.switchCallback withParams:@(on ? "true" : "false")];
   } else {
-    [WatchKitHelper logError:@"No callback specified for switch1"];
+    [WatchKitHelper logError:@"No callback specified for switch"];
   }
 }
 
@@ -143,7 +143,7 @@
   [WatchKitHelper openParent:self.sliderCallback withParams:str];
 }
 
-- (IBAction)buttonAction {
+- (IBAction)actionButtonAction {
   [WatchKitHelper openParent:self.actionButtonCallback];
 }
 
@@ -169,16 +169,6 @@
       [WatchKitHelper openParent:[self.userInputButtonDic objectForKey:@"callback"] withParams:results[0]];
     }
   }];
-}
-
-// when the app is launched from a notification. If launched from app icon in notification UI, identifier will be empty
-- (void)handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)remoteNotification {
-  //  int i=0; // eg. "firstButtonAction"
-}
-
-// when the app is launched from a notification. If launched from app icon in notification UI, identifier will be empty
-- (void)handleActionWithIdentifier:(NSString *)identifier forLocalNotification:(UILocalNotification *)localNotification {
-  //  int i=0;
 }
 
 // This method is called when watch view controller is about to be visible to the user
