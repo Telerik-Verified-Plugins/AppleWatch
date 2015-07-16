@@ -9,6 +9,17 @@ The Watch UI is built with plain old JavaScript!
 Let's start off with the fun stuff: how do we create those Watch widgets with JavaScript?
 
 
+####Common properties
+All widgets support the following properties, which will mostly not be repeated below.
+
+```js
+{
+  'alpha': 0.1 // barely visible, default is 1
+  'width': 100, // pixels
+  'height': 50 // pixels
+}
+```
+
 ####Switch
 <img src="doc/widgets/switch.png" width="266px" height="166px" alt="Switch"/>
 
@@ -85,7 +96,6 @@ function onSliderChanged(val) {
 }
  ```
 
-
 ####Button
 <img src="doc/widgets/button.png" width="266px" height="250px" alt="Button"/>
 
@@ -132,9 +142,32 @@ Those buttons above are rendered by this code:
 ```
 
 ####Menu
-<img src="doc/widgets/menu.png" width="270px" height="324px" alt="menu"/>
+<img src="doc/widgets/menu.png" width="270px" height="324px" alt="Menu"/>
 
 This menu is triggered by a Force Touch, which is pretty neat!
+
+```js
+function onContextMenuPlay() {
+  console.log("User wants to play :)");
+}
+
+'contextMenu': {
+  // configure up to 4 items (any more will be ignored)
+  'items': [
+    {
+      'title': 'Play',
+      'iconNamed': 'play', // see the table below
+      'callback': 'onContextMenuPlay'
+    },
+
+    {
+      'title': 'Resume',
+      'iconNamed': 'resume',
+      'callback': 'onContextMenuResume'
+    }
+  ]
+}
+```
 
 The `iconNamed` property must be one of:
 
@@ -158,29 +191,18 @@ The `iconNamed` property must be one of:
 |trash   |<img src="https://developer.apple.com/library/ios/documentation/WatchKit/Reference/WKInterfaceController_class/Art/SPMenuItemTrash-regular_2x.png"    width="20px" height="28px"/>|
 
 
+####Image
+<img src="doc/widgets/image.png" width="266px" height="166px" alt="Image"/>
+
+Currently the image must reside in the www folder of your app.
+In the future we may add support for loading images from other locations (like the Internet).
+
 ```js
-function onContextMenuPlay() {
-  console.log("User wants to play :)");
-}
-
-'contextMenu': {
-  // configure up to 4 items (any more will be ignored)
-  'items': [
-    {
-      'title': 'Play',
-      'iconNamed': 'play',
-      'callback': 'onContextMenuPlay'
-    },
-
-    {
-      'title': 'Resume',
-      'iconNamed': 'resume',
-      'callback': 'onContextMenuResume'
-    }
-  ]
+'image': {
+  // by not passing widht and height the image is shown full size
+  'src': 'www/img/logo.png'
 }
 ```
-
 
 ##Installation
 
