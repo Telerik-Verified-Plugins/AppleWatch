@@ -6,7 +6,7 @@ The Watch UI is built with plain old JavaScript!
 
 
 ##UI widgets
-Let's start off with the fun stuff: how do we create those Watch widgets with JavaScript?
+Let's start off with the fun stuff: how do we create Watch UI widgets with JavaScript?
 
 
 ####Common properties
@@ -14,9 +14,9 @@ All widgets support the following properties, which will mostly not be repeated 
 
 ```js
 {
-  'alpha': 0.1 // barely visible, default is 1
+  'alpha': 0.1, // barely visible, default is 1
   'width': 100, // pixels
-  'height': 50 // pixels
+  'height': 50  // pixels
 }
 ```
 
@@ -311,7 +311,7 @@ Those buttons above are rendered by this code:
 }
 ```
 
-#####User input (button)
+#####User input button
 <img src="doc/widgets/userinput.png" width="270px" height="336px" alt="User input"/>
 
 The `userInputButton` can be used to get input from the user (duh).
@@ -328,14 +328,15 @@ function onUserInput(result) {
   }
 }
 
-// the same button as above, but without the layout bits
+// the same button as (the red one) shown before , but without the layout bits
 'userInputButton': {
   'inputMode': 'WKTextInputModeAllowAnimatedEmoji', // see the table below for options
-  'suggestions': ['foo', 'bar', 'shaz'], // up to three possible options
+  'suggestions': ['foo', 'bar', 'shaz'], // 0-3 possible suggestions
   'title': {
     'value': 'Vote',
   },
   'callback': 'onUserInput'
+}
 ```
 
 The `inputMode` attribute must be one of:
@@ -374,25 +375,78 @@ the latter stacks the new page on top of the other with a slide animation from t
 
 These buttons can only be used on the first app page and will navigate to the `AppDetail` page when activated.
 
-Push
+######Push navigation
 ```js
 'pushNavButton': {
-  'backTitle': 'Back off', // optional, only an arrow is shown if not provided
+  'backTitle': 'Go Back', // optional, only an arrow is shown if not provided
   'title': {
     'value': 'Push nav'
   }
 }
 ```
 
-Modal
+######Modal navigation
 ```js
 'modalNavButton': {
-  'closeTitle': 'Shut it', // optional, and it's recommended to use the default 'Close' because that's shown a short moment anyway
+  'closeTitle': 'Shut it', // optional, and it's recommended to use the default 'Cancel' because that's shown a short moment anyway
   'title': {
     'value': 'Modal nav'
   }
 }
 ```
+
+##Loading a glance
+Glances are readonly pages which can be accessed by swiping up from the watchface.
+Your app can push content to the glance at any time and the watch will display the latest state it received.
+Also, at the moment the glance is accessed by the user, the glance will request an update from your phone app
+by invoking the `applewatch.callback.onLoadGlance` method. If you don't provide it the glance will remain black.
+
+<img src="doc/pages/glance.png" width="268px" height="324px" alt="Glance"/>
+
+It's recommended that you do something like this on `deviceready` to configure the glance UI shown above:
+
+```js
+function onGlanceRequestsUpdate() {
+  var payload = {
+    'label': {
+      'value': 'A gorgeous blue header',
+      'color': '#1884C4',
+      'font': {
+        'size': 10
+      }
+    },
+    'label2': {
+      'value': 'With a white message, served @ ' + new Date(),
+      'color': '#FFFFFF',
+      'font': {
+        'size': 8
+      }
+    },
+    'image': {
+      'src': 'www/img/logo.png',
+      'alpha': 0.8
+    }
+  };
+  applewatch.loadGlance(payload);
+}
+
+applewatch.callback.onLoadGlance = onGlanceRequestsUpdate;
+```
+
+And here's another way to write this code. In this case we'll only show an image.
+```js
+applewatch.callback.onLoadGlance = function() {
+  applewatch.loadGlance({
+    'image': {'src': 'www/img/logo.png'}
+  });
+}
+```
+##Loading an app page
+
+
+##Notifications
+Remote/local and callbacks
+
 
 ##Installation
 
