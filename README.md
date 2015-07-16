@@ -5,6 +5,32 @@ An AppleWatch plugin which requires no native code. You build the Watch UI with 
 
 Mostly done, a few things will change before the 1.0.0 release, but most major parts are ready for primetime!
 
+
+###UI widgets:
+Let's start off with the fun stuff: how do we create those Watch widgets with JavaScript?
+
+<table width="100%">
+  <tr>
+    <td width="100"><img src="doc/screenshots/switch.png" width="276px" height="166px" alt="Switch"/></td>
+    <td>
+    ```js
+        'switch': {
+          'title': 'Want foo?',
+          'on': true,
+          'color': '#CC0000',
+          'callback': 'onSomeOptionSelected'
+        },
+        'switch2': {
+          'title': 'And bar?',
+          'on': false,
+          'color': '#02779E'
+        },
+    ```
+    </td>
+  </tr>
+</table>
+
+
 ###Prep:
 Install npm 'xcode' package because our hooks need it: `npm install -g xcode`
 
@@ -32,12 +58,9 @@ At this point your builds should succeed
 
 
 ###XCode:
-App Groups: register an appgroup in your iOS member center (Identifiers > App Groups): group.<packagename> will do, like group.io.cordova.hellocordova, then add it to your App ID. Now generate a provisioning profile with the new App ID and add it XCode (download, then double-click the file should do it). In XCode, go to your targets and add this app group to both the phone and watch app targets (Capabilities tab).
-
-Also, in `InterfaceController.m` and `demo/index.html` there's a reference to the appgroup, correct this ID. We will remove this manual step asap!
-
---> TODO figure out adding app group capability for Cordova app via plugin.xml? See old version of healthkit plugin.xml
-
+App Groups: register an appgroup in your iOS member center (Identifiers > App Groups): we expect group.<packagename>, like group.io.cordova.hellocordova, then add it to your App ID.
+Now generate a provisioning profile with the new App ID and add it XCode (download, then double-click the file should do it).
+In XCode, go to your targets and add this app group to both the phone and watch app targets (Capabilities tab).
 
 
 ###Tips:
