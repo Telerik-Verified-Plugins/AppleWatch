@@ -174,7 +174,7 @@
 // This method is called when watch view controller is about to be visible to the user
 - (void)willActivate {
   [super willActivate];
-  [WatchKitHelper openParent:[@"applewatch.callback.onLoad" stringByAppendingString:[self getPageID]]];
+  [WatchKitHelper openParent:[NSString stringWithFormat:@"applewatch.callback.onLoad%@Request", [self getPageID]]];
 }
 
 // This method is called when watch view controller is no longer visible

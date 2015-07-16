@@ -10,7 +10,7 @@
 - (void) sendNotification:(CDVInvokedUrlCommand*)command;
 
 - (void) loadGlance:(CDVInvokedUrlCommand*)command;
-- (void) loadApp:(CDVInvokedUrlCommand*)command;
+- (void) loadAppMain:(CDVInvokedUrlCommand*)command;
 - (void) loadAppDetail:(CDVInvokedUrlCommand*)command;
 
 - (void) navigateToAppDetail:(CDVInvokedUrlCommand*)command;

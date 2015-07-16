@@ -311,7 +311,7 @@ Those buttons above are rendered by this code:
 }
 ```
 
-#####User input button
+#####UserInputButton
 <img src="doc/widgets/userinput.png" width="270px" height="336px" alt="User input"/>
 
 The `userInputButton` can be used to get input from the user (duh).
@@ -348,7 +348,7 @@ The `inputMode` attribute must be one of:
 |WKTextInputModeAllowAnimatedEmoji |Dictation, suggested text, and both animated and non-animated emoji.|
 
 
-#####Action button
+#####ActionButton
 
 Of course you can do anything you like when a user pressed a button.
 Like fetching items from a remote server and navigating to a detail page on the watch.
@@ -375,7 +375,7 @@ the latter stacks the new page on top of the other with a slide animation from t
 
 These buttons can only be used on the first app page and will navigate to the `AppDetail` page when activated.
 
-######Push navigation
+######PushNavButton
 ```js
 'pushNavButton': {
   'backTitle': 'Go Back', // optional, only an arrow is shown if not provided
@@ -385,7 +385,7 @@ These buttons can only be used on the first app page and will navigate to the `A
 }
 ```
 
-######Modal navigation
+######ModalNavButton
 ```js
 'modalNavButton': {
   'closeTitle': 'Shut it', // optional, and it's recommended to use the default 'Cancel' because that's shown a short moment anyway
@@ -399,11 +399,14 @@ These buttons can only be used on the first app page and will navigate to the `A
 Glances are readonly pages which can be accessed by swiping up from the watchface.
 Your app can push content to the glance at any time and the watch will display the latest state it received.
 Also, at the moment the glance is accessed by the user, the glance will request an update from your phone app
-by invoking the `applewatch.callback.onLoadGlance` method. If you don't provide it the glance will remain black.
+by invoking the `applewatch.callback.onLoadGlanceRequest` method. If you don't provide it the glance will remain black.
 
 <img src="doc/pages/glance.png" width="268px" height="324px" alt="Glance"/>
 
-It's recommended that you do this on `deviceready` to configure the glance. To create the UI shown above:
+It's recommended that you do this on `deviceready` to configure the glance.
+Take a look at [our demo](demo/index.html) if you want a complete example.
+
+To create the UI shown above, do:
 
 ```js
 function onGlanceRequestsUpdate() {
@@ -430,12 +433,12 @@ function onGlanceRequestsUpdate() {
   applewatch.loadGlance(payload);
 }
 
-applewatch.callback.onLoadGlance = onGlanceRequestsUpdate;
+applewatch.callback.onLoadGlanceRequest = onGlanceRequestsUpdate;
 ```
 
 And here's a more concise way to configure a glance. In this case we'll only show an image.
 ```js
-applewatch.callback.onLoadGlance = function() {
+applewatch.callback.onLoadGlanceRequest = function() {
   applewatch.loadGlance({
     'image': {'src': 'www/img/logo.png'}
   });
@@ -445,24 +448,127 @@ applewatch.callback.onLoadGlance = function() {
 Glances can't have buttons (the're readonly remember), so tapping anywhere on the glance will launch your app.
 
 The allowed widgets and its order are precooked in the storyboard.
+Unfortunately WatchKit doesn't allow dynamically created UI elements, but you can
+throw a lot of items on a storyboard and show/hide them at will. That's what we're doing.
+
 A glance is divided in two sections and can't show more than one page (they don't scroll).
-The supported widgets are (in this rendering order, and they're all optional):
+The supported widgets are (in *this* rendering order, and they're all optional):
 
 ######Top section
-- label
-- label2
+|Variable name |Widget type|
+|-----------|-----|
+|label|Label|
+|label2|Label|
 
 ######Bottom section
-- image
-- table
-- map
+|Variable name |Widget type|
+|-----------|-----|
+|image|Image|
+|table|Table|
+|map|Map|
+
+To be clear: this means you can't show a map above a table, but since the glance has very limit space
+you probably only want one of those at a time anyway.
+
 
 ##Loading an app page
-TODO
+The basic idea is the same as the glance, but you have much more options.
+
+So after `deviceready` has fired, you could do:
+```js
+applewatch.callback.onLoadAppMainRequest = function() {
+var payload = {
+  'label': {
+    'value': 'Blue header label'
+  },
+  // you get the idea
+};
+
+applewatch.loadAppMain(payload);
+```
+
+And to load content into the app detail page:
+```js
+applewatch.callback.onLoadAppDetailRequest = function() {
+  var payload = {..};
+  applewatch.loadAppDetail(payload);
+}
+```
+
+###Page configuration
+The pages have a little optional configuration to tweak your app even more:
+```js
+var payload = {
+  'group': { // the page wrapper. The defaults are probably best though.
+    'backgroundColor':'#1884C4', // override the black background color
+    'cornerRadius': 0 // make your app square (the default has radius 4-ish)
+  },
+  'title': 'My app', // show at the top of the page, the style can't be tweaked except in the storyboard itself
+  // .. any other stuff on your page
+};
+
+```
+
+######App main page
+|Variable name |Widget type|
+|-----------|-----|
+|label|Label|
+|image|Image|
+|label2|Label|
+|table|Table|
+|switch|Switch|
+|switch2|Switch|
+|slider|Slider|
+|map|Map|
+|userInputButton|UserInputButton|
+|actionButton|ActionButton|
+|pushNavButton|PushNavButton|
+|modalNavButton|ModalNavButton|
+
+Note that since any unused variable is hidden we can easily add f.i. a 'label3'
+at the bottom of this stack, or add an 'actionButton' below the other buttons.
+You're welcome to request features like those and we'll try to add them
+without making too much of a mess and remaining compatibility with current usage.
+
+######App detail page
+The same as the main page, except for the last two items (the navigation buttons).
+
+##Navigating to an app page
+Instead of updating the content of the current page with `loadApp` or `loadAppDetail`,
+you may want to programmatically navigate to a different page. You were already able to
+navigate from main to detail on the watch itself by adding a `pushNavButton` or `modalNavButton`,
+but the phone app can instantiate navigation as well.
+
+```js
+// navigate from main to detail:
+applewatch.navigateToAppDetail();
+
+// to navigate back from detail to main:
+applewatch.navigateToAppMain();
+```
+
+One usecase could be to have a table with selectable rows, and in the table callback function
+you'd navigate to the detail page. Once the detail page loads the `applewatch.callback.onLoadAppDetailRequest`
+function will fire so you can populate the detail page.
 
 ##Notifications
-Remote/local and callbacks
+The watch can receive remote and local notifications.
+ These can have buttons which have a callback that invokes your phone app.
+ To register for receiving those callbacks, configure these functions:
 
+
+```js
+// local notifications
+applewatch.callback.onLocalNotification = function(identifier) {..};
+
+// remote notifications
+applewatch.callback.onRemoteNotification = function(identifier) {..};
+
+```
+
+The `identifier` is the identifier specified in any custom button in your notification payload.
+
+TODO elaborate and describe how to create a local notification.
 
 ##Using your own storyboard
 If you want more control over the layout, you can open the `Interface.storyboard` file in XCode,

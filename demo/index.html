@@ -171,7 +171,10 @@
           'size': 8 // default 12
         }
       },
-      'image': {'src': 'www/img/logo.png', 'alpha': 0.7} // optional
+      'image': {
+        'src': 'www/img/logo.png',
+        'alpha': 0.8
+      }
     };
     applewatch.loadGlance(payload);
   }
@@ -183,7 +186,7 @@
 
   function onDetailPageButtonPressed() {
     // do some action here, then update the app
-    onAppDetailPageRequestsUpdate('Did action ;)');
+    onAppDetailPageRequestsUpdate('Button was pressed');
   }
 
   function onSomeOptionSelected(on) {
@@ -309,18 +312,18 @@
       'slider': {
         'steps': 20, // of 100, so each step is 5 in this case
         'value': sliderVal, // of 100, so this is a percentage
-        'color': '#FFA500',
+        'color': '#CC0000',
         'callback': 'onSliderChanged',
         'hideValue': false // default false, allows to now show the value below the slider
       },
       'switch': {
-        'title': localStorage.getItem("origin"),
+        'title': 'Want foo?', // localStorage.getItem("origin"),
         'on': (localStorage.getItem("someOption") == "true"),
         'color': '#CC0000',
         'callback': 'onSomeOptionSelected'
       },
       'switch2': {
-        'title': 'Foo?',
+        'title': 'And bar?',
         'on': true,
         'color': '#02779E'
       },
@@ -391,7 +394,6 @@
         ]
       },
       'actionButton': {
-        'disabled--backgroundColor': '#1884C4',
         'title': {
           'value': 'Refresh',
           'color': 'blaaaaaaa', // testing robustness, should fall back to black
@@ -455,7 +457,7 @@
         ]
       }
     };
-    applewatch.loadApp(payload);
+    applewatch.loadAppMain(payload);
   }
 
   function onContextMenuPlay() {
@@ -497,16 +499,16 @@
   function initAppleWatch() {
     applewatch.init(function () {
           // register for notifications
-          //applewatch.registerNotifications(onNotificationRegistrationSuccess, onNotificationRegistrationError);
+          applewatch.registerNotifications(onNotificationRegistrationSuccess, onNotificationRegistrationError);
         },
         function (err) {
           // an error occurred
           alert("err: " + JSON.stringify(err));
         });
 
-    applewatch.callback.onLoadAppMain = onAppRequestsUpdate;
-    applewatch.callback.onLoadAppDetail = onAppDetailPageRequestsUpdate;
-    applewatch.callback.onLoadGlance = onGlanceRequestsUpdate;
+    applewatch.callback.onLoadAppMainRequest = onAppRequestsUpdate;
+    applewatch.callback.onLoadAppDetailRequest = onAppDetailPageRequestsUpdate;
+    applewatch.callback.onLoadGlanceRequest = onGlanceRequestsUpdate;
     applewatch.callback.onLocalNotification = onNotificationReceived;
     applewatch.callback.onRemoteNotification = onNotificationReceived;
     applewatch.callback.onError = function (message) {

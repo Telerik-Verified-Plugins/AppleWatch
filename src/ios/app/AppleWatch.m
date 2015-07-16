@@ -49,7 +49,7 @@ static NSString *const AWPlugin_Page_AppDetail = @"AppDetail";
   [self sendMessage:command forPage:AWPlugin_Page_Glance];
 }
 
-- (void) loadApp:(CDVInvokedUrlCommand*)command {
+- (void) loadAppMain:(CDVInvokedUrlCommand*)command {
   [self sendMessage:command forPage:AWPlugin_Page_AppMain];
 }
 

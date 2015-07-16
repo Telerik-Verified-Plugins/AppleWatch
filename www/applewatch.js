@@ -17,8 +17,8 @@ AppleWatch.prototype.loadGlance = function (payload, onSuccess, onError) {
   }]);
 };
 
-AppleWatch.prototype.loadApp = function (payload, onSuccess, onError) {
-  exec(onSuccess, onError, "AppleWatch", "loadApp", [{
+AppleWatch.prototype.loadAppMain = function (payload, onSuccess, onError) {
+  exec(onSuccess, onError, "AppleWatch", "loadAppMain", [{
     "payload": payload
   }]);
 };
