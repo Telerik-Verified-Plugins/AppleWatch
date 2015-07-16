@@ -204,6 +204,112 @@ In the future we may add support for loading images from other locations (like t
 }
 ```
 
+
+####Label
+<img src="doc/widgets/label.png" width="268px" height="84px" alt="Label"/>
+
+The label at the top is called `label`,
+you can add a second one (with a different style perhaps) by adding a `label2`.
+
+```js
+'label': {
+  'value': 'A gorgeous blue header',
+  'color': '#1884C4',
+  'font': { // optional
+    'size': 10
+  }
+},
+'label2': { // optional, max 2 lines
+  'value': 'With a white message, served @ ' + new Date(),
+  'color': '#FFFFFF',
+  'font': {
+    'size': 8
+  }
+},
+}
+```
+
+
+####Table
+<img src="doc/widgets/table.png" width="269px" height="252px" alt="Table"/>
+
+This widget gives you more control over the layout,
+because a table may contain any number of rows, one or two columns,
+and a lable, and image, or both inside each row.
+
+```js
+function onTableRowSelected(index) {
+  console.log('Selected table row index: ' + index);
+}
+
+'table': {
+  'callback':'onTableRowSelected',
+  'rows': [
+
+    // first row
+    {
+      'type': 'OneColumnRowType', // see the table below
+      // this element defines properties for the entire row
+      'group': {
+        'backgroundColor': '#1884C4',
+        'cornerRadius': 8
+      },
+      'label': {
+        'value':'  images!' // unlike in HTML, multiple spaces have effect
+      },
+      'imageLeft': {
+        'src': 'www/img/logo.png',
+        'width': 25,
+        'height': 30
+      },
+      'imageRight': {
+        'src': 'www/img/logo.png', // boring, same image again :)
+        'width': 25,
+        'height': 30
+      }
+    },
+
+    // second row
+    {
+      'type': 'OneColumnSelectableRowType',
+      'group': {
+        'backgroundColor': '#7884C4',
+        'cornerRadius': 8
+      },
+      'label': {
+        'value':'2nd row, no img'
+      }
+    },
+
+    // third row
+    {
+      'type': 'TwoColumnsRowType',
+      'col1label': {
+        'value': '50%',
+        'color': '#FFA500',
+        'font': {
+          'size': 16
+        }
+      },
+      'col2image': {
+        'src': 'www/img/logo.png',
+        'width': 25,
+        'height': 30
+      }
+    }
+  ]
+}
+```
+
+The row's `type` attribute must be one of:
+
+|`type`|Description|
+|-----------|-----|
+|OneColumnRowType |A readonly row which can contain images and a lable.|
+|TwoColumnsRowType |A readonly row with two evenly distributed columns. Each column can contain a centered label and/or image.|
+|OneColumnSelectableRowType |Same as `OneColumnRowType` but the entire row is 'clickable'. Once that's done, a `callback` specified on the table level will be invoked. Don't add this to a glance since those are readonly.
+|Want more?|This element is easily extendible, so please let us know what you want to see here..|
+
 ##Installation
 
 ####Prep
