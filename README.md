@@ -11,8 +11,7 @@ Let's start off with the fun stuff: how do we create those Watch widgets with Ja
 
 Widget | JavaScript
 --- | ---
-<img src="doc/screenshots/switch.png" width="276px" height="166px" alt="Switch"/> |
- ```js
+<img src="doc/screenshots/switch.png" width="276px" height="166px" alt="Switch"/> | ```js
 'switch': {
   'title': 'Want foo?',
   'on': true,
@@ -26,27 +25,21 @@ Widget | JavaScript
 }
  ```
 
+####Sliders
+<img src="doc/screenshots/switch.png" width="276px" height="166px" alt="Switch"/>
 
-<table width="100%">
-  <tr>
-    <td width="300"><img src="doc/screenshots/switch.png" width="276px" height="166px" alt="Switch"/></td>
-    <td>
-    ```js
-        'switch': {
-          'title': 'Want foo?',
-          'on': true,
-          'color': '#CC0000',
-          'callback': 'onSomeOptionSelected'
-        },
-        'switch2': {
-          'title': 'And bar?',
-          'on': false,
-          'color': '#02779E'
-        },
-    ```
-    </td>
-  </tr>
-</table>
+'switch': {
+  'title': 'Want foo?',
+  'on': true,
+  'color': '#CC0000',
+  'callback': 'onSomeOptionSelected'
+},
+'switch2': {
+  'title': 'And bar?',
+  'on': false,
+  'color': '#02779E'
+}
+ ```
 
 
 ###Prep:
