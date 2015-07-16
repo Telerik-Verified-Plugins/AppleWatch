@@ -9,9 +9,27 @@ Mostly done, a few things will change before the 1.0.0 release, but most major p
 ###UI widgets:
 Let's start off with the fun stuff: how do we create those Watch widgets with JavaScript?
 
+Widget | JavaScript
+--- | ---
+<img src="doc/screenshots/switch.png" width="276px" height="166px" alt="Switch"/> |
+ ```js
+'switch': {
+  'title': 'Want foo?',
+  'on': true,
+  'color': '#CC0000',
+  'callback': 'onSomeOptionSelected'
+},
+'switch2': {
+  'title': 'And bar?',
+  'on': false,
+  'color': '#02779E'
+}
+ ```
+
+
 <table width="100%">
   <tr>
-    <td width="100"><img src="doc/screenshots/switch.png" width="276px" height="166px" alt="Switch"/></td>
+    <td width="300"><img src="doc/screenshots/switch.png" width="276px" height="166px" alt="Switch"/></td>
     <td>
     ```js
         'switch': {
