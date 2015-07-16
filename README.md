@@ -6,7 +6,7 @@ An AppleWatch plugin which requires no native code. You build the Watch UI with 
 Mostly done, a few things will change before the 1.0.0 release, but most major parts are ready for primetime!
 
 
-###UI widgets:
+###UI widgets
 Let's start off with the fun stuff: how do we create those Watch widgets with JavaScript?
 
 
@@ -28,12 +28,19 @@ Let's start off with the fun stuff: how do we create those Watch widgets with Ja
  ```
 
 ####Slider
-<img src="doc/screenshots/slider.png" width="276px" height="113px" alt="Slider"/>
+<img src="doc/screenshots/slider2.png" width="276px" height="113px" alt="Slider"/>
 
 ```js
+var sliderValue = 50;
+
+function onSliderChanged(val) {
+  sliderValue = val;
+  console.log("Slider changed to: " + val);
+}
+
 'slider': {
   'steps': 20, // of 100, so each step is 5 in this case
-  'value': sliderVal, // of 100, so this is a percentage
+  'value': sliderValue, // of 100, making this essentially a percentage
   'color': '#CC0000', // the color of the dots, red in this case
   'callback': 'onSliderChanged',
   'hideValue': false // default false, shows the current value below the slider
@@ -41,7 +48,7 @@ Let's start off with the fun stuff: how do we create those Watch widgets with Ja
  ```
 
 ####Map
-<img src="doc/screenshots/switch.png" width="276px" height="208px" alt="Map"/>
+<img src="doc/screenshots/map.png" width="276px" height="208px" alt="Map"/>
 
 ```js
 'map': {
