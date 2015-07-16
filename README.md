@@ -1,9 +1,8 @@
 AppleWatch Cordova plugin
 =========================
 
-An AppleWatch plugin which requires no native code. You build the Watch UI with plain old JavaScript!
-
-Mostly done, a few things will change before the 1.0.0 release, but most major parts are ready for primetime!
+An AppleWatch plugin which requires no native code.
+The Watch UI is built with plain old JavaScript!
 
 
 ##UI widgets
@@ -11,7 +10,7 @@ Let's start off with the fun stuff: how do we create those Watch widgets with Ja
 
 
 ####Switch
-<img src="doc/screenshots/switch.png" width="266px" height="166px" alt="Switch"/>
+<img src="doc/widgets/switch.png" width="266px" height="166px" alt="Switch"/>
 
 ```js
 var fooSwitchOn = true;
@@ -36,7 +35,7 @@ function onFooSwitchChanged(changedTo) {
  ```
 
 ####Slider
-<img src="doc/screenshots/slider2.png" width="267px" height="113px" alt="Slider"/>
+<img src="doc/widgets/slider2.png" width="267px" height="113px" alt="Slider"/>
 
 ```js
 var sliderValue = 50;
@@ -56,7 +55,7 @@ function onSliderChanged(val) {
  ```
 
 ####Map
-<img src="doc/screenshots/map.png" width="266px" height="208px" alt="Map"/>
+<img src="doc/widgets/map.png" width="266px" height="208px" alt="Map"/>
 
 ```js
 'map': {
@@ -86,13 +85,15 @@ function onSliderChanged(val) {
 }
  ```
 
+
 ####Button
-<img src="doc/screenshots/button.png" width="266px" height="250px" alt="Button"/>
+<img src="doc/widgets/button.png" width="266px" height="250px" alt="Button"/>
 
 All types of buttons can be styled with a bunch of properties.
 Those buttons above are rendered by this code:
 
 ```js
+// the red one
 'userInputButton': {
   'width': 60, // default full width, see the orange buttons
   'height': 30,
@@ -106,6 +107,8 @@ Those buttons above are rendered by this code:
   'backgroundColor': '#CC0000',
   'alpha': 1 // which is the default
 },
+
+// the blue one
 'actionButton': {
   'title': {
     'value': 'Refresh',
@@ -118,11 +121,49 @@ Those buttons above are rendered by this code:
   'width':80,
   'height':44
 },
+
+// the orange one
 'pushNavButton': {
   'title': {
     'value': 'Push nav'
   },
   'backgroundColor': '#FFA500'
+}
+```
+
+####Menu
+<img src="doc/widgets/contextmenu.png" width="270px" height="324px" alt="menu"/>
+
+This menu is triggered by a Force Touch, which is pretty neat!
+
+The `iconNamed` property must be one of:
+
+|`iconNamed`|image|
+|-----------|-----|
+|accept|<img src="https://developer.apple.com/library/ios/documentation/WatchKit/Reference/WKInterfaceController_class/Art/SPMenuItemAccept-regular_2x.png" width="60px" height="21px"/>|
+|add|<img src="https://developer.apple.com/library/ios/documentation/WatchKit/Reference/WKInterfaceController_class/Art/SPMenuItemAdd-regular_2x.png" width="60px" height="21px"/>|
+
+
+```js
+function onContextMenuPlay() {
+  console.log("User wants to play :)");
+}
+
+'contextMenu': {
+  // configure up to 4 items (any more will be ignored)
+  'items': [
+    {
+      'title': 'Play',
+      'iconNamed': 'play',
+      'callback': 'onContextMenuPlay'
+    },
+
+    {
+      'title': 'Resume',
+      'iconNamed': 'resume',
+      'callback': 'onContextMenuResume'
+    }
+  ]
 }
 ```
 
