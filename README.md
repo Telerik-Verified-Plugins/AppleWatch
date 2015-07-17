@@ -1,8 +1,8 @@
 AppleWatch Cordova plugin
 =========================
 
-An AppleWatch plugin which requires no native code.
-The Watch UI is built with plain old JavaScript!
+An AppleWatch plugin which requires no native code
+as the Watch UI is built with plain old JavaScript.
 
 
 ##UI widgets

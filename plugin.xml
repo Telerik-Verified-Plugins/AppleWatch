@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <plugin
     id="cordova-plugin-applewatch"
-    version="0.3.0-dev"
+    version="0.3.0"
     xmlns="http://apache.org/cordova/ns/plugins/1.0">
 
   <name>Apple Watch</name>
