@@ -63,7 +63,15 @@
   if (dic == nil) {
     [image setHidden:YES];
   } else {
-    [image setImageData:[dic valueForKey:@"src"]];
+    NSString *namedSrc = [dic valueForKey:@"namedSrc"];
+
+    if (namedSrc != nil) {
+      [image setImageNamed:namedSrc];
+    }
+    else {
+      [image setImageData:[dic valueForKey:@"src"]];
+    }
+
     [self setCommonPropertiesAndShow:image fromDic:dic];
   }
 }
