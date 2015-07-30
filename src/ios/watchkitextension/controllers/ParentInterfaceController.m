@@ -11,11 +11,6 @@
   // Initialize the wormhole
   self.wormhole = [[MMWormhole alloc] initWithApplicationGroupIdentifier:[self getAppGroup]
                                                        optionalDirectory:@"wormhole"];
-  
-  NSString *wormholeIdentifier = [@"fromjstowatchapp-" stringByAppendingString:[self getPageID]];
-  [self.wormhole listenForMessageWithIdentifier:wormholeIdentifier listener:^(id messageObject) {
-      [self buildUI:messageObject];
-  }];
 }
 
 // poor man's abstract method implementation
@@ -174,6 +169,12 @@
 // This method is called when watch view controller is about to be visible to the user
 - (void)willActivate {
   [super willActivate];
+
+  NSString *wormholeIdentifier = [@"fromjstowatchapp-" stringByAppendingString:[self getPageID]];
+  [self.wormhole listenForMessageWithIdentifier:wormholeIdentifier listener:^(id messageObject) {
+      [self buildUI:messageObject];
+  }];
+
   [WatchKitHelper openParent:[NSString stringWithFormat:@"applewatch.callback.onLoad%@Request", [self getPageID]]];
 }
 
