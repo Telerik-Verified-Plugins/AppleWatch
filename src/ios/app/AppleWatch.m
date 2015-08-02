@@ -98,12 +98,13 @@ static NSString *const AWPlugin_Page_AppDetail = @"AppDetail";
 - (void) bundleImage:(NSMutableDictionary*)imageDic withCallbackId:(NSString*)callbackId {
   if (imageDic != nil) {
     NSString *imageSrc = [imageDic valueForKey:@"src"];
-    NSString *imageData = [imageDic valueForKey:@"imageData"];
+    NSString *imageData = [imageDic valueForKey:@"data"];
 
-    [imageDic removeObjectForKey:@"imageData"];
+    // no longer need this
+    [imageDic removeObjectForKey:@"data"];
 
     if (imageSrc == nil && imageData == nil) {
-      [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"missing src attribute for image"] callbackId:callbackId];
+      [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"please provide a src or data attribute for image"] callbackId:callbackId];
     } else {
       UIImage *image;
 
@@ -111,8 +112,7 @@ static NSString *const AWPlugin_Page_AppDetail = @"AppDetail";
         // more forgiving decoding of base 64 strings than NSData#initWithBase64EncodedString
         NSData *encodedData = [NSData dataWithContentsOfURL: [NSURL URLWithString: imageData]];
         image = [UIImage imageWithData:encodedData];
-      }
-      else{
+      } else {
         // NOTE: this expects a path like 'www/img/img.png'
         image = [UIImage imageNamed:imageSrc];
       }

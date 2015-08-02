@@ -51,8 +51,10 @@
     [group setBackgroundColor:[self colorFromHexString:hexColor]];
   }
 
-  NSString *namedBackground = [dic valueForKey:@"namedBackgroundImage"];
-  [group setBackgroundImageNamed:namedBackground];
+  NSString *namedBackground = [dic valueForKey:@"backgroundImageNamed"];
+  if (namedBackground != nil) {
+    [group setBackgroundImageNamed:namedBackground];
+  }
 
   NSNumber *cornerRadius = [dic valueForKey:@"cornerRadius"];
   if (cornerRadius != nil) {

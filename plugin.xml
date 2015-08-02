@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <plugin
     id="cordova-plugin-applewatch"
-    version="0.3.0"
+    version="0.4.0"
     xmlns="http://apache.org/cordova/ns/plugins/1.0">
 
   <name>Apple Watch</name>
@@ -37,7 +37,7 @@
     <header-file src="src/ios/app/AppDelegate+applewatch.h"/>
     <source-file src="src/ios/app/AppDelegate+applewatch.m"/>
 
-    <framework autogen="true" src="Foundation.framework"/>
+    <framework src="Foundation.framework"/>
 
     <header-file src="src/ios/lib/headers/MMWormhole.h" />
     <source-file src="src/ios/lib/libmmwormhole.a" framework="true" />
