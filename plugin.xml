@@ -44,17 +44,17 @@
     <source-file src="src/ios/lib/libmmwormhole.a" framework="true" />
 
 
-    <!-- (1/2) COMMENT THESE IF YOU WANT TO USE THE CORDOVA CLI..
+    <!--(1/2) COMMENT THESE IF YOU WANT TO USE THE CORDOVA CLI..-->
     <hook type="before_plugin_install" src="src/ios/hooks/ab/prerequisites.js"/>
-    <hook type="before_plugin_install" src="src/ios/hooks/ab/add-targets.js"/-->
+    <hook type="before_plugin_install" src="src/ios/hooks/ab/add-targets.js"/>
 
 
-    <!-- (2/2) UNCOMMENT THESE TO USE CORDOVA CLI -->
-    <!-- execute these once -->
-    <hook type="after_plugin_install" src="src/ios/hooks/cordova/copy_watchkitfiles.js" />
-    <hook type="after_plugin_install" src="src/ios/hooks/cordova/fix_watchkitapp_buildtarget.js" /> -->
-    <!-- execute this one every time because the user may have done updates -->
-    <hook type="after_prepare" src="src/ios/hooks/cordova/copy_custom_storyboard.js" />
+    <!--(2/2) UNCOMMENT THESE TO USE CORDOVA CLI-->
+    <!--execute these once-->
+    <!--hook type="after_plugin_install" src="src/ios/hooks/cordova/copy_watchkitfiles.js"/-->
+    <!--hook type="after_plugin_install" src="src/ios/hooks/cordova/fix_watchkitapp_buildtarget.js"/-->
+    <!--execute this one every time because the user may have done updates-->
+    <!--hook type="after_prepare" src="src/ios/hooks/cordova/copy_custom_storyboard.js" /-->
   </platform>
 
 </plugin>
