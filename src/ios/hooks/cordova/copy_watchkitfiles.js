@@ -159,9 +159,9 @@ module.exports = function (context) {
   var pbxproj = path.join(xcodeproj, 'project.pbxproj');
   var myProj = xcode.project(pbxproj);
 
-  var prefix = 'plugins/cordova-plugin-applewatch/src/ios/';
-  var sourceHeadPrefix = prefix + 'watchkitextension/controllers/';
-  var storyboardPrefix = prefix + 'watchkitapp/storyboards/';
+  var prefix = 'plugins/cordova-plugin-applewatch/src/ios/resources/';
+  var sourceHeadPrefix = prefix + 'watchkitextension/';
+  var storyboardPrefix = prefix + 'watchkitapp/Base.lproj/';
 
   myProj.parseSync();
 
