@@ -51,6 +51,11 @@
     [group setBackgroundColor:[self colorFromHexString:hexColor]];
   }
 
+  NSString *namedBackground = [dic valueForKey:@"backgroundImageNamed"];
+  if (namedBackground != nil) {
+    [group setBackgroundImageNamed:namedBackground];
+  }
+
   NSNumber *cornerRadius = [dic valueForKey:@"cornerRadius"];
   if (cornerRadius != nil) {
     [group setCornerRadius:[cornerRadius floatValue]];
@@ -63,7 +68,15 @@
   if (dic == nil) {
     [image setHidden:YES];
   } else {
-    [image setImageData:[dic valueForKey:@"src"]];
+    NSString *namedSrc = [dic valueForKey:@"namedSrc"];
+
+    if (namedSrc != nil) {
+      [image setImageNamed:namedSrc];
+    }
+    else {
+      [image setImageData:[dic valueForKey:@"src"]];
+    }
+
     [self setCommonPropertiesAndShow:image fromDic:dic];
   }
 }

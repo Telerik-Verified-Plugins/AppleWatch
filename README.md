@@ -149,13 +149,14 @@ The `iconNamed` property must be one of:
 ####Image
 <img src="doc/widgets/image.png" width="266px" height="166px" alt="Image"/>
 
-Currently the image must reside in the www folder of your app.
+Currently the image must reside in the www folder of your app, or you must provide a base64 encoded image.
 In the future we may add support for loading images from other locations (like the Internet).
 
 ```js
 'image': {
   // by not passing width and height the image is shown full size
-  'src': 'www/img/logo.png'
+  'src': 'www/img/logo.png' // a file inside the www folder, if a 'data' attribute is passed as well, the src will not be used
+  'data': 'data:image/png;base64,R0lGODlhDAAMALMBAP8AAP///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAUKAAEALAAAAAAMAAwAQAQZMMhJK7iY4p3nlZ8XgmNlnibXdVqolmhcRQA7' // base64 encoded png
 }
 ```
 
@@ -213,12 +214,12 @@ function onTableRowSelected(index) {
         'value':'  images!' // unlike in HTML, multiple spaces have effect
       },
       'imageLeft': {
-        'src': 'www/img/logo.png',
+        'data': 'data:image/png;base64,R0lGODlhDAAMALMBAP8AAP///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAUKAAEALAAAAAAMAAwAQAQZMMhJK7iY4p3nlZ8XgmNlnibXdVqolmhcRQA7',
         'width': 25,
         'height': 30
       },
       'imageRight': {
-        'src': 'www/img/logo.png', // boring, same image again :)
+        'src': 'www/img/logo.png',
         'width': 25,
         'height': 30
       }

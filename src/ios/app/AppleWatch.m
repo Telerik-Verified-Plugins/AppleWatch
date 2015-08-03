@@ -98,14 +98,28 @@ static NSString *const AWPlugin_Page_AppDetail = @"AppDetail";
 - (void) bundleImage:(NSMutableDictionary*)imageDic withCallbackId:(NSString*)callbackId {
   if (imageDic != nil) {
     NSString *imageSrc = [imageDic valueForKey:@"src"];
-    if (imageSrc == nil) {
-      [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"missing src attribute for image"] callbackId:callbackId];
+    NSString *imageData = [imageDic valueForKey:@"data"];
+
+    // no longer need this
+    [imageDic removeObjectForKey:@"data"];
+
+    if (imageSrc == nil && imageData == nil) {
+      [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"please provide a src or data attribute for image"] callbackId:callbackId];
     } else {
-      // NOTE: this expects a path like 'www/img/img.png'
-      UIImage *image = [UIImage imageNamed:imageSrc];
+      UIImage *image;
+
+      if (imageData != nil) {
+        // more forgiving decoding of base 64 strings than NSData#initWithBase64EncodedString
+        NSData *encodedData = [NSData dataWithContentsOfURL: [NSURL URLWithString: imageData]];
+        image = [UIImage imageWithData:encodedData];
+      } else {
+        // NOTE: this expects a path like 'www/img/img.png'
+        image = [UIImage imageNamed:imageSrc];
+      }
+
       // create NSData so it can be passed through the wormhole
-      NSData *imageData = UIImagePNGRepresentation(image);
-      [imageDic setObject:imageData forKey:@"src"];
+      NSData *imageDataObject = UIImagePNGRepresentation(image);
+      [imageDic setObject:imageDataObject forKey:@"src"];
     }
   }
 }
