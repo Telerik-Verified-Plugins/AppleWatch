@@ -191,7 +191,7 @@ you can add a second one (with a different style perhaps) by adding a `label2`.
 
 This widget gives you more control over the layout,
 because a table may contain any number of rows, one or two columns,
-and a lable, and image, or both inside each row.
+and a label, and image, or both inside each row.
 
 ```js
 function onTableRowSelected(index) {
@@ -261,7 +261,7 @@ The row's `type` attribute must be one of:
 
 |`type`|Description|
 |-----------|-----|
-|OneColumnRowType |A readonly row which can contain images and a lable.|
+|OneColumnRowType |A readonly row which can contain images and a label.|
 |TwoColumnsRowType |A readonly row with two evenly distributed columns. Each column can contain a centered label and/or image.|
 |OneColumnSelectableRowType |Same as `OneColumnRowType` but the entire row is 'clickable'. Once that's done, a `callback` specified on the table level will be invoked. Don't add this to a glance since those are readonly.|
 |Need something else?|This element is easily extensible, so please let us know what you want to see here..|
@@ -372,7 +372,7 @@ function onRefreshButtonPressed() {
 
 There are two styles of navigation: 'push' and 'modal'.
 The former performs a left-right slide animation and has a back button.
-the latter stacks the new page on top of the other with a slide animation from the bottom and has a done/close button.
+The latter stacks the new page on top of the other with a slide animation from the bottom and has a done/close button.
 
 These buttons can only be used on the first app page and will navigate to the `AppDetail` page when activated.
 
@@ -400,7 +400,7 @@ These buttons can only be used on the first app page and will navigate to the `A
 Glances are readonly pages which can be accessed by swiping up from the watchface.
 Your app can push content to the glance at any time and the watch will display the latest state it received.
 Also, at the moment the glance is accessed by the user, the glance will request an update from your phone app
-by invoking the `applewatch.callback.onLoadGlanceRequest` method. If you don't provide it the glance will remain black.
+by invoking the `applewatch.callback.onLoadGlanceRequest` method. If you don't provide an implementation the glance will remain black.
 
 <img src="doc/pages/glance.png" width="268px" height="324px" alt="Glance"/>
 
@@ -446,7 +446,7 @@ applewatch.callback.onLoadGlanceRequest = function() {
 }
 ```
 
-Glances can't have buttons (the're readonly remember), so tapping anywhere on the glance will launch your app.
+Glances can't have buttons (they're readonly, remember), so tapping anywhere on the glance will launch your app.
 
 The allowed widgets and its order are precooked in the storyboard.
 Unfortunately WatchKit doesn't allow dynamically created UI elements, but you can
@@ -468,8 +468,9 @@ The supported widgets are (in *this* rendering order, and they're all optional):
 |table|Table|
 |map|Map|
 
-To be clear: this means you can't show a map above a table, but since the glance has very limit space
+To be clear: this means you can't show a map above a table, but since the glance has very limited space
 you probably only want one of those at a time anyway.
+That being said if you need f.i. a label in the bottom section, let us know at the GitHub repository and we'll consider adding it.
 
 
 ##Loading an app page
@@ -504,7 +505,7 @@ var payload = {
     'backgroundColor':'#1884C4', // override the black background color
     'cornerRadius': 0 // make your app square (the default has radius 4-ish)
   },
-  'title': 'My app', // show at the top of the page, the style can't be tweaked except in the storyboard itself
+  'title': 'My app', // shown at the top of the page. Note that the title color can't be tweaked except in the storyboard itself
   // .. any other stuff on your page
 };
 
@@ -527,7 +528,7 @@ var payload = {
 |modalNavButton|ModalNavButton|
 
 Note that since any unused variable is hidden we can easily add f.i. a 'label3'
-at the bottom of this stack, or add an 'actionButton' below the other buttons.
+at the bottom of this stack, or add an 'actionButton2' below the other buttons.
 You're welcome to request features like those and we'll try to add them
 without making too much of a mess and remaining compatibility with current usage.
 
@@ -535,7 +536,7 @@ without making too much of a mess and remaining compatibility with current usage
 The same as the main page, except for the last two items (the navigation buttons).
 
 ##Navigating to an app page
-Instead of updating the content of the current page with `loadApp` or `loadAppDetail`,
+Instead of updating the content of the current page with `loadAppMain` or `loadAppDetail`,
 you may want to programmatically navigate to a different page. You were already able to
 navigate from main to detail on the watch itself by adding a `pushNavButton` or `modalNavButton`,
 but the phone app can instantiate navigation as well.
@@ -611,6 +612,10 @@ In XCode, go to your targets and add this app group to both the phone and watch 
 
 
 ##Tips:
+For developer builds to work on a real Watch you'll need to [register the Watch UDID and add it to the provisioning profile](http://stackoverflow.com/questions/29854314/debug-on-real-apple-watch-application-verification-failed) or you'll see 'Application verification failed' when installing the app on the Watch.
+
+While you're in the iOS member center, also register an App Group (under Identifiers) and make sure you enable the App Group in the App ID you're using for your app.
+
 If you want a quickstart, use `demo/index.html`
 
 The simulator doesn't support local notifications
