@@ -17,11 +17,13 @@
     <p class="event received">Device is Ready</p>
     <script>
       function feedback(what) {
+        console.log("feedback: " + what);
         document.getElementById("feedback").innerHTML = what;
       }
 
       window.onerror = function (a, b, c) {
         feedback(a + ", " + b + ", " + c);
+        alert(a + ", " + b + ", " + c);
       }
     </script>
     <button onclick="sendHeaderMessageImageGlance()">glance: header, message, img</button>
@@ -104,7 +106,7 @@
 
   function sendTableGlance() {
     var payload = {
-      'label2': {'value': 'Here\'s a table with a few of different colors. One even has an image!', 'color': '#FFFFFF'},
+      'label2': {'value': 'Table with a colors. ' + new Date(), 'color': '#FFFFFF'},
       'table': { // don't add selectable rows to a glance since glances are read-only
         'rows': [
           {
@@ -113,12 +115,8 @@
               'backgroundColor': '#1884C4',
               'cornerRadius': 8
             },
-            'label': {'value': '  images!'}, // unlike in HTML, multiple spaces have effect
-            'imageLeft': {
-              'data': 'data:image/png;base64,R0lGODlhDAAMALMBAP8AAP///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAUKAAEALAAAAAAMAAwAQAQZMMhJK7iY4p3nlZ8XgmNlnibXdVqolmhcRQA7',
-              'width': 16,
-              'height': 16
-            },
+            'label': {'value': '  images!'}, // unlike HTML, multiple spaces have effect
+            'imageLeft': {'src': 'www/img/logo.png', 'width': 25, 'height': 30},
             'imageRight': {'src': 'www/img/logo.png', 'width': 25, 'height': 30}
           },
           {
@@ -503,7 +501,8 @@
   function initAppleWatch() {
     applewatch.init(function () {
           // register for notifications
-          applewatch.registerNotifications(onNotificationRegistrationSuccess, onNotificationRegistrationError);
+          // TODO throws 'undefined is not a function'.. setTimeout ?
+//                        applewatch.registerNotifications(onNotificationRegistrationSuccess, onNotificationRegistrationError);
         },
         function (err) {
           // an error occurred

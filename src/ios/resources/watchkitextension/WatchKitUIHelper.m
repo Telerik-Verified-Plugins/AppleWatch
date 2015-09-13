@@ -72,9 +72,14 @@
 
     if (namedSrc != nil) {
       [image setImageNamed:namedSrc];
-    }
-    else {
-      [image setImageData:[dic valueForKey:@"src"]];
+    } else {
+      // This implementation seems to use a cached version which gets lost between nav from glance to app,
+      // not a problem if developers use different images, but we can't expect that to be the case.
+//      [image setImageData:[dic valueForKey:@"src"]];
+
+      // so we're using this instead.. a bit less efficient but more failsafe
+      UIImage *img = [UIImage imageWithData:[dic valueForKey:@"src"]];
+      [image setImage:img];
     }
 
     [self setCommonPropertiesAndShow:image fromDic:dic];

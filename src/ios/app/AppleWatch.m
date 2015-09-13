@@ -22,7 +22,10 @@ static NSString *const AWPlugin_Page_AppDetail = @"AppDetail";
 
     [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
 
-    self.initDone = YES;
+    // make sure the app is awake
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 500 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
+      self.initDone = YES; // after a little timeout perhaps?
+    });
 }
 
 - (void) registerNotifications:(CDVInvokedUrlCommand*)command;

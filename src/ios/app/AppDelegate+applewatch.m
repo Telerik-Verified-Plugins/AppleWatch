@@ -6,9 +6,22 @@
 @implementation AppDelegate (applewatch)
 
 - (void)application:(UIApplication *)application handleWatchKitExtensionRequest:(NSDictionary *)userInfo reply:(void(^)(NSDictionary *replyInfo))reply {
-
+  // requesting a bit of background processing time, useful when the app was killed instead of running in the background
+   __block UIBackgroundTaskIdentifier watchKitHandler;
+   watchKitHandler = [[UIApplication sharedApplication] beginBackgroundTaskWithName:@"backgroundTask"
+                                                                  expirationHandler:^{
+                                                                 watchKitHandler = UIBackgroundTaskInvalid;
+                                                               }];
+   dispatch_after( dispatch_time( DISPATCH_TIME_NOW, (int64_t)NSEC_PER_SEC * 30 ), dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0 ), ^{
+     [[UIApplication sharedApplication] endBackgroundTask:watchKitHandler];
+   } );
+  
   NSString* jsFunction = [userInfo objectForKey:@"action"];
+
+  NSLog(@"In handleWatchKitExtensionRequest, jsFunction: %@", jsFunction);
+
   NSString* params;
+  // TODO 'onVoted' should not be hardcoded!
   if ([jsFunction isEqualToString:@"onVoted"]) {
     if ([[userInfo objectForKey:@"params"] isKindOfClass:[NSData class]]) {
       // animated gif
@@ -35,7 +48,7 @@
   if (appleWatch.initDone) {
     [appleWatch.webView stringByEvaluatingJavaScriptFromString:function];
   } else {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 25 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 80 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
       [self callJavascriptFunctionWhenAvailable:function];
     });
   }

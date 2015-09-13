@@ -612,6 +612,8 @@ In XCode, go to your targets and add this app group to both the phone and watch 
 
 
 ##Tips:
+Building in XCode 7 requires you to set `bitcode` to `NO` for all 3 targets. Go to 'Build Settings' and disable it 3 times. Will be fixed soon, when [MMWormhole](https://github.com/mutualmobile/MMWormhole) is updated.
+
 For developer builds to work on a real Watch you'll need to [register the Watch UDID and add it to the provisioning profile](http://stackoverflow.com/questions/29854314/debug-on-real-apple-watch-application-verification-failed) or you'll see 'Application verification failed' when installing the app on the Watch.
 
 While you're in the iOS member center, also register an App Group (under Identifiers) and make sure you enable the App Group in the App ID you're using for your app.
