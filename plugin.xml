@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <plugin
     id="cordova-plugin-applewatch"
-    version="0.6.0"
+    version="0.6.0.AB"
     xmlns="http://apache.org/cordova/ns/plugins/1.0">
 
   <name>Apple Watch</name>
@@ -44,17 +44,15 @@
     <source-file src="src/ios/lib/libmmwormhole.a" framework="true" />
 
 
-    <!-- (1/2) THESE HOOKS ARE FOR TELERIK APPBUILDER AND ARE ENABLED IN THE appbuilder BRANCH OF THIS REPOSITORY
+    <!-- (1/2) THESE HOOKS ARE FOR TELERIK APPBUILDER AND ARE ENABLED IN THE appbuilder BRANCH OF THIS REPOSITORY -->
     <hook type="before_plugin_install" src="src/ios/hooks/ab/prerequisites.js"/>
-    <hook type="before_plugin_install" src="src/ios/hooks/ab/add-targets.js"/-->
+    <hook type="before_plugin_install" src="src/ios/hooks/ab/add-targets.js"/>
 
 
-    <!-- (2/2) THESE HOOKS ARE FOR THE CORDOVA CLI -->
-    <!-- execute these once -->
+    <!-- (2/2) THESE HOOKS ARE FOR THE CORDOVA CLI
     <hook type="after_plugin_install" src="src/ios/hooks/cordova/copy_watchkitfiles.js" />
     <hook type="after_plugin_install" src="src/ios/hooks/cordova/fix_watchkitapp_buildtarget.js" />
-    <!-- execute this one every time because the user may have done updates -->
-    <hook type="after_prepare" src="src/ios/hooks/cordova/copy_custom_storyboard.js" />
+    <hook type="after_prepare" src="src/ios/hooks/cordova/copy_custom_storyboard.js" /-->
   </platform>
 
 </plugin>
