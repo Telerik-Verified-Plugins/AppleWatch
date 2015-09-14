@@ -579,36 +579,9 @@ adjust it, and have the app load it by placing it here: `www/custom-watchkit-sto
 
 ##Installation
 
-####Prep
-Install npm 'xcode' package because our hooks need it: `npm install -g xcode`
+This branch is meant to be used in Telerik AppBuilder, where you can simply install the plugin from the Telerik Verfied Plugins Marketplace from inside your project. Easy as pie!
 
-####CLI
-```
- cordova create applewatchtest
- cd applewatchtest
- cordova platform add ios
-```
-
-####XCode
-File > New > Target > Apple Watch: Language ObjC, Select Glance and Notifications > Finish > Activate
-
-####CLI
-```
- cordova plugin add https://github.com/Telerik-Verified-Plugins/AppleWatch
- cordova prepare
-```
-
-####XCode
-Set CFBundleVersion (Bundle Version) and CFBundleShortVersionString (Bundle versions string, short) of all targets to the same value (use XCode's search feature and change all 3 .plist values)
-
-
-At this point your builds should succeed
-
-
-####More XCode
-App Groups: register an appgroup in your iOS member center (Identifiers > App Groups): we expect group.<packagename>, like group.io.cordova.hellocordova, then add it to your App ID.
-Now generate a provisioning profile with the new App ID and add it XCode (download, then double-click the file should do it).
-In XCode, go to your targets and add this app group to both the phone and watch app targets (Capabilities tab).
+Cordova CLI users should use the master branch of this repo, which requires a few manual steps.
 
 
 ##Tips:
