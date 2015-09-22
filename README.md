@@ -581,11 +581,25 @@ adjust it, and have the app load it by placing it here: `www/custom-watchkit-sto
 
 ####Prep
 Install npm 'xcode' package because our hooks need it: `npm install -g xcode`
+This package will be needed locally installed as well (see next step).
 
 ####CLI
 ```
  cordova create applewatchtest
  cd applewatchtest
+ npm install xcode --save-dev
+```
+
+If you still have cordova-ios version < 4.x, then follow these steps:
+(This is a patch for older cordova-ios versions which are not able to handle whitelist-plugin correctly.)
+
+ * edit config.xml
+ * search for `<plugin name="cordova-plugin-whitelist" version="1" />`
+ * replace with `<plugin name="cordova-plugin-whitelist" spec="1.0.0" />`
+ * save file
+
+
+```
  cordova platform add ios
 ```
 
