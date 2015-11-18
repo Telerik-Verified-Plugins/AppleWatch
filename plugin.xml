@@ -41,6 +41,15 @@
     <framework src="Foundation.framework"/>
 
     <header-file src="src/ios/lib/headers/MMWormhole.h" />
+    <header-file src="src/ios/lib/headers/MMWormholeCoordinatedFileTransiting.h" />
+    <header-file src="src/ios/lib/headers/MMWormholeFileTransiting.h" />
+    <header-file src="src/ios/lib/headers/MMWormholeSessionContextTransiting.h" />
+    <header-file src="src/ios/lib/headers/MMWormholeSessionFileTransiting.h" />
+    <header-file src="src/ios/lib/headers/MMWormholeSessionMessageTransiting.h" />
+    <header-file src="src/ios/lib/headers/MMWormholeSession.h" />
+    <header-file src="src/ios/lib/headers/MMWormholeTransiting.h" />
+    <header-file src="src/ios/lib/headers/MMWormholeUmbrella.h" />
+    
     <source-file src="src/ios/lib/libmmwormhole.a" framework="true" />
 
 

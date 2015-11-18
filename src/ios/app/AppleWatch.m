@@ -1,7 +1,7 @@
 #import "Cordova/CDV.h"
 #import "Cordova/CDVViewController.h"
 #import "AppleWatch.h"
-#import "MMWormhole.h"
+#import "MMWormholeUmbrella.h"
 
 static NSString *const AWPlugin_Page_Glance = @"Glance";
 static NSString *const AWPlugin_Page_AppMain = @"AppMain";
@@ -9,7 +9,11 @@ static NSString *const AWPlugin_Page_AppDetail = @"AppDetail";
 
 @interface AppleWatch ()
 
-@property (nonatomic, strong) MMWormhole* wormhole;
+@property (nonatomic, strong) MMWormhole *wormhole;
+
+#if ( defined(__IPHONE_OS_VERSION_MAX_ALLOWED) && __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000 )
+@property (nonatomic, strong) MMWormholeSession *watchConnectivityListeningWormhole;
+#endif
 
 @end
 
@@ -17,9 +21,21 @@ static NSString *const AWPlugin_Page_AppDetail = @"AppDetail";
 
 - (void) init:(CDVInvokedUrlCommand*)command {
     NSString *appGroup = [NSString stringWithFormat:@"group.%@", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"]];
-
+    
+#if ( defined(__IPHONE_OS_VERSION_MAX_ALLOWED) && __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000 )
+    self.watchConnectivityListeningWormhole = MMWormholeSession.sharedListeningSession;
+    // Make sure we are activating the listening wormhole so that it will receive new messages from
+    // the WatchConnectivity framework.
+    [self.watchConnectivityListeningWormhole activateSessionListening];
+    // Initialize the wormhole using the WatchConnectivity framework's application context transiting type
+    self.wormhole = [[MMWormhole alloc] initWithApplicationGroupIdentifier:@"group.com.mutualmobile.wormhole"
+                                                         optionalDirectory:@"wormhole"
+                                                            transitingType:MMWormholeTransitingTypeSessionContext];
+#else
+    // Initialize the wormhole
     self.wormhole = [[MMWormhole alloc] initWithApplicationGroupIdentifier:appGroup optionalDirectory:@"wormhole"];
-
+#endif
+    
     [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
 
     // make sure the app is awake
