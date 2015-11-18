@@ -1,5 +1,6 @@
 #import <WatchKit/WatchKit.h>
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import "WatchKitHelper.h"
 #import "OneColumnSelectableRowType.h"
 #import "OneColumnRowType.h"
