@@ -1,4 +1,4 @@
-#import <WatchKit/WatchKit.h>
+#import <WatchConnectivity/WatchConnectivity.h>
 
 @interface WatchKitHelper : NSObject
 
