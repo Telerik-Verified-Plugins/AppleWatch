@@ -28,7 +28,7 @@ static NSString *const AWPlugin_Page_AppDetail = @"AppDetail";
     // the WatchConnectivity framework.
     [self.watchConnectivityListeningWormhole activateSessionListening];
     // Initialize the wormhole using the WatchConnectivity framework's application context transiting type
-    self.wormhole = [[MMWormhole alloc] initWithApplicationGroupIdentifier:@"group.com.mutualmobile.wormhole"
+    self.wormhole = [[MMWormhole alloc] initWithApplicationGroupIdentifier:appGroup
                                                          optionalDirectory:@"wormhole"
                                                             transitingType:MMWormholeTransitingTypeSessionContext];
 #else

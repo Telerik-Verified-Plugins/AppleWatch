@@ -17,11 +17,11 @@
     // Make sure we are activating the listening wormhole so that it will receive new messages from
     // the WatchConnectivity framework.
     [self.listeningWormhole activateSessionListening];
-    self.wormhole = [[MMWormhole alloc] initWithApplicationGroupIdentifier:[super getAppGroup]
+    self.wormhole = [[MMWormhole alloc] initWithApplicationGroupIdentifier:[self getAppGroup]
                                                          optionalDirectory:@"wormhole"
                                                             transitingType:MMWormholeTransitingTypeSessionContext];
 #else
-    self.wormhole = [[MMWormhole alloc] initWithApplicationGroupIdentifier:[super getAppGroup]
+    self.wormhole = [[MMWormhole alloc] initWithApplicationGroupIdentifier:[self getAppGroup]
                                                          optionalDirectory:@"wormhole"];
 #endif
 
