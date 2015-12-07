@@ -10,7 +10,7 @@
 #import "MMWormholeCoordinatedFileTransiting.h"
 #import "MMWormholeFileTransiting.h"
 
-#if ( ( defined(__IPHONE_OS_VERSION_MAX_ALLOWED) && __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000 ) || TARGET_OS_WATCH )
+#if ((defined(__IPHONE_OS_VERSION_MAX_ALLOWED) && __IPHONE_OS_VERSION_MAX_ALLOWED >= 90000) || (defined(TARGET_OS_WATCH) && TARGET_OS_WATCH == 1))
 #import "MMWormholeSession.h"
 #import "MMWormholeSessionContextTransiting.h"
 #import "MMWormholeSessionFileTransiting.h"
