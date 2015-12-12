@@ -5,12 +5,26 @@
 - (void)awakeWithContext:(id)context {
   [super awakeWithContext:context];
   
-  // hide everything initially
-  [self hideAllWidgets];
+    // hide everything initially
+    [self hideAllWidgets];
+    // Initialize the wormhole
+#if defined (TARGET_OS_WATCH) && TARGET_OS_WATCH >= 2
+    self.listeningWormhole = MMWormholeSession.sharedListeningSession;
+    [self.listeningWormhole listenForMessageWithIdentifier:wormholeIdentifier listener:^(id messageObject) {
+        [self pushControllerWithName:[messageObject valueForKey:@"id"] context:messageObject];
+    }];
+    
+    // Make sure we are activating the listening wormhole so that it will receive new messages from
+    // the WatchConnectivity framework.
+    [self.listeningWormhole activateSessionListening];
+    self.wormhole = [[MMWormhole alloc] initWithApplicationGroupIdentifier:[self getAppGroup]
+                                                         optionalDirectory:@"wormhole"
+                                                            transitingType:MMWormholeTransitingTypeSessionContext];
+#else
+    self.wormhole = [[MMWormhole alloc] initWithApplicationGroupIdentifier:[self getAppGroup]
+                                                         optionalDirectory:@"wormhole"];
+#endif
 
-  // Initialize the wormhole
-  self.wormhole = [[MMWormhole alloc] initWithApplicationGroupIdentifier:[self getAppGroup]
-                                                       optionalDirectory:@"wormhole"];
 }
 
 // poor man's abstract method implementation

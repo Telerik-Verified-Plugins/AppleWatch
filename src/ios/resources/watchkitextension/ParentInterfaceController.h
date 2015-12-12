@@ -2,11 +2,14 @@
 #import <Foundation/Foundation.h>
 #import "WatchKitHelper.h"
 #import "WatchKitUIHelper.h"
-#import "MMWormhole.h"
+#import "MMWormholeUmbrella.h"
 
 @interface ParentInterfaceController : WKInterfaceController
 
 @property (nonatomic, strong) MMWormhole *wormhole;
+#if defined (TARGET_OS_WATCH) && TARGET_OS_WATCH >= 2
+@property (nonatomic, strong) MMWormholeSession *listeningWormhole;
+#endif
 
 @property (weak, nonatomic) IBOutlet WKInterfaceGroup *wrapper;
 
