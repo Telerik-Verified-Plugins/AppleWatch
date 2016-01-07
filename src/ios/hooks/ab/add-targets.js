@@ -9,14 +9,17 @@ var fs = require('fs'),
     watchKitApp = 'watchkitapp',
     watchKitExtension = 'watchkitextension',
     embedAppExtensions = 'Embed App Extensions',
+    embedWatchContent = 'Embed Watch Content',
     interfaceStoryBoard = 'Interface.storyboard',
     base = 'Base',
     baseLproj = 'Base.lproj',
     commentKeyRegex = /_comment$/;
 
-module.exports = function (context) {
+module.exports = function(context) {
     var projectRoot = context.opts.projectRoot,
-        xcodeProjectPath = fs.readdirSync(projectRoot).filter(function (file) { return ~file.indexOf('.xcodeproj') && fs.statSync(path.join(projectRoot, file)).isDirectory(); })[0],
+        xcodeProjectPath = fs.readdirSync(projectRoot).filter(function(file) {
+            return ~file.indexOf('.xcodeproj') && fs.statSync(path.join(projectRoot, file)).isDirectory();
+        })[0],
         cordovaProjectName = xcodeProjectPath.slice(0, -'.xcodeproj'.length),
         projectPlistPath = path.join(projectRoot, cordovaProjectName, util.format('%s-Info.plist', cordovaProjectName)),
         projectPlistJson = plist.parse(fs.readFileSync(projectPlistPath, 'utf8')),
@@ -34,29 +37,24 @@ module.exports = function (context) {
         pbxProjectSection = pbxProject.pbxProjectSection(),
         watchKitAppDisplayName = '"' + displayName + ' WatchKit App"',
         watchKitExtensionDisplayName = '"' + displayName + ' WatchKit Extension"',
-        watchKitAppFilename = displayName + ' WatchKit App.app',
+        watchKitAppFileName = displayName + ' WatchKit App.app',
         watchKitExtensionAppexFileName = displayName + ' WatchKit Extension.appex',
-		extEntitlementsFileName = "watchkitextension.entitlements",
-		extEntitlementsSourceFile = path.join(resourcesPath, extEntitlementsFileName),
-		extEntitlementsTargetFile = path.join(projectRoot, cordovaProjectName, extEntitlementsFileName),
-        placeHolderValues = [
-            {
-                placeHolder: '__DISPLAY_NAME__',
-                value: displayName
-            },
-            {
-                placeHolder: '__APP_IDENTIFIER__',
-                value: projectPlistJson['CFBundleIdentifier']
-            },
-            {
-                placeHolder: '__BUNDLE_SHORT_VERSION_STRING__',
-                value: projectPlistJson['CFBundleShortVersionString']
-            },
-            {
-                placeHolder: '__BUNDLE_VERSION__',
-                value: projectPlistJson['CFBundleVersion']
-            }
-        ],
+        extEntitlementsFileName = "watchkitextension.entitlements",
+        extEntitlementsSourceFile = path.join(resourcesPath, extEntitlementsFileName),
+        extEntitlementsTargetFile = path.join(projectRoot, cordovaProjectName, extEntitlementsFileName),
+        placeHolderValues = [{
+            placeHolder: '__DISPLAY_NAME__',
+            value: displayName
+        }, {
+            placeHolder: '__APP_IDENTIFIER__',
+            value: projectPlistJson['CFBundleIdentifier']
+        }, {
+            placeHolder: '__BUNDLE_SHORT_VERSION_STRING__',
+            value: projectPlistJson['CFBundleShortVersionString']
+        }, {
+            placeHolder: '__BUNDLE_VERSION__',
+            value: projectPlistJson['CFBundleVersion']
+        }],
         i = 0;
 
     console.log('Copying contents of WatchKit App');
@@ -64,7 +62,7 @@ module.exports = function (context) {
     console.log('Copying contents of WatchKit Extensions');
     wrench.copyDirSyncRecursive(watchKitExtensionPath, projectWatchKitExtensionPath);
     console.log('Copying entitlements file for WatchKit Extensions');
-	fs.writeFileSync(extEntitlementsTargetFile, fs.readFileSync(extEntitlementsSourceFile));
+    fs.writeFileSync(extEntitlementsTargetFile, fs.readFileSync(extEntitlementsSourceFile));
 
     console.log('Modifying Plist files');
     wkcommon.replacePlaceholdersInPlist(watchKitAppPlistFilePath, placeHolderValues);
@@ -88,7 +86,7 @@ module.exports = function (context) {
     for (i = 0; i < projectWatchKitExtensionPathContents.length; i++) {
         watchExtArray.push(path.join(projectWatchKitExtensionPath, projectWatchKitExtensionPathContents[i]));
     }
-    
+
     // Special case Interface.storyboard
     // Interface.storyboard is the only file so far 
     // which is inconsistent between the PBXBuildFile and PBXFileReference sections 
@@ -110,18 +108,24 @@ module.exports = function (context) {
     pbxProject.addToPbxBuildFileSection(storyBoardBuildFile);
     pbxProject.addToPbxFileReferenceSection(storyBoardReferenceFile);
     // ---------------------------------------
-    
+
     console.log('App Phase GUID');
     var watchKitAppBuildPhase = pbxProject.addBuildPhase(watchAppArray, 'PBXResourcesBuildPhase', watchKitApp);
     // Add the storyboard
-    watchKitAppBuildPhase.buildPhase.files.push({ value: storyBoardBuildFile.uuid, comment: interfaceStoryBoard });
+    watchKitAppBuildPhase.buildPhase.files.push({
+        value: storyBoardBuildFile.uuid,
+        comment: interfaceStoryBoard
+    });
 
     console.log('Extension Phase GUID');
     var watchKitExtensionSourcesBuildPhase = pbxProject.addBuildPhase(watchExtArray, 'PBXSourcesBuildPhase', watchKitExtension);
 
     var watchKitAppPbxGroup = pbxProject.addPbxGroup(watchAppArray, watchKitAppDisplayName, watchKitAppDisplayName);
     // Add the storyboard
-    watchKitAppPbxGroup.pbxGroup.children.push({ value: storyBoardBuildFile.fileRef, comment: interfaceStoryBoard });
+    watchKitAppPbxGroup.pbxGroup.children.push({
+        value: storyBoardBuildFile.fileRef,
+        comment: interfaceStoryBoard
+    });
 
     var watchKitExtensionPbxGroup = pbxProject.addPbxGroup(watchExtArray, watchKitExtensionDisplayName, watchKitExtensionDisplayName);
 
@@ -130,7 +134,10 @@ module.exports = function (context) {
     pbxProject.hash.project.objects['PBXVariantGroup'] = pbxProject.hash.project.objects['PBXVariantGroup'] || {};
     pbxProject.hash.project.objects['PBXVariantGroup'][storyBoardBuildFile.fileRef] = {
         isa: 'PBXVariantGroup',
-        children: [{ value: storyBoardReferenceFile.fileRef, comment: storyBoardReferenceFile.name }],
+        children: [{
+            value: storyBoardReferenceFile.fileRef,
+            comment: storyBoardReferenceFile.name
+        }],
         name: interfaceStoryBoard,
         sourceTree: '"<group>"'
     };
@@ -145,7 +152,9 @@ module.exports = function (context) {
         basename: watchKitExtensionAppexFileName,
         path: watchKitExtensionAppexFileName,
         sourceTree: 'BUILT_PRODUCTS_DIR',
-        settings: { ATTRIBUTES: ['RemoveHeadersOnCopy'] }
+        settings: {
+            ATTRIBUTES: ['RemoveHeadersOnCopy']
+        }
     };
 
     pbxProject.addToPbxFileReferenceSection(watchKitExtensionAppexFile);
@@ -156,8 +165,8 @@ module.exports = function (context) {
         fileRef: pbxProject.generateUuid(),
         explicitFileType: 'wrapper.application',
         includeInIndex: 0,
-        basename: watchKitAppFilename,
-        path: watchKitAppFilename,
+        basename: watchKitAppFileName,
+        path: watchKitAppFileName,
         sourceTree: 'BUILT_PRODUCTS_DIR'
     };
 
@@ -166,55 +175,94 @@ module.exports = function (context) {
 
     var watchKitExtensionResourcesBuildPhase = pbxProject.addBuildPhase([watchKitAppFile.path], 'PBXResourcesBuildPhase', watchKitExtension + ' Resources');
 
-    pbxProject.pbxGroupByName('CustomTemplate').children.push({ value: watchKitAppPbxGroup.uuid, comment: watchKitAppDisplayName }, { value: watchKitExtensionPbxGroup.uuid, comment: watchKitExtensionDisplayName });
-    pbxProject.pbxGroupByName('Products').children.push({ value: watchKitAppFile.fileRef, comment: watchKitAppFilename }, { value: watchKitExtensionAppexFile.fileRef, comment: watchKitExtensionAppexFileName });
+    pbxProject.pbxGroupByName('CustomTemplate').children.push({
+        value: watchKitAppPbxGroup.uuid,
+        comment: watchKitAppDisplayName
+    }, {
+        value: watchKitExtensionPbxGroup.uuid,
+        comment: watchKitExtensionDisplayName
+    });
+    pbxProject.pbxGroupByName('Products').children.push({
+        value: watchKitAppFile.fileRef,
+        comment: watchKitAppFileName
+    }, {
+        value: watchKitExtensionAppexFile.fileRef,
+        comment: watchKitExtensionAppexFileName
+    });
 
-    var watchKitFrameworkBuildPhase = wkext.addFrameworks(pbxProject, watchKitExtension, projectRelativePluginDirPath);
-    var watchKitExtensionNativeTargetGuid = wkext.addTarget(pbxProject,
-        {
+    var watchKitAppPlistJson = plist.parse(fs.readFileSync(watchKitAppPlistFilePath, 'utf8')),
+        watchKitExtensionPlistJson = plist.parse(fs.readFileSync(watchKitExtensionPlistFilePath, 'utf8'));
+    watchKitFrameworkBuildPhase = wkext.addFrameworks(pbxProject, watchKitExtension, projectRelativePluginDirPath);
+    var watchKitExtensionNativeTargetGuid = wkext.addTarget(pbxProject, {
             plistFilePath: watchKitExtensionPlistFilePath,
             displayName: watchKitExtensionDisplayName,
             projectPluginDir: projectRelativePluginDirPath,
             buildPhase: watchKitFrameworkBuildPhase,
             sourcesBuildPhase: watchKitExtensionSourcesBuildPhase,
-            resourcesBuildPhase: watchKitExtensionResourcesBuildPhase,
+            // resourcesBuildPhase: watchKitExtensionResourcesBuildPhase,
             productReference: watchKitExtensionAppexFile.fileRef,
             productReference_comment: watchKitExtensionAppexFileName,
-        });
+        },
+        watchKitExtensionPlistJson['CFBundleIdentifier']);
 
-    var watchKitAppNativeTargetGuid = wkapp.addTarget(pbxProject,
-        {
+    var pbxNativeTargetSection = pbxProject.pbxNativeTarget();
+    var mainAppTargetGuid = getUuidByComment(cordovaProjectName, pbxNativeTargetSection);
+    // WARNING: Workaround to correctly add libmmwormhole-watchos.a to extension target only.
+    pbxProject.removeFromPbxFrameworksBuildPhase({
+        target: mainAppTargetGuid.uuid,
+        basename: 'libMMWormhole-watchos.a',
+        group: 'Frameworks'
+    });
+
+    var watchKitAppNativeTargetGuid = wkapp.addTarget(pbxProject, {
             plistFilePath: watchKitAppPlistFilePath,
             displayName: watchKitAppDisplayName,
             bundleDisplayName: displayName,
             buildPhase: watchKitAppBuildPhase,
             productReference: watchKitAppFile.fileRef,
-            productReference_comment: watchKitAppFilename
-        });
-
-    var pbxNativeTargetSection = pbxProject.pbxNativeTarget();
+            productReference_comment: watchKitAppFileName
+        },
+        watchKitAppPlistJson['CFBundleIdentifier']);
 
     console.log('Adding both targets to the main project');
     var pbxProjectKey = pbxProject.hash.project.rootObject;
-    pbxProjectSection[pbxProjectKey].targets.push({ value: watchKitAppNativeTargetGuid, comment: watchKitAppDisplayName }, { value: watchKitExtensionNativeTargetGuid, comment: watchKitExtensionDisplayName });
+    pbxProjectSection[pbxProjectKey].targets.push({
+        value: watchKitAppNativeTargetGuid,
+        comment: watchKitAppDisplayName
+    }, {
+        value: watchKitExtensionNativeTargetGuid,
+        comment: watchKitExtensionDisplayName
+    });
 
     var mainAppTarget = pbxProject.pbxTargetByName(cordovaProjectName);
-    var mainAppTargetGuid = getUuidByComment(cordovaProjectName, pbxNativeTargetSection);
+    console.log('Add Embed Watch Content Build Phase');
+    pbxProject.hash.project.objects['PBXCopyFilesBuildPhase'] = pbxProject.hash.project.objects['PBXCopyFilesBuildPhase'] || {};
+    var embedWatchContentBuildPhase = pbxProject.addBuildPhase([watchKitAppFileName], 'PBXCopyFilesBuildPhase', embedWatchContent);
+    embedWatchContentBuildPhase.buildPhase['dstPath'] = '"$(CONTENTS_FOLDER_PATH)/Watch"';
+    embedWatchContentBuildPhase.buildPhase['dstSubfolderSpec'] = 16;
+    mainAppTarget.buildPhases.push({
+        value: embedWatchContentBuildPhase.uuid,
+        comment: embedWatchContent
+    });
+
+    var watchAppTarget = pbxProject.pbxTargetByName(watchKitAppDisplayName);
     console.log('Add Embed App Extensions Build Phase');
     pbxProject.hash.project.objects['PBXCopyFilesBuildPhase'] = pbxProject.hash.project.objects['PBXCopyFilesBuildPhase'] || {};
     var embedAppExtensionsBuildPhase = pbxProject.addBuildPhase([watchKitExtensionAppexFileName], 'PBXCopyFilesBuildPhase', embedAppExtensions);
     embedAppExtensionsBuildPhase.buildPhase['dstPath'] = '""';
     embedAppExtensionsBuildPhase.buildPhase['dstSubfolderSpec'] = 13;
-    mainAppTarget.buildPhases.push({ value: embedAppExtensionsBuildPhase.uuid, comment: embedAppExtensions });
+    watchAppTarget.buildPhases.push({
+        value: embedAppExtensionsBuildPhase.uuid,
+        comment: embedAppExtensions
+    });
 
     console.log('Adding dependencies');
-    console.log('WatchKit Extension depends on WatchKit App');
-    pbxProject.addTargetDependency(watchKitExtensionNativeTargetGuid, [watchKitAppNativeTargetGuid]);
+    console.log('WatchKit App depends on WatchKit App Extension');
+    pbxProject.addTargetDependency(watchKitAppNativeTargetGuid, [watchKitExtensionNativeTargetGuid]);
 
-    console.log('Original App depends on WatchKit Extension');
-    pbxProject.addTargetDependency(mainAppTargetGuid, [watchKitExtensionNativeTargetGuid]);
+    console.log('Original App depends on WatchKit App');
+    pbxProject.addTargetDependency(mainAppTargetGuid, [watchKitAppNativeTargetGuid]);
 
-    var buffer = pbxProject.writeSync();
     projectFile.write();
     console.log('pbxProject was modified successfully');
 }

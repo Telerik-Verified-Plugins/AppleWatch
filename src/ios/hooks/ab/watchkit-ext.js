@@ -6,69 +6,73 @@ var path = require('path'),
 
 function addWatchkitExtensionFrameworks(pbxProject, watchKitExtension, projectPluginDir) {
     console.log('Add WatchKit.Framework');
-    var watchKitFramework = pbxProject.addFramework('System/Library/Frameworks/WatchKit.framework');
+    var watchConnectivityFramework = pbxProject.addFramework('System/Library/Frameworks/WatchConnectivity.framework');
     var coreLocationFramework = pbxProject.addFramework('System/Library/Frameworks/CoreLocation.framework');
-    var libmmwormholeLib = pbxProject.addFramework(path.join(projectPluginDir, 'libmmwormhole.a'));
-    return pbxProject.addBuildPhase(
-        [watchKitFramework.path, coreLocationFramework.path, libmmwormholeLib.path],
-        'PBXFrameworksBuildPhase',
-        watchKitExtension + ' Frameworks');
+    var libmmwormholeLib = pbxProject.addFramework(path.join(projectPluginDir, 'libMMWormhole-watchos.a'));
+
+    return pbxProject.addBuildPhase([watchConnectivityFramework.path, coreLocationFramework.path, libmmwormholeLib.path],
+        'PBXFrameworksBuildPhase', watchKitExtension + ' Frameworks');
 }
 
-function addWatchkitExtensionTarget(pbxProject, prop) {
+function addWatchkitExtensionTarget(pbxProject, prop, bundleIdentifier) {
     console.log('Adding WatchKit Extension XCConfigurationList');
     var INHERITED = '"$(inherited)"',
         librarySearchPath = [INHERITED, '"\\"$(SRCROOT)/' + prop.projectPluginDir + '\\""'],
         watchKitExtensionConfigurations = [{
             isa: 'XCBuildConfiguration',
             buildSettings: {
-                GCC_PREPROCESSOR_DEFINITIONS: [
-                    '"DEBUG=1"',
-                    INHERITED,
-                ],
                 INFOPLIST_FILE: wkcommon.quoteString(prop.plistFilePath),
                 LD_RUNPATH_SEARCH_PATHS: '"$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks"',
+                LIBRARY_SEARCH_PATHS: librarySearchPath,
+                PRODUCT_BUNDLE_IDENTIFIER: bundleIdentifier,
                 PRODUCT_NAME: '"${TARGET_NAME}"',
-				CODE_SIGN_ENTITLEMENTS: '"${ENTITLEMENTS_WATCHKITEXTENSION}"',
-				PROVISIONING_PROFILE: '"${PROVISION_WATCHKITEXTENSION}"',
-                IPHONEOS_DEPLOYMENT_TARGET: 8.2, //Hardcoding this - problems may arise
-                SKIP_INSTALL: 'YES',
-                COPY_PHASE_STRIP: 'NO',
-                GCC_OPTIMIZATION_LEVEL: 0,
-                LIBRARY_SEARCH_PATHS: librarySearchPath
+                PROVISIONING_PROFILE: '"${PROVISION_WATCHKITEXTENSION}"',
+                SDKROOT: 'watchos',
+                SKIP_INSTALL: 'NO',
+                TARGETED_DEVICE_FAMILY: 4,
+                WATCHOS_DEPLOYMENT_TARGET: '2.0',
+                CODE_SIGN_ENTITLEMENTS: '"${ENTITLEMENTS_WATCHKITEXTENSION}"',
+                OTHER_LDFLAGS: ['-weak_framework', 'UIKit']
             },
             name: debug,
         }, {
-                isa: 'XCBuildConfiguration',
-                buildSettings: {
-                    INFOPLIST_FILE: wkcommon.quoteString(prop.plistFilePath),
-                    LD_RUNPATH_SEARCH_PATHS: '"$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks"',
-                    PRODUCT_NAME: '"${TARGET_NAME}"',
-					CODE_SIGN_ENTITLEMENTS: '"${ENTITLEMENTS_WATCHKITEXTENSION}"',
-					PROVISIONING_PROFILE: '"${PROVISION_WATCHKITEXTENSION}"',
-                    IPHONEOS_DEPLOYMENT_TARGET: 8.2, //Hardcoding this - problems may arise
-                    SKIP_INSTALL: 'YES',
-                    COPY_PHASE_STRIP: 'NO',
-                    VALIDATE_PRODUCT: 'YES',
-                    LIBRARY_SEARCH_PATHS: librarySearchPath
-                },
-                name: release,
-            }
-        ];
+            isa: 'XCBuildConfiguration',
+            buildSettings: {
+                INFOPLIST_FILE: wkcommon.quoteString(prop.plistFilePath),
+                LD_RUNPATH_SEARCH_PATHS: '"$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks"',
+                LIBRARY_SEARCH_PATHS: librarySearchPath,
+                PRODUCT_BUNDLE_IDENTIFIER: bundleIdentifier,
+                PRODUCT_NAME: '"${TARGET_NAME}"',
+                PROVISIONING_PROFILE: '"${PROVISION_WATCHKITEXTENSION}"',
+                SDKROOT: 'watchos',
+                SKIP_INSTALL: 'NO',
+                TARGETED_DEVICE_FAMILY: 4,
+                WATCHOS_DEPLOYMENT_TARGET: '2.0',
+                OTHER_LDFLAGS: ['-weak_framework', 'UIKit']
+            },
+            name: release,
+        }];
 
     var watchKitExtensionXCConfigurations = pbxProject.addXCConfigurationList(watchKitExtensionConfigurations, 'Release', 'Build configuration list for PBXNativeTarget ' + prop.displayName);
 
     return wkcommon.addNativeTarget(pbxProject, {
         buildConfiguration: watchKitExtensionXCConfigurations,
-        buildPhases: [{ value: prop.sourcesBuildPhase.uuid, comment: watchKitExtension },
-            { value: prop.resourcesBuildPhase.uuid, comment: 'Resources' },
-            { value: prop.buildPhase.uuid, comment: 'Frameworks' }],
+        buildPhases: [{
+                value: prop.sourcesBuildPhase.uuid,
+                comment: watchKitExtension
+            },
+            // { value: prop.resourcesBuildPhase.uuid, comment: 'Resources' },
+            {
+                value: prop.buildPhase.uuid,
+                comment: 'Frameworks'
+            }
+        ],
         buildRules: [],
         dependencies: [],
         productName: prop.displayName,
         productReference: prop.productReference,
         productReference_comment: prop.productReference_comment,
-        productType: '"com.apple.product-type.watchkit-extension"'
+        productType: '"com.apple.product-type.watchkit2-extension"'
     });
 }
 

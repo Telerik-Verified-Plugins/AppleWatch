@@ -1,58 +1,69 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <plugin
     id="cordova-plugin-applewatch"
-    version="0.6.1"
+    version="1.0.0"
     xmlns="http://apache.org/cordova/ns/plugins/1.0">
-
-  <name>Apple Watch</name>
-
-  <author>Telerik</author>
-
-  <description>AppleWatch plugin for your Cordova project. You build the UI with JS, so no XCode native code hacking required.</description>
-
-  <keywords>AppleWatch</keywords>
-
-  <license>MIT</license>
-
-  <engines>
-    <engine name="cordova" version=">=3.5.0"/>
-    <!-- When multiple SDKs are installed the check will fail, seems to be a bug in cordova-lib -->
-    <!--<engine name="apple-ios" version=">=8.2.0"/>-->
-  </engines>
-
-  <js-module name="AppleWatch" src="www/applewatch.js">
-    <clobbers target="applewatch"/>
-  </js-module>
-
-  <platform name="ios">
-    <config-file parent="/*" target="config.xml">
-      <feature name="AppleWatch">
-        <param name="ios-package" value="AppleWatch"/>
-        <param name="onload" value="true"/>
-      </feature>
-      <preference name="deployment-target" value="8.2"/>
-    </config-file>
-
-    <header-file src="src/ios/app/AppleWatch.h"/>
-    <source-file src="src/ios/app/AppleWatch.m"/>
-    <header-file src="src/ios/app/AppDelegate+applewatch.h"/>
-    <source-file src="src/ios/app/AppDelegate+applewatch.m"/>
-
-    <framework src="Foundation.framework"/>
-
-    <header-file src="src/ios/lib/headers/MMWormhole.h" />
-    <source-file src="src/ios/lib/libmmwormhole.a" framework="true" />
-
-
-    <!-- (1/2) THESE HOOKS ARE FOR TELERIK APPBUILDER AND ARE ENABLED IN THE appbuilder BRANCH OF THIS REPOSITORY -->
-    <hook type="before_plugin_install" src="src/ios/hooks/ab/prerequisites.js"/>
-    <hook type="before_plugin_install" src="src/ios/hooks/ab/add-targets.js"/>
-
-
-    <!-- (2/2) THESE HOOKS ARE FOR THE CORDOVA CLI
-    <hook type="after_plugin_install" src="src/ios/hooks/cordova/copy_watchkitfiles.js" />
-    <hook type="after_plugin_install" src="src/ios/hooks/cordova/fix_watchkitapp_buildtarget.js" />
-    <hook type="after_prepare" src="src/ios/hooks/cordova/copy_custom_storyboard.js" /-->
-  </platform>
-
+    
+    <name>Apple Watch</name>
+    
+    <author>Telerik</author>
+    
+    <description>AppleWatch plugin for your Cordova project. You build the UI with JS, so no XCode native code hacking required.</description>
+    
+    <keywords>AppleWatch</keywords>
+    
+    <license>MIT</license>
+    
+    <engines>
+        <engine name="cordova" version=">=3.5.0"/>
+        <!-- When multiple SDKs are installed the check will fail, seems to be a bug in cordova-lib -->
+        <!--<engine name="apple-ios" version=">=8.2.0"/>-->
+    </engines>
+    
+    <js-module name="AppleWatch" src="www/applewatch.js">
+        <clobbers target="applewatch"/>
+    </js-module>
+    
+    <platform name="ios">
+        <config-file parent="/*" target="config.xml">
+            <feature name="AppleWatch">
+                <param name="ios-package" value="AppleWatch"/>
+                <param name="onload" value="true"/>
+            </feature>
+            <preference name="deployment-target" value="9.0"/>
+        </config-file>
+        
+        <header-file src="src/ios/app/AppleWatch.h"/>
+        <source-file src="src/ios/app/AppleWatch.m"/>
+        <header-file src="src/ios/app/AppDelegate+applewatch.h"/>
+        <source-file src="src/ios/app/AppDelegate+applewatch.m"/>
+        
+        <framework src="Foundation.framework"/>
+        
+        <header-file src="src/ios/lib/headers/MMWormhole.h" />
+        <header-file src="src/ios/lib/headers/MMWormholeCoordinatedFileTransiting.h" />
+        <header-file src="src/ios/lib/headers/MMWormholeFileTransiting.h" />
+        <header-file src="src/ios/lib/headers/MMWormholeSessionContextTransiting.h" />
+        <header-file src="src/ios/lib/headers/MMWormholeSessionFileTransiting.h" />
+        <header-file src="src/ios/lib/headers/MMWormholeSessionMessageTransiting.h" />
+        <header-file src="src/ios/lib/headers/MMWormholeSession.h" />
+        <header-file src="src/ios/lib/headers/MMWormholeTransiting.h" />
+        <header-file src="src/ios/lib/headers/MMWormholeUmbrella.h" />
+        
+        <source-file src="src/ios/lib/libmmwormhole-ios.a" framework="true" />
+        <source-file src="src/ios/lib/libmmwormhole-watchos.a" />
+        
+        <!--     (1/2) THESE HOOKS ARE FOR TELERIK APPBUILDER AND ARE ENABLED IN THE appbuilder BRANCH OF THIS REPOSITORY -->
+        <hook type="before_plugin_install" src="src/ios/hooks/ab/prerequisites.js"/>
+        <hook type="before_plugin_install" src="src/ios/hooks/ab/add-targets.js"/>
+        
+        
+        <!-- (2/2) THESE HOOKS ARE FOR THE CORDOVA CLI -->
+        <!-- execute these once -->
+        <!--     <hook type="after_plugin_install" src="src/ios/hooks/cordova/copy_watchkitfiles.js" /> -->
+        <!--     <hook type="after_plugin_install" src="src/ios/hooks/cordova/fix_watchkitapp_buildtarget.js" /> -->
+        <!-- execute this one every time because the user may have done updates -->
+        <hook type="after_prepare" src="src/ios/hooks/cordova/copy_custom_storyboard.js" />
+    </platform>
+    
 </plugin>
