@@ -172,8 +172,7 @@ module.exports = function(context) {
 
     pbxProject.addToPbxFileReferenceSection(watchKitAppFile);
     pbxProject.addToPbxBuildFileSection(watchKitAppFile);
-
-    var watchKitExtensionResourcesBuildPhase = pbxProject.addBuildPhase([watchKitAppFile.path], 'PBXResourcesBuildPhase', watchKitExtension + ' Resources');
+    pbxProject.addBuildPhase([watchKitAppFile.path], 'PBXResourcesBuildPhase', watchKitExtension + ' Resources');
 
     pbxProject.pbxGroupByName('CustomTemplate').children.push({
         value: watchKitAppPbxGroup.uuid,
@@ -191,15 +190,15 @@ module.exports = function(context) {
     });
 
     var watchKitAppPlistJson = plist.parse(fs.readFileSync(watchKitAppPlistFilePath, 'utf8')),
-        watchKitExtensionPlistJson = plist.parse(fs.readFileSync(watchKitExtensionPlistFilePath, 'utf8'));
+    watchKitExtensionPlistJson = plist.parse(fs.readFileSync(watchKitExtensionPlistFilePath, 'utf8')),
     watchKitFrameworkBuildPhase = wkext.addFrameworks(pbxProject, watchKitExtension, projectRelativePluginDirPath);
+    console.log('watchKitFrameworkBuildPhase = ' + watchKitFrameworkBuildPhase);
     var watchKitExtensionNativeTargetGuid = wkext.addTarget(pbxProject, {
             plistFilePath: watchKitExtensionPlistFilePath,
             displayName: watchKitExtensionDisplayName,
             projectPluginDir: projectRelativePluginDirPath,
             buildPhase: watchKitFrameworkBuildPhase,
             sourcesBuildPhase: watchKitExtensionSourcesBuildPhase,
-            // resourcesBuildPhase: watchKitExtensionResourcesBuildPhase,
             productReference: watchKitExtensionAppexFile.fileRef,
             productReference_comment: watchKitExtensionAppexFileName,
         },

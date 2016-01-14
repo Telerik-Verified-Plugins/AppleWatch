@@ -57,16 +57,15 @@ function addWatchkitExtensionTarget(pbxProject, prop, bundleIdentifier) {
 
     return wkcommon.addNativeTarget(pbxProject, {
         buildConfiguration: watchKitExtensionXCConfigurations,
-        buildPhases: [{
-                value: prop.sourcesBuildPhase.uuid,
-                comment: watchKitExtension
-            },
-            // { value: prop.resourcesBuildPhase.uuid, comment: 'Resources' },
-            {
-                value: prop.buildPhase.uuid,
-                comment: 'Frameworks'
-            }
-        ],
+        buildPhases: 
+        [{
+            value: prop.sourcesBuildPhase.uuid,
+            comment: watchKitExtension
+        },
+        {
+            value: prop.buildPhase.uuid,
+            comment: 'Frameworks'
+        }],
         buildRules: [],
         dependencies: [],
         productName: prop.displayName,

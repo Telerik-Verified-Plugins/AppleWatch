@@ -2,7 +2,8 @@
 #import <Foundation/Foundation.h>
 #import "WatchKitHelper.h"
 #import "WatchKitUIHelper.h"
-#import <MMWormholeUmbrella.h>
+#import "MMWormholeUmbrella.h"
+
 @interface ParentInterfaceController : WKInterfaceController
 
 @property (nonatomic, strong) MMWormhole *wormhole;
