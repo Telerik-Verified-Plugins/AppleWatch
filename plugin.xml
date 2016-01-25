@@ -15,7 +15,7 @@
     <license>MIT</license>
     
     <engines>
-        <engine name="cordova" version=">=3.5.0"/>
+        <engine name="cordova" version=">=4.0.0"/>
         <!-- When multiple SDKs are installed the check will fail, seems to be a bug in cordova-lib -->
         <!--<engine name="apple-ios" version=">=8.2.0"/>-->
     </engines>
@@ -30,7 +30,7 @@
                 <param name="ios-package" value="AppleWatch"/>
                 <param name="onload" value="true"/>
             </feature>
-            <preference name="deployment-target" value="9.0"/>
+            <preference name="deployment-target" value="8.2"/>
         </config-file>
         
         <header-file src="src/ios/app/AppleWatch.h"/>
