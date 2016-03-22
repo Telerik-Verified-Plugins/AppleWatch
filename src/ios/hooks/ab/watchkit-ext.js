@@ -32,7 +32,8 @@ function addWatchkitExtensionTarget(pbxProject, prop, bundleIdentifier) {
                 TARGETED_DEVICE_FAMILY: 4,
                 WATCHOS_DEPLOYMENT_TARGET: '2.0',
                 CODE_SIGN_ENTITLEMENTS: '"${ENTITLEMENTS_WATCHKITEXTENSION}"',
-                OTHER_LDFLAGS: ['-weak_framework', 'UIKit']
+                OTHER_LDFLAGS: ['-weak_framework', 'UIKit'],
+                ENABLE_BITCODE: 'YES'
             },
             name: debug,
         }, {
@@ -48,7 +49,8 @@ function addWatchkitExtensionTarget(pbxProject, prop, bundleIdentifier) {
                 SKIP_INSTALL: 'NO',
                 TARGETED_DEVICE_FAMILY: 4,
                 WATCHOS_DEPLOYMENT_TARGET: '2.0',
-                OTHER_LDFLAGS: ['-weak_framework', 'UIKit']
+                OTHER_LDFLAGS: ['-weak_framework', 'UIKit'],
+                ENABLE_BITCODE: 'YES'
             },
             name: release,
         }];
