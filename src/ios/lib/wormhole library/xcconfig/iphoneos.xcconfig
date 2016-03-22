@@ -1,0 +1,2 @@
+ARCHS=armv7 armv7s arm64
+SUPPORTED_PLATFORMS="iphonesimulator iphoneos"
