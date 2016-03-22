@@ -15,7 +15,7 @@
     <license>MIT</license>
     
     <engines>
-        <engine name="cordova" version=">=4.0.0"/>
+        <engine name="cordova" version=">=3.8.0"/>
         <!-- When multiple SDKs are installed the check will fail, seems to be a bug in cordova-lib -->
         <!--<engine name="apple-ios" version=">=8.2.0"/>-->
     </engines>
