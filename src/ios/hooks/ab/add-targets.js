@@ -54,8 +54,7 @@ module.exports = function(context) {
         }, {
             placeHolder: '__BUNDLE_VERSION__',
             value: projectPlistJson['CFBundleVersion']
-        }],
-        i = 0;
+        }];
 
     console.log('Copying contents of WatchKit App');
     wrench.copyDirSyncRecursive(watchKitAppPath, projectWatchKitAppPath);
@@ -70,22 +69,11 @@ module.exports = function(context) {
 
     var projectWatchKitAppPathContents = fs.readdirSync(projectWatchKitAppPath);
     console.log('Adding WatchKit App files to pbxproject');
-    var watchAppArray = [];
-    for (i = 0; i < projectWatchKitAppPathContents.length; i++) {
-        var file = projectWatchKitAppPathContents[i];
-        if (file === baseLproj) {
-            continue;
-        }
-
-        watchAppArray.push(path.join(projectWatchKitAppPath, file));
-    }
+    var watchAppArray = calculateFilePaths(projectWatchKitAppPath, projectWatchKitAppPathContents, new RegExp("(" + baseLproj + "|[.]h$)")); // Don't add 'Base.lproj' and all header files to compile sources 
 
     var projectWatchKitExtensionPathContents = fs.readdirSync(projectWatchKitExtensionPath);
-    console.log('Adding WatchKit Extension files to pbxproject');
-    var watchExtArray = [];
-    for (i = 0; i < projectWatchKitExtensionPathContents.length; i++) {
-        watchExtArray.push(path.join(projectWatchKitExtensionPath, projectWatchKitExtensionPathContents[i]));
-    }
+    console.log('Adding WatchKit Extension files to pbxproject');    
+    var watchExtArray = calculateFilePaths(projectWatchKitExtensionPath, projectWatchKitExtensionPathContents, new RegExp("[.]h$")); // Don't add all header files to compile sources
 
     // Special case Interface.storyboard
     // Interface.storyboard is the only file so far 
@@ -276,4 +264,18 @@ function getUuidByComment(comment, section) {
     }
 
     return null;
+}
+
+function calculateFilePaths(dirname, filenames, excludingPattern) {
+    var filepaths = [];
+    filenames = filenames.filter(function(filename) {
+        return !excludingPattern.test(filename);
+    });
+
+    for (var i = 0; i < filenames.length; i++) {
+        var filename = filenames[i];
+        filepaths.push(path.join(dirname, filename));
+    }
+    
+    return filepaths;
 }

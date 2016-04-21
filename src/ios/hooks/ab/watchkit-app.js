@@ -18,7 +18,8 @@ function addWatchkitAppTarget(pbxProject, prop, bundleIdentifier) {
             SDKROOT: 'watchos',
             SKIP_INSTALL: 'YES',
             TARGETED_DEVICE_FAMILY: 4,
-            WATCHOS_DEPLOYMENT_TARGET: '2.0'
+            WATCHOS_DEPLOYMENT_TARGET: '2.0',
+            ENABLE_BITCODE: 'YES'
         },
         name: debug,
     }, {
@@ -33,7 +34,8 @@ function addWatchkitAppTarget(pbxProject, prop, bundleIdentifier) {
             SDKROOT: 'watchos',
             SKIP_INSTALL: 'NO',
             TARGETED_DEVICE_FAMILY: 4,
-            WATCHOS_DEPLOYMENT_TARGET: '2.0'
+            WATCHOS_DEPLOYMENT_TARGET: '2.0',
+            ENABLE_BITCODE: 'YES'
         },
         name: release,
     }];

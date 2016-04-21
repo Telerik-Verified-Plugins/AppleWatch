@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <plugin
     id="cordova-plugin-applewatch"
-    version="1.0.2"
+    version="1.0.3"
     xmlns="http://apache.org/cordova/ns/plugins/1.0">
     
     <name>Apple Watch</name>
@@ -15,7 +15,7 @@
     <license>MIT</license>
     
     <engines>
-        <engine name="cordova" version=">=4.0.0"/>
+        <engine name="cordova" version=">=3.8.0"/>
         <!-- When multiple SDKs are installed the check will fail, seems to be a bug in cordova-lib -->
         <!--<engine name="apple-ios" version=">=8.2.0"/>-->
     </engines>

@@ -1,0 +1,3 @@
+[submodule "src/ios/lib/MMWormhole"]
+	path = src/ios/lib/MMWormhole
+	url = git@github.com:mutualmobile/MMWormhole.git
