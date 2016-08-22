@@ -19,7 +19,7 @@ function addWatchkitAppTarget(pbxProject, prop) {
             IPHONEOS_DEPLOYMENT_TARGET: 8.2, //Hardcoding this - problems may arise
             PRODUCT_NAME: '"${TARGET_NAME}"',
 			PROVISIONING_PROFILE: '"${PROVISION_WATCHKITAPP}"',
-            SKIP_INSTALL: 'NO',
+            SKIP_INSTALL: 'YES',
             TARGETED_DEVICE_FAMILY: 4, //Hardcoding this also
             '"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]"': '"1,4"', // According to apple documentation 1 is for iPhone/iPad and 2 is for iPad - I'm guessing 4 is for AppleWatch
             COPY_PHASE_STRIP: 'NO',
@@ -35,7 +35,7 @@ function addWatchkitAppTarget(pbxProject, prop) {
                 IPHONEOS_DEPLOYMENT_TARGET: 8.2, //Hardcoding this - problems may arise
                 PRODUCT_NAME: '"${TARGET_NAME}"',
 				PROVISIONING_PROFILE: '"${PROVISION_WATCHKITAPP}"',
-                SKIP_INSTALL: 'NO',
+                SKIP_INSTALL: 'YES',
                 TARGETED_DEVICE_FAMILY: 4, //Hardcoding this also
                 '"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]"': '"1,4"', // According to apple documentation 1 is for iPhone/iPad and 2 is for iPad - I'm guessing 4 is for AppleWatch
                 COPY_PHASE_STRIP: 'NO'
