@@ -32,7 +32,7 @@ function addWatchkitAppTarget(pbxProject, prop, bundleIdentifier) {
             PRODUCT_NAME: '"${TARGET_NAME}"',
             PROVISIONING_PROFILE: '"${PROVISION_WATCHKITAPP}"',
             SDKROOT: 'watchos',
-            SKIP_INSTALL: 'NO',
+            SKIP_INSTALL: 'YES',
             TARGETED_DEVICE_FAMILY: 4,
             WATCHOS_DEPLOYMENT_TARGET: '2.0',
             ENABLE_BITCODE: 'YES'
