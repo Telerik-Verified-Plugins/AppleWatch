@@ -607,7 +607,7 @@ Instructions are for Xcode 7, newer versions probably differ slightly. How about
 Select You appname in the topleft corner, then the Watch Extension target, and open 'Build Phases'.
 Now expand 'Link Binary With Libraries' and drag `Plugins/libmmwormhole-watchos.a` over there:
 
-<img src="doc/wormhole-lib-target.png" width="700px" alt="Drag lib to target"/>
+<img src="doc/wormhole-lib-target.png?v=2" width="700px" alt="Drag lib to target"/>
 
 At this point your builds should succeed.
 
