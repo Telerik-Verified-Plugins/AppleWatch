@@ -1,4 +1,7 @@
 #import "ParentInterfaceController.h"
+#import "WormholeManager.h"
+
+NSString * const kNavigationIdentifier = @"fromjstowatchapp-navigation";
 
 @implementation ParentInterfaceController
 
@@ -7,10 +10,6 @@
   
   // hide everything initially
   [self hideAllWidgets];
-
-  // Initialize the wormhole
-  self.wormhole = [[MMWormhole alloc] initWithApplicationGroupIdentifier:[self getAppGroup]
-                                                       optionalDirectory:@"wormhole"];
 }
 
 // poor man's abstract method implementation
@@ -20,9 +19,8 @@
                                userInfo:nil];
 }
 
-- (NSString*) getAppGroup {
-  NSString *appGroup = [NSString stringWithFormat:@"group.%@", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"]];
-  return [appGroup stringByReplacingOccurrencesOfString:@".watchkitextension" withString:@""];
+- (NSString *)fromJsToWatchAppId {
+  return [@"fromjstowatchapp-" stringByAppendingString:[self getPageID]];
 }
 
 - (id)contextForSegueWithIdentifier:(NSString*)segueIdentifier {
@@ -33,6 +31,12 @@
 - (void)table:(WKInterfaceTable *)table didSelectRowAtIndex:(NSInteger)rowIndex {
   if (self.tableCallback) {
     [WatchKitHelper openParent:self.tableCallback withParams:[@(rowIndex) stringValue]];
+
+    // Updating the listeners resolves a navigation issue.
+    [WormholeManager.sharedInstance.listeningWormhole stopListeningForMessageWithIdentifier:kNavigationIdentifier];
+    [WormholeManager.sharedInstance.listeningWormhole listenForMessageWithIdentifier:kNavigationIdentifier listener:^(id messageObject) {
+      [self pushControllerWithName:[messageObject valueForKey:@"id"] context:messageObject];
+    }];
   } else {
     [WatchKitHelper logError:@"A table row was selected, but no callback was specified"];
   }
@@ -170,22 +174,27 @@
 - (void)willActivate {
   [super willActivate];
 
-  NSString *wormholeIdentifier = [@"fromjstowatchapp-" stringByAppendingString:[self getPageID]];
-  [self.wormhole listenForMessageWithIdentifier:wormholeIdentifier listener:^(id messageObject) {
-      [self buildUI:messageObject];
+  [WormholeManager.sharedInstance listenForMessageWithIdentifier:self.fromJsToWatchAppId listener:^(id messageObject) {
+    [self buildUI:messageObject];
   }];
 
-  [WatchKitHelper openParent:[NSString stringWithFormat:@"applewatch.callback.onLoad%@Request", [self getPageID]]];
+  [WormholeManager.sharedInstance.listeningWormhole listenForMessageWithIdentifier:kNavigationIdentifier listener:^(id messageObject) {
+    [self pushControllerWithName:[messageObject valueForKey:@"id"] context:messageObject];
+  }];
+
+//  static dispatch_once_t onceToken;
+//  dispatch_once(&onceToken, ^{
+    // Execute just once otherwise we risk to get into a loop... but we need to do this every time because the %@Request may vary when going to a detail page!
+    [WatchKitHelper openParent:[NSString stringWithFormat:@"applewatch.callback.onLoad%@Request", [self getPageID]]];
+//  });
 }
 
 // This method is called when watch view controller is no longer visible
 - (void)didDeactivate {
   [super didDeactivate];
   // be a good citizen.. btw, doing this here seems ugly but it's better than forgetting to do it in a subclass and leaving a mess
-  if (![@"main" isEqualToString:[self getPageID]]) {
-    NSString *wormholeIdentifier = [@"fromjstowatchapp-" stringByAppendingString:[self getPageID]];
-    [self.wormhole stopListeningForMessageWithIdentifier:wormholeIdentifier];
-  }
+  [WormholeManager.sharedInstance.listeningWormhole stopListeningForMessageWithIdentifier:kNavigationIdentifier];
+  [WormholeManager.sharedInstance.listeningWormhole stopListeningForMessageWithIdentifier:self.fromJsToWatchAppId];
 }
 
 @end

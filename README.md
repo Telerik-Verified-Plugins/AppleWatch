@@ -1,9 +1,9 @@
 AppleWatch Cordova plugin
 =========================
 
-An AppleWatch plugin which requires no native code
-as the Watch UI is built with plain old JavaScript.
+An AppleWatch plugin which requires no native code as the Watch UI is built with plain old JavaScript.
 
+> WatchOS 2+ support was generously sponsored by [Jose Walker](https://github.com/JoseWalker) and [Omar Ben brahim](https://github.com/omaxlive). 
 
 ##UI widgets
 Let's start off with the fun stuff: how do we create Watch UI widgets with JavaScript?
@@ -573,7 +573,7 @@ The `identifier` is the identifier specified in any custom button in your notifi
 TODO elaborate and describe how to create a local notification.
 
 ##Using your own storyboard
-If you want more control over the layout, you can open the `Interface.storyboard` file in XCode,
+If you want more control over the layout, you can open the `Interface.storyboard` file in Xcode,
 adjust it, and have the app load it by placing it here: `www/custom-watchkit-storyboards/Interface.storyboard`.
 
 
@@ -589,30 +589,36 @@ Install npm 'xcode' package because our hooks need it: `npm install -g xcode`
  cordova platform add ios
 ```
 
-####XCode
-File > New > Target > Apple Watch: Language ObjC, Select Glance and Notifications > Finish > Activate
+####Xcode
+Instructions are for Xcode 7, newer versions probably differ slightly. How about a Pull Request to update them?
+
+* Open platforms/ios/<name>.xcodeproj
+* File > New > Target > watchOS > WatchKit App
+* Language ObjC, use anything you like for 'Product Name', Select 'Include Notification Scene' and 'Include Glance Scene' > Finish > Activate
+* Close Xcode
 
 ####CLI
 ```
  cordova plugin add https://github.com/Telerik-Verified-Plugins/AppleWatch
- cordova prepare
+ cordova prepare ios
 ```
 
-####XCode
-Set CFBundleVersion (Bundle Version) and CFBundleShortVersionString (Bundle versions string, short) of all targets to the same value (use XCode's search feature and change all 3 .plist values)
+####Xcode
+Select You appname in the topleft corner, then the Watch Extension target, and open 'Build Phases'.
+Now expand 'Link Binary With Libraries' and drag `Plugins/libmmwormhole-watchos.a` over there:
 
+<img src="doc/wormhole-lib-target.png" width="700px" alt="Drag lib to target"/>
 
-At this point your builds should succeed
+At this point your builds should succeed.
 
-
-####More XCode
+####More Xcode
 App Groups: register an appgroup in your iOS member center (Identifiers > App Groups): we expect group.<packagename>, like group.io.cordova.hellocordova, then add it to your App ID.
-Now generate a provisioning profile with the new App ID and add it XCode (download, then double-click the file should do it).
-In XCode, go to your targets and add this app group to both the phone and watch app targets (Capabilities tab).
+Now generate a provisioning profile with the new App ID and add it Xcode (download, then double-click the file should do it).
+In Xcode, go to your targets and add this app group to both the phone and watch app targets (Capabilities tab).
 
 
 ##Tips:
-Building in XCode 7 requires you to set `bitcode` to `NO` for all 3 targets. Go to 'Build Settings' and disable it 3 times. Will be fixed soon, when [MMWormhole](https://github.com/mutualmobile/MMWormhole) is updated.
+<!--Building in Xcode 7 requires you to set `bitcode` to `NO` for all 3 targets. Go to 'Build Settings' and disable it 3 times. Will be fixed soon, when [MMWormhole](https://github.com/mutualmobile/MMWormhole) is updated.-->
 
 For developer builds to work on a real Watch you'll need to [register the Watch UDID and add it to the provisioning profile](http://stackoverflow.com/questions/29854314/debug-on-real-apple-watch-application-verification-failed) or you'll see 'Application verification failed' when installing the app on the Watch.
 

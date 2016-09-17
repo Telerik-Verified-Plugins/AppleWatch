@@ -1,0 +1,2 @@
+ARCHS=armv7k
+SUPPORTED_PLATFORMS="watchsimulator watchos"
