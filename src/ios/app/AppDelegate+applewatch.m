@@ -10,7 +10,9 @@
 - (void) callJavascriptFunctionWhenAvailable:(NSString*)function {
     AppleWatch *appleWatch = [self.viewController getCommandInstance:@"AppleWatch"];
     if (appleWatch.initDone) {
-        [appleWatch.webView stringByEvaluatingJavaScriptFromString:function];
+        if ([appleWatch.webView isKindOfClass:[UIWebView class]]) {
+            [(UIWebView*)appleWatch.webView stringByEvaluatingJavaScriptFromString:function];
+        }
     } else {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 80 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
             [self callJavascriptFunctionWhenAvailable:function];

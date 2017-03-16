@@ -69,15 +69,15 @@ module.exports = function(context) {
 
     var projectWatchKitAppPathContents = fs.readdirSync(projectWatchKitAppPath);
     console.log('Adding WatchKit App files to pbxproject');
-    var watchAppArray = calculateFilePaths(projectWatchKitAppPath, projectWatchKitAppPathContents, new RegExp("(" + baseLproj + "|[.]h$)")); // Don't add 'Base.lproj' and all header files to compile sources 
+    var watchAppArray = calculateFilePaths(projectWatchKitAppPath, projectWatchKitAppPathContents, new RegExp("(" + baseLproj + "|[.]h$)")); // Don't add 'Base.lproj' and all header files to compile sources
 
     var projectWatchKitExtensionPathContents = fs.readdirSync(projectWatchKitExtensionPath);
-    console.log('Adding WatchKit Extension files to pbxproject');    
+    console.log('Adding WatchKit Extension files to pbxproject');
     var watchExtArray = calculateFilePaths(projectWatchKitExtensionPath, projectWatchKitExtensionPathContents, new RegExp("[.]h$")); // Don't add all header files to compile sources
 
     // Special case Interface.storyboard
-    // Interface.storyboard is the only file so far 
-    // which is inconsistent between the PBXBuildFile and PBXFileReference sections 
+    // Interface.storyboard is the only file so far
+    // which is inconsistent between the PBXBuildFile and PBXFileReference sections
     var storyBoardPath = path.join(projectWatchKitAppPath, baseLproj, interfaceStoryBoard),
         storyBoardBuildFile = {
             uuid: pbxProject.generateUuid(),
@@ -90,7 +90,7 @@ module.exports = function(context) {
             name: base,
             path: storyBoardPath,
             sourceTree: '"<group>"',
-            basename: base, //this is actually a comment          
+            basename: base, //this is actually a comment
         }
 
     pbxProject.addToPbxBuildFileSection(storyBoardBuildFile);
@@ -192,7 +192,7 @@ module.exports = function(context) {
         },
         watchKitExtensionPlistJson['CFBundleIdentifier']);
 
-    var pbxNativeTargetSection = pbxProject.pbxNativeTarget();
+    var pbxNativeTargetSection = pbxProject.pbxNativeTargetSection();
     var mainAppTargetGuid = getUuidByComment(cordovaProjectName, pbxNativeTargetSection);
     // WARNING: Workaround to correctly add libmmwormhole-watchos.a to extension target only.
     pbxProject.removeFromPbxFrameworksBuildPhase({
@@ -276,6 +276,6 @@ function calculateFilePaths(dirname, filenames, excludingPattern) {
         var filename = filenames[i];
         filepaths.push(path.join(dirname, filename));
     }
-    
+
     return filepaths;
 }

@@ -10,7 +10,7 @@ function addWatchkitExtensionFrameworks(pbxProject, watchKitExtension, projectPl
     var coreLocationFramework = pbxProject.addFramework('System/Library/Frameworks/CoreLocation.framework');
     var libmmwormholeLib = pbxProject.addFramework(path.join(projectPluginDir, 'libMMWormhole-watchos.a'));
 
-    return pbxProject.addBuildPhase([watchConnectivityFramework.path, coreLocationFramework.path, libmmwormholeLib.path],
+    return pbxProject.addBuildPhase([watchConnectivityFramework.path, coreLocationFramework.path, libmmwormholeLib.path].filter(i => i),
         'PBXFrameworksBuildPhase', watchKitExtension + ' Frameworks');
 }
 
@@ -59,7 +59,7 @@ function addWatchkitExtensionTarget(pbxProject, prop, bundleIdentifier) {
 
     return wkcommon.addNativeTarget(pbxProject, {
         buildConfiguration: watchKitExtensionXCConfigurations,
-        buildPhases: 
+        buildPhases:
         [{
             value: prop.sourcesBuildPhase.uuid,
             comment: watchKitExtension

@@ -1,9 +1,9 @@
 var fs = require('fs');
 
 function addNativeTarget(pbxProject, prop) {
-    var pbxNativeTargetSection = pbxProject.pbxNativeTarget(),
+    var pbxNativeTargetSection = pbxProject.pbxNativeTargetSection(),
         nativeTargetGuid = pbxProject.generateUuid();
-        
+
     console.log('Adding ' + prop.productName + ' Native Target');
     pbxNativeTargetSection[nativeTargetGuid] = { isa: 'PBXNativeTarget',
          buildConfigurationList: prop.buildConfiguration.uuid,
@@ -16,7 +16,7 @@ function addNativeTarget(pbxProject, prop) {
          productReference: prop.productReference,
          productReference_comment: prop.productReference_comment,
          productType: prop.productType };
-         
+
     pbxNativeTargetSection[nativeTargetGuid + '_comment'] = prop.productName;
     return nativeTargetGuid;
 }
