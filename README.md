@@ -5,11 +5,11 @@ An AppleWatch plugin which requires no native code
 as the Watch UI is built with plain old JavaScript.
 
 
-##UI widgets
+## UI widgets
 Let's start off with the fun stuff: how do we create Watch UI widgets with JavaScript?
 
 
-####Common properties
+#### Common properties
 All widgets support the following properties, which will mostly not be repeated below.
 
 ```js
@@ -20,7 +20,7 @@ All widgets support the following properties, which will mostly not be repeated 
 }
 ```
 
-####Switch
+#### Switch
 <img src="doc/widgets/switch.png" width="266px" height="166px" alt="Switch"/>
 
 ```js
@@ -45,7 +45,7 @@ function onFooSwitchChanged(changedTo) {
 }
  ```
 
-####Slider
+#### Slider
 <img src="doc/widgets/slider2.png" width="267px" height="113px" alt="Slider"/>
 
 ```js
@@ -65,7 +65,7 @@ function onSliderChanged(val) {
 }
  ```
 
-####Map
+#### Map
 <img src="doc/widgets/map.png" width="266px" height="208px" alt="Map"/>
 
 ```js
@@ -96,7 +96,7 @@ function onSliderChanged(val) {
 }
  ```
 
-####Menu
+#### Menu
 <img src="doc/widgets/menu.png" width="270px" height="324px" alt="Menu"/>
 
 This menu is triggered by a Force Touch, which is pretty neat!
@@ -146,7 +146,7 @@ The `iconNamed` property must be one of:
 |trash   |<img src="https://developer.apple.com/library/ios/documentation/WatchKit/Reference/WKInterfaceController_class/Art/SPMenuItemTrash-regular_2x.png"    width="20px" height="28px"/>|
 
 
-####Image
+#### Image
 <img src="doc/widgets/image.png" width="266px" height="166px" alt="Image"/>
 
 Currently the image must reside in the www folder of your app, or you must provide a base64 encoded image.
@@ -161,7 +161,7 @@ In the future we may add support for loading images from other locations (like t
 ```
 
 
-####Label
+#### Label
 <img src="doc/widgets/label.png" width="268px" height="84px" alt="Label"/>
 
 The label at the top is called `label`,
@@ -186,7 +186,7 @@ you can add a second one (with a different style perhaps) by adding a `label2`.
 ```
 
 
-####Table
+#### Table
 <img src="doc/widgets/table.png" width="269px" height="252px" alt="Table"/>
 
 This widget gives you more control over the layout,
@@ -267,7 +267,7 @@ The row's `type` attribute must be one of:
 |Need something else?|This element is easily extensible, so please let us know what you want to see here..|
 
 
-####Button
+#### Button
 <img src="doc/widgets/button.png" width="266px" height="250px" alt="Button"/>
 
 All types of buttons can be styled with a bunch of properties.
@@ -312,7 +312,7 @@ Those buttons above are rendered by this code:
 }
 ```
 
-#####UserInputButton
+##### UserInputButton
 <img src="doc/widgets/userinput.png" width="270px" height="336px" alt="User input"/>
 
 The `userInputButton` can be used to get input from the user (duh).
@@ -349,7 +349,7 @@ The `inputMode` attribute must be one of:
 |WKTextInputModeAllowAnimatedEmoji |Dictation, suggested text, and both animated and non-animated emoji.|
 
 
-#####ActionButton
+##### ActionButton
 
 Of course you can do anything you like when a user pressed a button.
 Like fetching items from a remote server and navigating to a detail page on the watch.
@@ -368,7 +368,7 @@ function onRefreshButtonPressed() {
 }
 ```
 
-#####Navigation button
+##### Navigation button
 
 There are two styles of navigation: 'push' and 'modal'.
 The former performs a left-right slide animation and has a back button.
@@ -376,7 +376,7 @@ The latter stacks the new page on top of the other with a slide animation from t
 
 These buttons can only be used on the first app page and will navigate to the `AppDetail` page when activated.
 
-######PushNavButton
+###### PushNavButton
 ```js
 'pushNavButton': {
   'backTitle': 'Go Back', // optional, only an arrow is shown if not provided
@@ -386,7 +386,7 @@ These buttons can only be used on the first app page and will navigate to the `A
 }
 ```
 
-######ModalNavButton
+###### ModalNavButton
 ```js
 'modalNavButton': {
   'closeTitle': 'Shut it', // optional, and it's recommended to use the default 'Cancel' because that's shown a short moment anyway
@@ -396,7 +396,7 @@ These buttons can only be used on the first app page and will navigate to the `A
 }
 ```
 
-##Loading a glance
+## Loading a glance
 Glances are readonly pages which can be accessed by swiping up from the watchface.
 Your app can push content to the glance at any time and the watch will display the latest state it received.
 Also, at the moment the glance is accessed by the user, the glance will request an update from your phone app
@@ -455,13 +455,13 @@ throw a lot of items on a storyboard and show/hide them at will. That's what we'
 A glance is divided in two sections and can't show more than one page (they don't scroll).
 The supported widgets are (in *this* rendering order, and they're all optional):
 
-######Top section
+###### Top section
 |Variable name |Widget type|
 |-----------|-----|
 |label|Label|
 |label2|Label|
 
-######Bottom section
+###### Bottom section
 |Variable name |Widget type|
 |-----------|-----|
 |image|Image|
@@ -473,7 +473,7 @@ you probably only want one of those at a time anyway.
 That being said if you need f.i. a label in the bottom section, let us know at the GitHub repository and we'll consider adding it.
 
 
-##Loading an app page
+## Loading an app page
 The basic idea is the same as the glance, but you have much more options.
 
 So after `deviceready` has fired, you could do:
@@ -497,7 +497,7 @@ applewatch.callback.onLoadAppDetailRequest = function() {
 }
 ```
 
-###Page configuration
+### Page configuration
 The pages have a little optional configuration to tweak your app even more:
 ```js
 var payload = {
@@ -511,7 +511,7 @@ var payload = {
 
 ```
 
-######App main page
+###### App main page
 |Variable name |Widget type|
 |-----------|-----|
 |label|Label|
@@ -532,10 +532,10 @@ at the bottom of this stack, or add an 'actionButton2' below the other buttons.
 You're welcome to request features like those and we'll try to add them
 without making too much of a mess and remaining compatibility with current usage.
 
-######App detail page
+###### App detail page
 The same as the main page, except for the last two items (the navigation buttons).
 
-##Navigating to an app page
+## Navigating to an app page
 Instead of updating the content of the current page with `loadAppMain` or `loadAppDetail`,
 you may want to programmatically navigate to a different page. You were already able to
 navigate from main to detail on the watch itself by adding a `pushNavButton` or `modalNavButton`,
@@ -553,7 +553,7 @@ One usecase could be to have a table with selectable rows, and in the table call
 you'd navigate to the detail page. Once the detail page loads the `applewatch.callback.onLoadAppDetailRequest`
 function will fire so you can populate the detail page.
 
-##Notifications
+## Notifications
 The watch can receive remote and local notifications.
  These can have buttons which have a callback that invokes your phone app.
  To register for receiving those callbacks, configure these functions:
@@ -572,46 +572,46 @@ The `identifier` is the identifier specified in any custom button in your notifi
 
 TODO elaborate and describe how to create a local notification.
 
-##Using your own storyboard
+## Using your own storyboard
 If you want more control over the layout, you can open the `Interface.storyboard` file in XCode,
 adjust it, and have the app load it by placing it here: `www/custom-watchkit-storyboards/Interface.storyboard`.
 
 
-##Installation
+## Installation
 
-####Prep
+#### Prep
 Install npm 'xcode' package because our hooks need it: `npm install -g xcode`
 
-####CLI
+#### CLI
 ```
  cordova create applewatchtest
  cd applewatchtest
  cordova platform add ios
 ```
 
-####XCode
+#### XCode
 File > New > Target > Apple Watch: Language ObjC, Select Glance and Notifications > Finish > Activate
 
-####CLI
+#### CLI
 ```
  cordova plugin add https://github.com/Telerik-Verified-Plugins/AppleWatch
  cordova prepare
 ```
 
-####XCode
+#### XCode
 Set CFBundleVersion (Bundle Version) and CFBundleShortVersionString (Bundle versions string, short) of all targets to the same value (use XCode's search feature and change all 3 .plist values)
 
 
 At this point your builds should succeed
 
 
-####More XCode
+#### More XCode
 App Groups: register an appgroup in your iOS member center (Identifiers > App Groups): we expect group.<packagename>, like group.io.cordova.hellocordova, then add it to your App ID.
 Now generate a provisioning profile with the new App ID and add it XCode (download, then double-click the file should do it).
 In XCode, go to your targets and add this app group to both the phone and watch app targets (Capabilities tab).
 
 
-##Tips:
+## Tips:
 Building in XCode 7 requires you to set `bitcode` to `NO` for all 3 targets. Go to 'Build Settings' and disable it 3 times. Will be fixed soon, when [MMWormhole](https://github.com/mutualmobile/MMWormhole) is updated.
 
 For developer builds to work on a real Watch you'll need to [register the Watch UDID and add it to the provisioning profile](http://stackoverflow.com/questions/29854314/debug-on-real-apple-watch-application-verification-failed) or you'll see 'Application verification failed' when installing the app on the Watch.
@@ -627,5 +627,5 @@ Debugging of both the app and the extension: http://www.fiveminutewatchkit.com/b
 Notifications: http://natashatherobot.com/watchkit-actionable-notifications/
 
 
-##Kudos
+## Kudos 
 [Lee Crossley](https://github.com/leecrossley/cordova-plugin-apple-watch) for his work on figuring out how to add and use the wormhole lib in a Cordova plugin
