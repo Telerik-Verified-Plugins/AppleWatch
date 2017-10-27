@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <plugin
     id="cordova-plugin-applewatch"
-    version="1.1.0"
+    version="1.0.0"
     xmlns="http://apache.org/cordova/ns/plugins/1.0">
 
   <name>Apple Watch</name>
@@ -15,9 +15,7 @@
   <license>MIT</license>
 
   <engines>
-    <engine name="cordova" version=">=3.5.0"/>
-    <!-- When multiple SDKs are installed the check will fail, seems to be a bug in cordova-lib -->
-    <!--<engine name="apple-ios" version=">=8.2.0"/>-->
+    <engine name="cordova" version=">=3.8.0"/>
   </engines>
 
   <js-module name="AppleWatch" src="www/applewatch.js">
@@ -41,7 +39,16 @@
     <framework src="Foundation.framework"/>
 
     <header-file src="src/ios/lib/headers/MMWormhole.h" />
-    <source-file src="src/ios/lib/libmmwormhole.a" framework="true" />
+    <header-file src="src/ios/lib/headers/MMWormholeCoordinatedFileTransiting.h" />
+    <header-file src="src/ios/lib/headers/MMWormholeFileTransiting.h" />
+    <header-file src="src/ios/lib/headers/MMWormholeSessionContextTransiting.h" />
+    <header-file src="src/ios/lib/headers/MMWormholeSessionFileTransiting.h" />
+    <header-file src="src/ios/lib/headers/MMWormholeSessionMessageTransiting.h" />
+    <header-file src="src/ios/lib/headers/MMWormholeSession.h" />
+    <header-file src="src/ios/lib/headers/MMWormholeTransiting.h" />
+    <header-file src="src/ios/lib/headers/MMWormholeUmbrella.h" />
+    <source-file src="src/ios/lib/libmmwormhole-ios.a" framework="true" />
+    <source-file src="src/ios/lib/libmmwormhole-watchos.a" />
 
 
     <!-- (1/2) THESE HOOKS ARE FOR TELERIK APPBUILDER AND ARE ENABLED IN THE appbuilder BRANCH OF THIS REPOSITORY
