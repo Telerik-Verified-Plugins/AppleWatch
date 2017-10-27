@@ -14,5 +14,8 @@
       "name": "cordova",
       "version": ">=3.5.0"
     }
-  ]
+  ],
+  "dependencies": {
+    "xcode": "^1.0.0"
+  }
 }
