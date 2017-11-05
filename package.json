@@ -1,0 +1,21 @@
+{
+  "name": "cordova-plugin-applewatch",
+  "version": "1.0.0",
+  "description": "AppleWatch plugin for your Cordova project. You build the UI with JS, so no XCode native code hacking required.",
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-ios",
+    "applewatch"
+  ],
+  "author": "Telerik",
+  "license": "MIT",
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.5.0"
+    }
+  ],
+  "dependencies": {
+    "xcode": "^1.0.0"
+  }
+}

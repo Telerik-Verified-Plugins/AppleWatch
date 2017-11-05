@@ -16,7 +16,8 @@ module.exports = function (context) {
     "ParentInterfaceController.h",
     "TwoColumnsRowType.h",
     "WatchKitHelper.h",
-    "WatchKitUIHelper.h"
+    "WatchKitUIHelper.h",
+    "WormholeManager.h"
   ];
 
   var sourceFilesToAdd = [
@@ -29,7 +30,8 @@ module.exports = function (context) {
     "ParentInterfaceController.m",
     "TwoColumnsRowType.m",
     "WatchKitHelper.m",
-    "WatchKitUIHelper.m"
+    "WatchKitUIHelper.m",
+    "WormholeManager.m"
   ];
 
   var storyboardToAdd = "Interface.storyboard";
@@ -73,7 +75,7 @@ module.exports = function (context) {
       var frameworks = groups[key];
       for (fKey in frameworks.files) {
         var fwkFile = frameworks.files[fKey];
-        if (fwkFile.comment.indexOf(filename) > -1) {
+        if (fwkFile.comment.toLowerCase().indexOf(filename.toLowerCase()) > -1) {
           pluginLib = fwkFile;
           break;
         }
@@ -81,7 +83,6 @@ module.exports = function (context) {
       // we only care about the first group
       break;
     }
-
 
     var libFileRef;
     var pbxBuildFiles = myProj.pbxBuildFileSection();
@@ -179,14 +180,14 @@ module.exports = function (context) {
     var theval = groups[groupKey];
     if (theval.productType == "\"com.apple.product-type.application\"") {
       appName = theval.name;
-    } else if (theval.productType == "\"com.apple.product-type.watchkit-extension\"") {
+    } else if (theval.productType == "\"com.apple.product-type.watchkit2-extension\"") {
       watchKitExtensionTargetID = groupKey;
       watchKitExtensionTargetName = theval.name;
       // the name is encapsulated in double quotes, so strip those
       watchKitExtensionTargetName = watchKitExtensionTargetName.substr(1, watchKitExtensionTargetName.length - 2);
-    } else if (theval.productType == "\"com.apple.product-type.application.watchapp\"") {
+    } else if (theval.productType == "\"com.apple.product-type.application.watchapp2\"") {
       watchKitAppTargetName = theval.name;
-      watchKitAppTargetName = watchKitAppTargetName.substr(1, watchKitAppTargetName.length - 2);
+      // watchKitAppTargetName = watchKitAppTargetName.substr(1, watchKitAppTargetName.length - 2);
     }
   }
 
@@ -227,7 +228,7 @@ module.exports = function (context) {
     }
   });
 
-  addFrameworkReferenceToTarget("libmmwormhole.a", {'target': watchKitExtensionTargetID}, appName);
+  // addFrameworkReferenceToTarget("libMMWormhole-ios.a", {'target': watchKitExtensionTargetID}, appName);
 
   // the storyboard only needs to be copied because we only have one (the default) at the moment
   var fullfilename = path.join(storyboardPrefix, storyboardToAdd);
@@ -243,7 +244,8 @@ module.exports = function (context) {
     console.log("");
     console.log("");
     console.log("                                 Configuring the                                      ");
-    console.log("                             Cordova AppleWatch Plugin                                ");
+    console.log("                            Cordova AppleWatch Plugin                                 ");
+    console.log("                              [tested with watchOS2]                                  ");
     console.log("                                                                                      ");
     console.log("                          `@@@@@@@@@@@@@@@@@@@@@@@@@@@@@:                             ");
     console.log("                         @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@`                           ");

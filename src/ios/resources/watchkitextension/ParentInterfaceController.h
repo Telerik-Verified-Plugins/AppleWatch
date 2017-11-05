@@ -2,11 +2,12 @@
 #import <Foundation/Foundation.h>
 #import "WatchKitHelper.h"
 #import "WatchKitUIHelper.h"
-#import "MMWormhole.h"
+#import "MMWormholeUmbrella.h"
 
 @interface ParentInterfaceController : WKInterfaceController
 
 @property (nonatomic, strong) MMWormhole *wormhole;
+@property (nonatomic, strong) MMWormholeSession *listeningWormhole;
 
 @property (weak, nonatomic) IBOutlet WKInterfaceGroup *wrapper;
 
@@ -44,7 +45,5 @@
 @property (retain, nonatomic) NSString *contextMenuButton2Callback;
 @property (retain, nonatomic) NSString *contextMenuButton3Callback;
 @property (retain, nonatomic) NSString *contextMenuButton4Callback;
-
-- (NSString*) getAppGroup;
 
 @end

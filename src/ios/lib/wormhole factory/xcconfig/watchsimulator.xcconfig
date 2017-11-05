@@ -1,0 +1,2 @@
+ARCHS=i386
+SUPPORTED_PLATFORMS = "iphonesimulator iphoneos"

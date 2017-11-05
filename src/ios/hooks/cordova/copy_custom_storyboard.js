@@ -29,7 +29,7 @@ module.exports = function (context) {
     if (!/_comment$/.test(key)) continue;
     groupKey = key.split(/_comment$/)[0];
     var theval = groups[groupKey];
-    if (theval.productType == "\"com.apple.product-type.application.watchapp\"") {
+    if (theval.productType == "\"com.apple.product-type.application.watchapp2\"") {
       watchKitAppTargetName = theval.name;
       watchKitAppTargetName = watchKitAppTargetName.substr(1, watchKitAppTargetName.length - 2);
     }
@@ -46,6 +46,6 @@ module.exports = function (context) {
     fs.createReadStream(fullfilename).pipe(fs.createWriteStream('platforms/ios/' + watchKitAppTargetName + '/Base.lproj/' + customStoryboardName));
     console.log("Copied your custom " + customStoryboardName + " to " + watchKitAppTargetName);
   } else {
-    console.log("No custom WatchKit storyboard found. If you want one, provide it here: " + iosPlatformFolder + customStoryboardProjectFolder + customStoryboardName);
+    console.log("No custom WatchKit storyboard found. If you want one, provide it here: " + iosPlatformFolder + customStoryboardProjectFolder + "/" + customStoryboardName);
   }
 };
